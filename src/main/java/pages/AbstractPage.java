@@ -1,7 +1,17 @@
 package pages;
 
-public class AbstractPage {
-    protected void isPageOpened() {
+import component.AbstractComponent;
+import elements.BaseElement;
+import logging.TestLogger;
 
+public class AbstractPage extends AbstractComponent{
+
+    protected void isPageOpened(BaseElement element, String formName) {
+        try {
+            element.assertExist();
+            TestLogger.logMessage("Element " + formName + " was displayed");
+        } catch (Exception ex) {
+            TestLogger.logError("Element " + formName + " was not displayed");
+        }
     }
 }
