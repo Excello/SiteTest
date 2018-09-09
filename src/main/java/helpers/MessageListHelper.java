@@ -2,6 +2,7 @@ package helpers;
 
 import logging.TestLogger;
 import pages.AbstractPage;
+import pages.EditMessage;
 import pages.MessageList;
 import pages.ShowMessage;
 
@@ -23,14 +24,14 @@ public class MessageListHelper extends AbstractPage {
 
     public String [] createMessage(String headline, String text){
 
-        //Открыт список Message list
+        //пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ Message list
         messageList.isPageOpened();
 
         String [] message = createMessageFormHelper.createNewMessage(headline, text, messageList);
         headline = message[0];
         text = message[1];
 
-        //В списке содержится созданный объект, в колонках Headline и  Text отображены значения, введенные на шаге 4
+        //пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Headline пїЅ  Text пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ 4
         messageList.isMessageIsInList(headline, text);
 
         return new String[] {headline, text};
@@ -38,13 +39,34 @@ public class MessageListHelper extends AbstractPage {
 
     public void viewMessage(String headline, String text)
     {
-        TestLogger.logMessage("Opening from the list to view the message with the values headline:" + headline + ", text: " + text);
-        //Открыт список Message list
+        TestLogger.logMessage("Opening from the list to view the message with the values headline: " + headline + ", text: " + text);
+        //пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ Message list
         messageList.isPageOpened();
         ShowMessage showMessage =  messageList.viewMessage(headline, text);
         showMessage.verifyHeadlineValue(headline);
         showMessage.verifyTextValue(text);
         showMessage.clickMessageList();
         messageList.isMessageIsInList(headline, text);
+    }
+
+    public void editMessage(String headline, String text) {
+        TestLogger.logMessage("Opening from the list to edit the message with the values headline: " + headline + ", text" + text);
+
+        messageList.isPageOpened();
+        EditMessage editMessage = messageList.editMessage(headline, text);
+        editMessage.verifyHeadlineValue(headline);
+        editMessage.verifyHeadlineValue(text);
+
+        //СѓРґР°Р»РёС‚СЊ РїРѕР»СЏ Рё Р·Р°РїРѕР»РЅРёС‚СЊ РёС… Р·Р°РЅРѕРІРѕ
+
+        editMessage.clickSave();
+        viewMessage(headline, text);
+    }
+
+    public void deleteMessage(String headline, String text) {
+        TestLogger.logMessage("Deleting from the list the message: " + headline + ", text: " + text);
+        //пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ Message list
+        messageList.isPageOpened();
+        messageList.tapDeleteButton();
     }
 }

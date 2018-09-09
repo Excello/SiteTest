@@ -11,7 +11,7 @@ public class CreateMessage extends AbstractPage {
     private static final By CREATE_MESSAGE_LABEL = By.linkText("Create Message");
     private static final By CREATE_BUTTON = By.cssSelector("create");
     private static final By HEADLINE_FIELD = By.id("headline");
-    private static final By TEXT_FIELD = By.cssSelector("text");
+    private static final By TEXT_FIELD = By.id("text");
 
     private LabelElement createMessageLabel() {
         return new LabelElement(driver, CREATE_MESSAGE_LABEL, "Create Message Label");
@@ -29,7 +29,7 @@ public class CreateMessage extends AbstractPage {
         return new InputElement(driver, TEXT_FIELD, "Text Field");
     }
 
-    public void isPageOpened() {
+    public void isCreateMessagePageOpened() {
         isPageOpened(createMessageLabel(), "Create Message");
     }
 
@@ -57,7 +57,7 @@ public class CreateMessage extends AbstractPage {
         clickCreate();
 
         ShowMessage showMessage = new ShowMessage();
-        showMessage.isPageOpened();
+        showMessage.isShowMessagePageOpened();
 
         return showMessage;
     }

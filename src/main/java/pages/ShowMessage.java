@@ -23,7 +23,7 @@ public class ShowMessage extends AbstractPage{
         return new LabelElement(driver, SHOW_MESSAGE_LABEL, "Show Message");
     }
 
-    public void isPageOpened() {
+    public void isShowMessagePageOpened() {
         isPageOpened(showMessage(), "Show Message");
     }
 
@@ -52,7 +52,7 @@ public class ShowMessage extends AbstractPage{
 
     private void verifyFieldValue(String fieldName, String expected)
     {
-        TestLogger.logMessage("Проверить,  что поле " + fieldName + " имеет значение " + expected);
+        TestLogger.logMessage("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ,  пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ " + fieldName + " пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ " + expected);
         String value = getFieldValue(fieldName);
 
         if(value.equalsIgnoreCase(expected)){

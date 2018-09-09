@@ -67,7 +67,7 @@ public class MessageList extends AbstractPage {
 
         newMessage().click();
         CreateMessage createMessage = new CreateMessage();
-        createMessage.isPageOpened();
+        createMessage.isCreateMessagePageOpened();
         return createMessage;
     }
 
@@ -130,14 +130,33 @@ public class MessageList extends AbstractPage {
 
         if(iRow<1)
         {
-            TestLogger.logError("Element is displayed");
+            TestLogger.logError("Element is not displayed");
         }
 
         TestLogger.logMessage("Tapping 'View' button");
         viewLink(iRow).click();
 
         ShowMessage page = new ShowMessage();
-        page.isPageOpened();
+        page.isShowMessagePageOpened();
         return page;
+    }
+
+    public EditMessage editMessage(String headline, String text) {
+        int iRow = findMessageRow(headline, text);
+
+        if (iRow < 1) {
+            TestLogger.logError("Element is not displayed");
+        }
+
+        TestLogger.logMessage("Tapping 'Edit' button");
+        editLink(iRow).click();
+
+        EditMessage page = new EditMessage();
+        page.isEditPageOpened();
+        return page;
+    }
+
+    public void tapDeleteButton() {
+
     }
 }
