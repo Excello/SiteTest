@@ -23,15 +23,15 @@ public class MainPage extends AbstractPage {
     }
 
     public LoginPage openUserControllerPage() {
-        TestLogger.logMessage("Opening qulixteachingsite.UserController link");
-        linkMessageControllerPage().click();
+        TestLogger.logMessage("Open qulixteachingsite.UserController link");
+        linkUserControllerPage().click();
         LoginPage loginPage = new LoginPage();
         loginPage.isLoginPageOpened();
         return loginPage;
     }
 
     public LoginPage openMessageControllerPage() {
-        TestLogger.logMessage("Opening qulixteachingsite.MessageController link");
+        TestLogger.logMessage("Open qulixteachingsite.MessageController link");
         linkMessageControllerPage().click();
         LoginPage loginPage = new LoginPage();
         loginPage.isLoginPageOpened();
@@ -39,6 +39,6 @@ public class MainPage extends AbstractPage {
     }
 
     public void isMainPageOpened() {
-        isPageOpened(controller(), "Home Page");
+        isPageOpened(linkUserControllerPage(), "Home Page");
     }
 }

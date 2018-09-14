@@ -13,8 +13,8 @@ public class CreateMessageFormHelper extends AbstractPage {
 
         //Заполнить поля Headline и Text
         //Нажать Create
-        if(headline ==null)  headline = "headline"+ "headline";
-        if(text ==null)  text = "text" + "text";
+        if(headline == null)  headline = "headline" + "test";
+        if(text == null)  text = "text" + "test";
 
         ShowMessage showMessage;
         showMessage = pageCreateMessage.createMessage(headline, text);
@@ -25,6 +25,8 @@ public class CreateMessageFormHelper extends AbstractPage {
 
         return new String[] {headline, text};
     }
+
+
 
     public void assertShowMessagePage(String headline, String text, ShowMessage showMessage){
         showMessage.verifyHeadlineValue(headline);

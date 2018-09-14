@@ -49,18 +49,29 @@ public class MessageListHelper extends AbstractPage {
         messageList.isMessageIsInList(headline, text);
     }
 
-    public void editMessage(String headline, String text) {
+    public void editMessage(String headline, String text, String newHeadline, String newText) {
         TestLogger.logMessage("Opening from the list to edit the message with the values headline: " + headline + ", text" + text);
 
         messageList.isPageOpened();
+        messageList.isMessageIsInList(headline, text);
+
+
         EditMessage editMessage = messageList.editMessage(headline, text);
-        editMessage.verifyHeadlineValue(headline);
-        editMessage.verifyHeadlineValue(text);
+        /*editMessage.verifyHeadlineValue(headline);
+        editMessage.verifyHeadlineValue(text);*/
+
+        editMessage.editMessage(newHeadline, newText);
+
+        ShowMessage showMessage = new ShowMessage();
+        showMessage.verifyHeadlineValue(newHeadline);
+        showMessage.verifyTextValue(newText);
+        showMessage.clickMessageList();
+        messageList.isMessageIsInList(newHeadline, newText);
+
 
         //удалить поля и заполнить их заново
-
-        editMessage.clickSave();
-        viewMessage(headline, text);
+        /*editMessage.clickSave();*/
+        /*viewMessage(headline, text);*/
     }
 
     public void deleteMessage(String headline, String text) {

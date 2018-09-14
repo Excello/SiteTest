@@ -33,7 +33,7 @@ public class CreateMessage extends AbstractPage {
         isPageOpened(createMessageLabel(), "Create Message");
     }
 
-    public void clickCreate() {
+    private void clickCreate() {
         TestLogger.logMessage("Tap 'Create' button");
 
         createButton().click();

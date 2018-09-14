@@ -7,12 +7,15 @@ import elements.LabelElement;
 import logging.TestLogger;
 import org.openqa.selenium.By;
 
+import java.util.Objects;
+
 public class EditMessage extends AbstractPage{
     private static final By EDIT_MESSAGE_LABEL = By.linkText("Edit Message");
     private static final By SAVE_BUTTON = By.cssSelector(".save");
     private static final By DELETE_BUTTON = By.cssSelector(".delete");
     private static final By HEADLINE_FIELD = By.id("headline");
     private static final By TEXT_FIELD = By.id("text");
+
 
     private LabelElement editMessageLabel() {
         return new LabelElement(driver, EDIT_MESSAGE_LABEL, "Save Button");
@@ -38,16 +41,14 @@ public class EditMessage extends AbstractPage{
         isPageOpened(editMessageLabel(), "Edit Message");
     }
 
-    public void clickSave(){
+    private void clickSave(){
         TestLogger.logMessage("Tap 'Save Button'");
         saveButton().click();
     }
 
-
-
-    public void verifyHeadlineValue(String expected)
+    /*public void verifyHeadlineValue()
     {
-        verifyFieldValue("Headline", expected);
+        inputHeadline().assertValue(headline);
     }
 
     public void verifyTextValue(String expected)
@@ -65,20 +66,40 @@ public class EditMessage extends AbstractPage{
         } else{
             TestLogger.logError("Field \"" + fieldName + "\" has value:" + value +", which is not expected( " + expected + ")");
         }
+    }*/
+
+    /*public void clearFields(){
+        TestLogger.logMessage("Clearing fields");
+        inputHeadline().clear();
+        inputText().clear();
+    }*/
+
+    public ShowMessage editMessage(String newHeadline, String newText) {
+        TestLogger.logMessage("Clearing fields");
+
+        if(Objects.equals(newHeadline, "test")) {
+            inputHeadline().clear();
+        }
+
+        if(Objects.equals(newHeadline, "test")) {
+            inputText().clear();
+        }
+        inputHeadline().enterValue(newHeadline);
+        inputHeadline().assertValue(newHeadline);
+        inputText().enterValue(newText);
+        inputText().assertValue(newText);
+        clickSave();
+
+        ShowMessage showMessage = new ShowMessage();
+        showMessage.isShowMessagePageOpened();
+
+        return showMessage;
     }
 
-    private String getFieldValue(String fieldName)
+    /*private String getFieldValue(String fieldName)
     {
-        int iRow = tableOfFields().findRowIndexWithCellText(fieldNameCol, fieldName);
+        int fieldValue = tableOfFields().findRowIndexWithCellText(fieldNameCol, fieldName);
 
         return tableOfFields().getCellText(iRow, fieldValueCol);
-    }
-
-    public void editMessage() {
-
-    }
-
-
-
-
+    }*/
 }

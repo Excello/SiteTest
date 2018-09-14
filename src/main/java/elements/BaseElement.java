@@ -39,8 +39,13 @@ public class BaseElement extends AbstractComponent{
     }
 
     public void click() {
-        assertExist();
+        verifyExist();
         element().click();
+    }
+
+    public void clear() {
+        verifyExist();
+        element().clear();
     }
 
     public boolean exist() {
@@ -66,19 +71,24 @@ public class BaseElement extends AbstractComponent{
     }
 
 
-    public void assertExist() {
-        TestLogger.debug("Verifying that the element " + name + " is displayed");
+    public void verifyNotExist() {
+        TestLogger.debug("Verifying that the element " + name + " was displayed");
 
         if (!exist()) {
-            TestLogger.logError("The element " + name + " is not displayed");
+            TestLogger.logError("The element " + name + " was not displayed");
         } else {
-            TestLogger.debug("The element " + name + " is displayed");
+            TestLogger.debug("The element " + name + " was displayed");
         }
     }
 
 
+    public void assertExist() {
+        assertExist();
+    }
 
     protected String getName() {
         return name;
     }
+
+
 }

@@ -1,3 +1,5 @@
+package tests;
+
 import core.AbstractTest;
 import helpers.LoginHelper;
 import helpers.MessageListHelper;

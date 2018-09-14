@@ -7,9 +7,9 @@
 	<parameter name="HeadlineValue" value=""/>
 	<parameter name="TextValue" value=""/>  
     <classes>
-		<class name="test.Test2">
+		<class name="tests.Test2">
 			<methods>
-				<include name="Test"/>
+				<include name="test"/>
 			</methods>
 		</class>
 	</classes>

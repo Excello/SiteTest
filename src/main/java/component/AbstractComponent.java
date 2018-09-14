@@ -2,6 +2,7 @@ package component;
 
 import logging.TestLogger;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 public abstract class AbstractComponent {
     protected WebDriver driver;

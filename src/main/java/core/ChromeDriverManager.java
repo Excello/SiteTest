@@ -6,6 +6,7 @@ import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 public class ChromeDriverManager extends DriverManager {
 
