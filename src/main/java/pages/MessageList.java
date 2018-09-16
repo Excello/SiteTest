@@ -43,7 +43,7 @@ public class MessageList extends AbstractPage {
         return new ButtonElement(driver, PREV_PAGE_BUTTON, "Previous Page Button");
     }
 
-    public void isPageOpened() {
+    public void isMessageListPageOpened() {
         isPageOpened(labelMessageList(), "Message List");
     }
 
@@ -57,7 +57,7 @@ public class MessageList extends AbstractPage {
         return new LinkElement(EDIT_BUTTON, "Edit Link", cell);
     }
 
-    private LinkElement DeleteLink(int iRow) {
+    private LinkElement deleteLink(int iRow) {
         WebElement cell = tableMessages().getCell(iRow, actionsCol);
         return new LinkElement(DELETE_BUTTON, "Delete Link", cell);
     }
@@ -104,9 +104,16 @@ public class MessageList extends AbstractPage {
     }
 
     public void isMessageIsInList(String headline, String text) {
-        TestLogger.logMessage("Check that there is an headline element in the table " + headline + " and Text " +text);
+        TestLogger.logMessage("Check that there is an headline element in the table " + headline + " and Text " + text);
 
         int index = findMessageRow(headline, text);
+    }
+
+    public void isMessageIsNotInList(String headline, String text) {
+        TestLogger.logMessage("Check that there is no an headline element " + headline + " and Text " + text + " in the table");
+
+        int index = findMessageRow(headline, text);
+
     }
 
     private void selectNextPage() {
@@ -156,7 +163,9 @@ public class MessageList extends AbstractPage {
         return page;
     }
 
-    public void tapDeleteButton() {
-
+    public MessageList deleteMessage(String headline, String text) {
+        int iRow = findMessageRow(headline, text);
+        deleteLink(iRow).click();
+        return new MessageList();
     }
 }

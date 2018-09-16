@@ -12,9 +12,14 @@ public class CreateMessage extends AbstractPage {
     private static final By CREATE_BUTTON = By.cssSelector("create");
     private static final By HEADLINE_FIELD = By.id("headline");
     private static final By TEXT_FIELD = By.id("text");
+    private static final By MESSAGE_LIST_BUTTON = By.cssSelector(".list");
 
     private LabelElement createMessageLabel() {
         return new LabelElement(driver, CREATE_MESSAGE_LABEL, "Create Message Label");
+    }
+
+    private ButtonElement messageList() {
+        return new ButtonElement(driver, MESSAGE_LIST_BUTTON, "Message List Button");
     }
 
     private ButtonElement createButton() {
@@ -39,6 +44,15 @@ public class CreateMessage extends AbstractPage {
         createButton().click();
     }
 
+    private MessageList clickMessageList() {
+        TestLogger.logMessage("Tap 'Message List' button");
+
+        messageList().click();
+        MessageList messageList = new MessageList();
+        messageList.isMessageListPageOpened();
+        return messageList;
+    }
+
     public ShowMessage createMessage(String headline, String text) {
 
         if (headline == null) {
@@ -60,5 +74,23 @@ public class CreateMessage extends AbstractPage {
         showMessage.isShowMessagePageOpened();
 
         return showMessage;
+    }
+
+    public MessageList createMessageWithoutSaving(String headline, String text) {
+        if (headline == null) {
+            headline = "test";
+        }
+
+        if (text == null) {
+            headline = "test";
+        }
+
+        TestLogger.logMessage("Filling 'Create Message' form with value headline " + headline + " and text" + text);
+        inputHeadline().enterValue(headline);
+        inputHeadline().assertValue(headline);
+        inputText().enterValue(text);
+        inputText().assertValue(text);
+        clickMessageList();
+        return new MessageList();
     }
 }

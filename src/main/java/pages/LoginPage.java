@@ -37,7 +37,7 @@ public class LoginPage extends AbstractPage {
         signInButton().click();
 
         MessageList pageMessageList = new MessageList();
-        pageMessageList.isPageOpened();
+        pageMessageList.isMessageListPageOpened();
 
         loggedUser = userName;
     }

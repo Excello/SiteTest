@@ -11,6 +11,7 @@ public class ShowMessage extends AbstractPage{
     private static final By SHOW_MESSAGE_LABEL = By.name("Show Message");
     private static final By MESSAGE_LIST_BUTTON = By.cssSelector(".list");
     private static final By TABLE = By.cssSelector(".table");
+    private static final By NEW_MESSAGE_BUTTON = By.cssSelector(".create");
 
     private static final int fieldNameCol = 1;
     private static final int fieldValueCol = 2;
@@ -23,6 +24,10 @@ public class ShowMessage extends AbstractPage{
         return new LabelElement(driver, SHOW_MESSAGE_LABEL, "Show Message");
     }
 
+    private ButtonElement newMessage() {
+        return new ButtonElement(driver, NEW_MESSAGE_BUTTON, "New Message");
+    }
+
     public void isShowMessagePageOpened() {
         isPageOpened(showMessage(), "Show Message");
     }
@@ -32,7 +37,7 @@ public class ShowMessage extends AbstractPage{
 
         messageList().click();
         MessageList messageList = new MessageList();
-        messageList.isPageOpened();
+        messageList.isMessageListPageOpened();
         return messageList;
     }
 
@@ -69,4 +74,12 @@ public class ShowMessage extends AbstractPage{
         return tableOfFields().getCellText(iRow, fieldValueCol);
     }
 
+    public CreateMessage clickNewMessage() {
+        TestLogger.logMessage("Tap 'Create Message' button");
+
+        newMessage().click();
+        CreateMessage createMessage = new CreateMessage();
+        createMessage.isCreateMessagePageOpened();
+        return createMessage;
+    }
 }
