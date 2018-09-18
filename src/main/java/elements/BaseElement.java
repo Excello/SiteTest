@@ -5,6 +5,10 @@ import logging.TestLogger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+import utils.Environment;
+
+import java.util.Date;
 
 public class BaseElement extends AbstractComponent{
 
@@ -27,7 +31,7 @@ public class BaseElement extends AbstractComponent{
         this.parentElement = parentElement;
     }
 
-    public WebElement element() {
+    protected WebElement element() {
         WebElement result;
 
         if(driver == null) {
@@ -39,56 +43,85 @@ public class BaseElement extends AbstractComponent{
     }
 
     public void click() {
-        verifyExist();
+        assertExists();
         element().click();
     }
 
     public void clear() {
-        verifyExist();
+        assertExists();
         element().clear();
     }
 
-    public boolean exist() {
+    public boolean exists(int timeout) {
+        logDebug("Looking for element " + name);
+
+        long start = new Date().getTime();
+        boolean result = false;
+
+        Environment.removeTimeOutForElements();
 
         try {
             element();
-            return true;
-        } catch (Exception ex) {
-            return false;
+            result = true;
+        } catch (Exception ex) { }
+
+        while (!result && new Date().getTime() - start < timeout * 1000) {
+            try {
+                element();
+                result = true;
+            } catch (Exception e) { }
         }
+
+        Environment.resetTimeOutForPageElements();
+
+        if (result)
+            logDebug("Element is displayed");
+        else
+            logDebug("Element is not displayed");
+
+        return result;
     }
 
-    public boolean verifyExist() {
-        TestLogger.debug("Verifying that the field " + name + " is existed");
+    public boolean exists() {
+        return exists(Environment.TIME_OUT_FOR_ELEMENTS);
+    }
 
-        if (exist()) {
-            TestLogger.debug("The field " + name + " is existed");
-            return true;
+    private void assertExists(int timeout) {
+        TestLogger.debug("Verifying that the field " + name + " has been displaying for " + timeout + " seconds");
+
+        if (!exists(timeout)) {
+            TestLogger.logError("The element " + name + " is not displayed");
         } else {
-            TestLogger.debug("The field " + name + " is not existed");
-            return false;
+            TestLogger.debug("The element " + name + " is displayed");
         }
     }
 
+    public void assertExists() {
+        assertExists(Environment.TIME_OUT_FOR_ELEMENTS);
+    }
 
-    public void verifyNotExist() {
-        TestLogger.debug("Verifying that the element " + name + " was displayed");
 
-        if (!exist()) {
-            TestLogger.logError("The element " + name + " was not displayed");
+    /*private void assertNotExists(int timeout) {
+        TestLogger.debug("Verifying that the element " + name + " has not been displaying for " + timeout + " seconds");
+
+        if (exists(timeout)) {
+            TestLogger.logError("The element " + name + " is not displayed");
         } else {
-            TestLogger.debug("The element " + name + " was displayed");
+            TestLogger.debug("The element " + name + " is displayed");
         }
     }
 
+    public void assertNotExists() {
+        assertNotExists(Environment.TIME_OUT_FOR_ELEMENTS);
+    }
+*/
+    public void assertText(String expected) {
+        String actual = element().getText();
+        Assert.assertEquals(actual, expected);
 
-    public void assertExist() {
-        assertExist();
     }
 
     protected String getName() {
         return name;
     }
-
-
 }

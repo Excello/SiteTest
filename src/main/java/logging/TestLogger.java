@@ -14,6 +14,10 @@ public class TestLogger {
         WARN, INFO, DEBUG, FAIL, ERROR
     }
 
+    public static boolean hasErrors() {
+        return testFailsCount > 0;
+    }
+
     private static void info(String message) {
         logger.info(message);
     }

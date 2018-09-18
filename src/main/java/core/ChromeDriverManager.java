@@ -12,6 +12,17 @@ public class ChromeDriverManager extends DriverManager {
 
     private ChromeDriverService chService;
 
+    private static ChromeDriverManager instance;
+
+    private static void init() {
+        if (instance == null) instance = new ChromeDriverManager();
+    }
+
+    public static DriverManager instance() {
+        init();
+        return instance;
+    }
+
     @Override
     protected void startService() {
         if (null == chService) {
@@ -41,5 +52,6 @@ public class ChromeDriverManager extends DriverManager {
         options.addArguments("start-maximized");
         options.setCapability(ChromeOptions.CAPABILITY, options);
         driver = new ChromeDriver(chService, options);
+        driver.manage().deleteAllCookies();
     }
 }

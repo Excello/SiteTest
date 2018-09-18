@@ -12,6 +12,7 @@ public class LoginHelper extends AbstractPage {
         mainPage = new MainPage();
     }
 
+
     private LoginPage openUserControllerPage() {
         mainPage.isMainPageOpened();
         return mainPage.openUserControllerPage();
@@ -29,6 +30,11 @@ public class LoginHelper extends AbstractPage {
 
     public void signInToMessageController(String userName, String password) {
         LoginPage loginPage = openMessageControllerPage();
+        loginPage.signIn(userName, password);
+    }
+
+    public void signInAnotherUser(String userName, String password) {
+        LoginPage loginPage = new LoginPage();
         loginPage.signIn(userName, password);
     }
 }

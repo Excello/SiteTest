@@ -10,7 +10,7 @@ public class InputElement extends BaseElement {
     }
 
     public void enterValue(String value) {
-        TestLogger.logMessage("Filling input field " + name + " value " + value);
+        TestLogger.logMessage("Filling input field " + name + " with value " + value);
 
         element().clear();
         element().sendKeys(value);
@@ -23,15 +23,14 @@ public class InputElement extends BaseElement {
 
         String actual = getValue();
         if(actual.equalsIgnoreCase(expected)){
-            TestLogger.logMessage("The input field has the expected value: " +actual);
+            TestLogger.logMessage("The input field has the expected value: " + actual);
         } else{
             TestLogger.logError("The input field has the value: " + actual +", which is not match with expected( " + expected + ")");
         }
     }
 
-    public String getValue() {
+    private String getValue() {
         TestLogger.debug("Retrieving the value of the input field " + getName());
         return element().getAttribute("value");
     }
-
 }

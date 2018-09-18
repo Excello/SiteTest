@@ -57,7 +57,7 @@ public class ShowMessage extends AbstractPage{
 
     private void verifyFieldValue(String fieldName, String expected)
     {
-        TestLogger.logMessage("���������,  ��� ���� " + fieldName + " ����� �������� " + expected);
+        TestLogger.logMessage("Check that field " + fieldName + " has value " + expected);
         String value = getFieldValue(fieldName);
 
         if(value.equalsIgnoreCase(expected)){

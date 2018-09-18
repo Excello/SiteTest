@@ -34,7 +34,7 @@ public class TableManager extends AbstractPage {
         if (getCells(row).size() >= index) {
             return getCells(row).get(--index);
         } else {
-            logDebug("Row doesn't exist with index " + index);
+            logDebug("Row doesn't exists with index " + index);
             return null;
         }
     }
@@ -71,7 +71,7 @@ public class TableManager extends AbstractPage {
 
     public String getCellText(WebElement cell) {
         if (cell == null) {
-            logDebug("Cell doesn't exist");
+            logDebug("Cell doesn't exists");
             return null;
         }
         String cellText = cell.getText().trim();

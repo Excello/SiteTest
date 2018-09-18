@@ -7,6 +7,9 @@ import elements.LinkElement;
 import logging.TestLogger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import utils.Environment;
+
+import static org.testng.Assert.assertEquals;
 
 public class MessageList extends AbstractPage {
 
@@ -18,10 +21,13 @@ public class MessageList extends AbstractPage {
     private static final By VIEW_BUTTON = By.linkText("View");
     private static final By EDIT_BUTTON = By.linkText("Edit");
     private static final By DELETE_BUTTON = By.linkText("Delete");
+    private static final By LOGOUT_BUTTON = By.linkText("Logout");
+    private static final By ALL_USERS_CHECKBOX = By.name("allUsers");
 
     private static final int _headlineCol = 2;
     private static final int _textCol = 3;
     private static final int actionsCol = 1;
+    private static final int authorCol = 4;
 
     private static TableManager tableMessages(){
         return new TableManager(TABLE);
@@ -43,8 +49,21 @@ public class MessageList extends AbstractPage {
         return new ButtonElement(driver, PREV_PAGE_BUTTON, "Previous Page Button");
     }
 
+    private ButtonElement logOut() {
+        return new ButtonElement(driver, LOGOUT_BUTTON, "Logout");
+    }
+
+    private ButtonElement allUsersCheckBox() {
+        return new ButtonElement(driver, ALL_USERS_CHECKBOX, "All Users Checkbox");
+    }
+
     public void isMessageListPageOpened() {
         isPageOpened(labelMessageList(), "Message List");
+    }
+
+    public void assertUsername(String expected) {
+        isPageOpened(labelMessageList(), "Message List");
+        labelMessageList().assertText(expected);
     }
 
     private LinkElement viewLink(int iRow) {
@@ -71,6 +90,15 @@ public class MessageList extends AbstractPage {
         return createMessage;
     }
 
+    public LoginPage clickLogOutButton() {
+        TestLogger.logMessage("Tap 'Logout' button");
+
+        logOut().click();
+        LoginPage loginPage = new LoginPage();
+        loginPage.isLoginPageOpened();
+        return loginPage;
+    }
+
     private int findMessageRow(String headline, String text) {
         TestLogger.logMessage("Looking for line with headline " + headline + " and text" + text);
 
@@ -83,7 +111,7 @@ public class MessageList extends AbstractPage {
 
         index = tableMessages().getIndexOfRow(cond);
 
-        if(index>1){
+        if(index > 1){
             TestLogger.logMessage("Element is displayed");
             return index;
         }else{
@@ -93,7 +121,7 @@ public class MessageList extends AbstractPage {
         while (isPagingEnabled()){
             selectNextPage();
             index = tableMessages().getIndexOfRow(cond);
-            if(index>1){
+            if(index > 1){
                 TestLogger.logMessage("Element is displayed");
                 return index;
             }else{
@@ -107,6 +135,10 @@ public class MessageList extends AbstractPage {
         TestLogger.logMessage("Check that there is an headline element in the table " + headline + " and Text " + text);
 
         int index = findMessageRow(headline, text);
+
+        if(index < 1) {
+            TestLogger.logError("The element is not displayed");
+        }
     }
 
     public void isMessageIsNotInList(String headline, String text) {
@@ -117,15 +149,24 @@ public class MessageList extends AbstractPage {
     }
 
     private void selectNextPage() {
-
+        if(isPagingEnabled()){
+            Environment.setTimeOutForPageLoad(Environment.TIME_OUT_FOR_PAGE_LOAD);
+            nextPage().click();
+            TestLogger.logMessage("Next page is opened");
+        }else{
+            TestLogger.logError("It is impossible to switch to the next page");
+        }
     }
 
     private boolean isPagingEnabled() {
-        return nextPage().exist();
+        return nextPage().exists(0);
     }
 
     private void selectFirstPage(){
-        while(prevPage().exist()){
+
+        Environment.setTimeOutForPageLoad(Environment.TIME_OUT_FOR_PAGE_LOAD);
+
+        while(prevPage().exists(0)){
             logDebug("Going to previous page");
             prevPage().click();
         }
@@ -135,7 +176,7 @@ public class MessageList extends AbstractPage {
     {
         int iRow = findMessageRow(headline, text);
 
-        if(iRow<1)
+        if(iRow < 1)
         {
             TestLogger.logError("Element is not displayed");
         }
@@ -167,5 +208,12 @@ public class MessageList extends AbstractPage {
         int iRow = findMessageRow(headline, text);
         deleteLink(iRow).click();
         return new MessageList();
+    }
+
+    public void selectAllUsersCheckBox() {
+        TestLogger.logMessage("Tap 'All Users' checkbox");
+
+        allUsersCheckBox().click();
+        allUsersCheckBox().isCheckBoxSelected();
     }
 }
