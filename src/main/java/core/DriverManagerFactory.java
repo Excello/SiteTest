@@ -1,3 +1,4 @@
+/*
 package core;
 
 public class DriverManagerFactory {
@@ -14,3 +15,4 @@ public class DriverManagerFactory {
         return driverManager;
     }
 }
+*/
