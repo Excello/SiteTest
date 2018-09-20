@@ -5,11 +5,12 @@ import elements.InputElement;
 import elements.LabelElement;
 import logging.TestLogger;
 import org.openqa.selenium.By;
+import utils.Environment;
 
 public class CreateMessage extends AbstractPage {
 
-    private static final By CREATE_MESSAGE_LABEL = By.linkText("Create Message");
-    private static final By CREATE_BUTTON = By.cssSelector("create");
+    private static final By CREATE_MESSAGE_LABEL = By.xpath("//H1[text()= 'Create Message']");
+    private static final By CREATE_BUTTON = By.cssSelector(".save");
     private static final By HEADLINE_FIELD = By.id("headline");
     private static final By TEXT_FIELD = By.id("text");
     private static final By MESSAGE_LIST_BUTTON = By.cssSelector(".list");
@@ -56,14 +57,14 @@ public class CreateMessage extends AbstractPage {
     public ShowMessage createMessage(String headline, String text) {
 
         if (headline == null) {
-            headline = "test";
+            headline = Environment.generateUniqueString();
         }
 
         if (text == null) {
-            headline = "test";
+            headline = Environment.generateUniqueString();
         }
 
-        TestLogger.logMessage("Filling 'Create Message' form with value headline " + headline + " and text" + text);
+        TestLogger.logMessage("Filling 'Create Message' form with value [headline] " + headline + " and [text] " + text);
         inputHeadline().enterValue(headline);
         inputHeadline().assertValue(headline);
         inputText().enterValue(text);
@@ -85,7 +86,7 @@ public class CreateMessage extends AbstractPage {
             headline = "test";
         }
 
-        TestLogger.logMessage("Filling 'Create Message' form with value headline " + headline + " and text" + text);
+        TestLogger.logMessage("Filling 'Create Message' form with value [headline] " + headline + " and [text] " + text);
         inputHeadline().enterValue(headline);
         inputHeadline().assertValue(headline);
         inputText().enterValue(text);

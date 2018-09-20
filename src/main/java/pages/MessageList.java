@@ -14,7 +14,7 @@ import static org.testng.Assert.assertEquals;
 public class MessageList extends AbstractPage {
 
     private static final By TABLE = By.cssSelector(".list");
-    private static final By LABEL_MESSAGE_LIST = By.cssSelector(".message");
+    private static final By LABEL_MESSAGE_LIST = By.xpath("//H1[text()='Message List']");
     private static final By NEW_MESSAGE_BUTTON = By.cssSelector(".create");
     private static final By NEXT_PAGE_BUTTON = By.cssSelector(".nextLink");
     private static final By PREV_PAGE_BUTTON = By.cssSelector(".prevLink");
@@ -23,6 +23,7 @@ public class MessageList extends AbstractPage {
     private static final By DELETE_BUTTON = By.linkText("Delete");
     private static final By LOGOUT_BUTTON = By.linkText("Logout");
     private static final By ALL_USERS_CHECKBOX = By.name("allUsers");
+    private static final By USER_MESSAGE = By.cssSelector(".message");
 
     private static final int _headlineCol = 2;
     private static final int _textCol = 3;
@@ -35,6 +36,10 @@ public class MessageList extends AbstractPage {
 
     private LabelElement labelMessageList() {
         return new LabelElement(driver, LABEL_MESSAGE_LIST, "Message List Title");
+    }
+
+    private LabelElement userMessage() {
+        return new LabelElement(driver, USER_MESSAGE, "User Message");
     }
 
     private ButtonElement newMessage() {
@@ -62,8 +67,7 @@ public class MessageList extends AbstractPage {
     }
 
     public void assertUsername(String expected) {
-        isPageOpened(labelMessageList(), "Message List");
-        labelMessageList().assertText(expected);
+        userMessage().assertText(expected);
     }
 
     private LinkElement viewLink(int iRow) {
@@ -100,7 +104,7 @@ public class MessageList extends AbstractPage {
     }
 
     private int findMessageRow(String headline, String text) {
-        TestLogger.logMessage("Looking for line with headline " + headline + " and text" + text);
+        TestLogger.logMessage("Looking for line with [headline] " + headline + " and [text] " + text);
 
         TableManager.RowCondition cond = TableManager.createCondition();
         cond.addCondition(_headlineCol, headline);
@@ -112,10 +116,10 @@ public class MessageList extends AbstractPage {
         index = tableMessages().getIndexOfRow(cond);
 
         if(index > 1){
-            TestLogger.logMessage("Element is displayed");
+            TestLogger.logMessage("Elements are displayed");
             return index;
         }else{
-            TestLogger.logMessage("Element is not displayed on page. Will be attempt to move to the next page");
+            TestLogger.logMessage("Elements are not displayed on page. Will be attempt to move to the next page");
         }
 
         while (isPagingEnabled()){
@@ -132,7 +136,7 @@ public class MessageList extends AbstractPage {
     }
 
     public void isMessageIsInList(String headline, String text) {
-        TestLogger.logMessage("Check that there is an headline element in the table " + headline + " and Text " + text);
+        TestLogger.logMessage("Check that there is an [headline] element in the table " + headline + " and [text] " + text);
 
         int index = findMessageRow(headline, text);
 
@@ -172,7 +176,7 @@ public class MessageList extends AbstractPage {
         }
     }
 
-    public ShowMessage viewMessage(String headline, String text)
+    public ShowMessage openViewMessagePage(String headline, String text)
     {
         int iRow = findMessageRow(headline, text);
 
@@ -181,7 +185,7 @@ public class MessageList extends AbstractPage {
             TestLogger.logError("Element is not displayed");
         }
 
-        TestLogger.logMessage("Tapping 'View' button");
+        TestLogger.logMessage("Tap 'View' button");
         viewLink(iRow).click();
 
         ShowMessage page = new ShowMessage();
@@ -189,18 +193,19 @@ public class MessageList extends AbstractPage {
         return page;
     }
 
-    public EditMessage editMessage(String headline, String text) {
+    public EditMessage openEditMessagePage(String headline, String text) {
         int iRow = findMessageRow(headline, text);
 
         if (iRow < 1) {
             TestLogger.logError("Element is not displayed");
         }
 
-        TestLogger.logMessage("Tapping 'Edit' button");
+        TestLogger.logMessage("Tap 'Edit' button");
         editLink(iRow).click();
 
         EditMessage page = new EditMessage();
         page.isEditPageOpened();
+        page.assertMessage(headline, text);
         return page;
     }
 

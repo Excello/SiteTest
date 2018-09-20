@@ -15,7 +15,7 @@ public class InputElement extends BaseElement {
         element().clear();
         element().sendKeys(value);
 
-        TestLogger.debug("The field " + name + " was filled");
+        TestLogger.debug("The field " + name + " is filled");
     }
 
     public void assertValue(String expected) {

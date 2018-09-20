@@ -9,9 +9,9 @@ public class AbstractPage extends AbstractComponent{
     protected void isPageOpened(BaseElement element, String formName) {
         try {
             element.assertExists();
-            TestLogger.logMessage("Element " + formName + " was displayed");
+            TestLogger.logMessage("Element " + formName + " is displayed");
         } catch (Exception ex) {
-            TestLogger.logError("Element " + formName + " was not displayed");
+            TestLogger.logError("Element " + formName + " is not displayed");
         }
     }
 }

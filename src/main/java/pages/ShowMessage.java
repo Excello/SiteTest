@@ -8,9 +8,9 @@ import org.openqa.selenium.By;
 
 public class ShowMessage extends AbstractPage{
 
-    private static final By SHOW_MESSAGE_LABEL = By.name("Show Message");
+    private static final By SHOW_MESSAGE_LABEL = By.xpath("//H1[text()='Show Message']");
     private static final By MESSAGE_LIST_BUTTON = By.cssSelector(".list");
-    private static final By TABLE = By.cssSelector(".table");
+    private static final By TABLE = By.cssSelector(".dialog");
     private static final By NEW_MESSAGE_BUTTON = By.cssSelector(".create");
 
     private static final int fieldNameCol = 1;
@@ -63,7 +63,7 @@ public class ShowMessage extends AbstractPage{
         if(value.equalsIgnoreCase(expected)){
             TestLogger.logMessage("Field \"" + fieldName +  "\" has expected value: " + expected);
         } else{
-            TestLogger.logError("Field \"" + fieldName + "\" has value:" + value +", which is not expected( " + expected + ")");
+            TestLogger.logError("Field \"" + fieldName + "\" has value:" + value + ", which is not expected( " + expected + ")");
         }
     }
 

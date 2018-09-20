@@ -8,11 +8,6 @@ import org.openqa.selenium.By;
 public class MainPage extends AbstractPage {
     private static final By USER_CONTROLLER_LINK = By.linkText("qulixteachingsite.UserController");
     private static final By MESSAGE_CONTROLLER_LINK = By.linkText("qulixteachingsite.MessageController");
-    private static final By DIALOG_FORM = By.cssSelector(".controller");
-
-    private BaseElement controller() {
-        return new BaseElement(driver, DIALOG_FORM, ".controller");
-    }
 
     private LinkElement linkUserControllerPage() {
         return new LinkElement(driver, USER_CONTROLLER_LINK, "qulixteachingsite.UserController");

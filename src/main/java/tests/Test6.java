@@ -1,6 +1,5 @@
 package tests;
 
-import core.AbstractTest;
 import helpers.LoginHelper;
 import helpers.MessageListHelper;
 import org.testng.annotations.Parameters;
@@ -17,8 +16,8 @@ public class Test6 extends AbstractTest {
 
         if (headline1.equals("")) headline1 = null;
         if (text1.equals("")) text1 = null;
-        if (headline2.equals("")) text1 = null;
-        if (text2.equals("")) text1 = null;
+        if (headline2.equals("")) headline2 = null;
+        if (text2.equals("")) text2 = null;
 
         messageListHelper.createTwoMessages(headline1, text1, headline2, text2);
     }

@@ -1,7 +1,6 @@
 package helpers;
 
 import logging.TestLogger;
-import org.testng.annotations.Test;
 import pages.*;
 
 public class MessageListHelper extends AbstractPage {
@@ -66,7 +65,7 @@ public class MessageListHelper extends AbstractPage {
         messageList.isMessageListPageOpened();
 
         //View Message
-        ShowMessage showMessage =  messageList.viewMessage(headline, text);
+        ShowMessage showMessage =  messageList.openViewMessagePage(headline, text);
 
         //Assert Headline and Text values
         showMessage.verifyHeadlineValue(headline);
@@ -85,32 +84,30 @@ public class MessageListHelper extends AbstractPage {
         //Message List is displayed
         messageList.isMessageListPageOpened();
 
-        //There is a created object and headline and text fields contains early filled values
-        messageList.isMessageIsInList(headline, text);
-
         //Edit Message
-        EditMessage editMessage = messageList.editMessage(headline, text);
-        /*editMessage.verifyHeadlineValue(headline);
-        editMessage.verifyHeadlineValue(text);*/
+        //messageList.openEditMessagePage(headline, text);
+       /* openEditMessagePage.verifyHeadlineValue(headline);
+        openEditMessagePage.verifyHeadlineValue(text);*/
 
         //Enter new Headline and Text
-        editMessage.editMessage(newHeadline, newText);
+        String[] message = createMessageFormHelper.editMessage(headline, text, newHeadline, newText, messageList);
+
+        newHeadline = message[0];
+        newText = message[1];
+
 
         //Assert new Headline and Text
-        ShowMessage showMessage = new ShowMessage();
-        showMessage.verifyHeadlineValue(newHeadline);
-        showMessage.verifyTextValue(newText);
+
 
         //Tap 'Message List' button
-        showMessage.clickMessageList();
 
         //There is a last created object and headline and text fields contains early filled values
         messageList.isMessageIsInList(newHeadline, newText);
 
 
         //удалить поля и заполнить их заново
-        /*editMessage.clickSave();*/
-        /*viewMessage(headline, text);*/
+        /*openEditMessagePage.clickSave();*/
+        /*openViewMessagePage(headline, text);*/
     }
 
     public void deleteMessage(String headline, String text) {
@@ -133,7 +130,10 @@ public class MessageListHelper extends AbstractPage {
         messageList.isMessageListPageOpened();
 
         //Create message without saving it
-        createMessageFormHelper.createMessageWithoutSaving(headline, text, messageList);
+        String[] message = createMessageFormHelper.createMessageWithoutSaving(headline, text, messageList);
+
+        headline = message[0];
+        text = message[1];
 
         //Check that Message is not saved
         messageList.isMessageIsNotInList(headline, text);

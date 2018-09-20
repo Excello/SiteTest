@@ -1,9 +1,7 @@
 package helpers;
 
-import pages.AbstractPage;
-import pages.CreateMessage;
-import pages.MessageList;
-import pages.ShowMessage;
+import logging.TestLogger;
+import pages.*;
 import utils.Environment;
 
 public class CreateMessageFormHelper extends AbstractPage {
@@ -51,8 +49,8 @@ public class CreateMessageFormHelper extends AbstractPage {
         CreateMessage pageCreateMessage = messageList.clickNewMessageButton();
 
         //Fill 'Headline' ant 'Text' fields
-        if(headline1 == null)  headline1 = "headline" + "test1";
-        if(text1 == null)  text1 = "text" + "test1";
+        if(headline1 == null)  headline1 = "headline" + Environment.generateUniqueString();
+        if(text1 == null)  text1 = "text" + Environment.generateUniqueString();
 
         //Tap 'Create' button
         ShowMessage showMessage;
@@ -65,8 +63,8 @@ public class CreateMessageFormHelper extends AbstractPage {
         showMessage.clickNewMessage();
 
         //Fill 'Headline' ant 'Text' fields
-        if(headline2 == null)  headline2 = "headline" + "test2";
-        if(text2 == null)  text2 = "text" + "test2";
+        if(headline2 == null)  headline2 = "headline" + Environment.generateUniqueString();
+        if(text2 == null)  text2 = "text" + Environment.generateUniqueString();
 
         //Tap 'Create' button
         pageCreateMessage.createMessage(headline2, text2);
@@ -77,7 +75,23 @@ public class CreateMessageFormHelper extends AbstractPage {
         //Tap 'Message List' button
         showMessage.clickMessageList();
 
-        return new String[] {headline1, text1};
+        return new String[] {headline1, text1, headline2, text2};
+    }
+
+    public String[] editMessage(String headline, String text, String newHeadline, String newText, MessageList messageList) {
+
+        EditMessage pageEditMessage = messageList.openEditMessagePage(headline, text);
+
+
+        if(newHeadline == null)  newHeadline = "headline" + Environment.generateUniqueString();
+        if(newText == null)  newText = "text" + Environment.generateUniqueString();
+
+        ShowMessage showMessage = pageEditMessage.editMessage(newHeadline, newText);
+        assertShowMessagePage(newHeadline, newText, showMessage);
+
+        showMessage.clickMessageList();
+
+        return new String[] {newHeadline, newText};
     }
 
 

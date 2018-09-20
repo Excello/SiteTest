@@ -1,3 +1,4 @@
+/*
 package core;
 
 import logging.TestLogger;
@@ -55,3 +56,4 @@ public class ChromeDriverManager extends DriverManager {
         driver.manage().deleteAllCookies();
     }
 }
+*/

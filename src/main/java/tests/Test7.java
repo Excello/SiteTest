@@ -1,6 +1,5 @@
 package tests;
 
-import core.AbstractTest;
 import helpers.LoginHelper;
 import helpers.MessageListHelper;
 import org.testng.annotations.Parameters;
@@ -8,7 +7,7 @@ import org.testng.annotations.Test;
 
 public class Test7 extends AbstractTest {
     @Test(description = "Case 7. Creation and view of 2 messages")
-    @Parameters({"Login", "Password", "HeadlineValue", "TextValue"})
+    @Parameters({"login1", "password1", "login2", "password2", "headline1", "text1", "headline2", "text2", "expected", "expected1"})
     public void test(String login1, String password1, String login2, String password2, String headline1, String text1, String headline2, String text2, String expected, String expected1) {
         MessageListHelper messageListHelper = new MessageListHelper();
         LoginHelper loginHelper = new LoginHelper();

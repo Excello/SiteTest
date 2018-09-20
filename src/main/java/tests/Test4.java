@@ -1,6 +1,5 @@
 package tests;
 
-import core.AbstractTest;
 import helpers.LoginHelper;
 import helpers.MessageListHelper;
 import org.testng.annotations.Parameters;

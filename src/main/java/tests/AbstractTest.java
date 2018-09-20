@@ -1,6 +1,7 @@
-package core;
+package tests;
 
 
+import core.WebDriverFactory;
 import logging.TestLogger;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.WebDriver;
@@ -68,7 +69,7 @@ public abstract class AbstractTest {
      */
     @BeforeMethod
     public static void openStartPage(Method method) {
-        TestLogger.logMessage("Start method  " + method.getName());
+        TestLogger.logMessage("Start method " + method.getName());
         driver.get(Environment.URL); //открытие стартовой страницы
         driver.manage().window().maximize();
 

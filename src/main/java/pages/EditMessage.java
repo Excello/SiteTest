@@ -6,11 +6,12 @@ import elements.InputElement;
 import elements.LabelElement;
 import logging.TestLogger;
 import org.openqa.selenium.By;
+import utils.Environment;
 
 import java.util.Objects;
 
 public class EditMessage extends AbstractPage{
-    private static final By EDIT_MESSAGE_LABEL = By.linkText("Edit Message");
+    private static final By EDIT_MESSAGE_LABEL = By.xpath("//H1[text()='Edit Message']");
     private static final By SAVE_BUTTON = By.cssSelector(".save");
     private static final By DELETE_BUTTON = By.cssSelector(".delete");
     private static final By HEADLINE_FIELD = By.id("headline");
@@ -46,7 +47,7 @@ public class EditMessage extends AbstractPage{
         saveButton().click();
     }
 
-    /*public void verifyHeadlineValue()
+   /* public void verifyHeadlineValue()
     {
         inputHeadline().assertValue(headline);
     }
@@ -74,16 +75,33 @@ public class EditMessage extends AbstractPage{
         inputText().clear();
     }*/
 
-    public ShowMessage editMessage(String newHeadline, String newText) {
-        TestLogger.logMessage("Clearing fields");
 
-        if(Objects.equals(newHeadline, "test")) {
+    public void assertMessage(String headline, String text) {
+        TestLogger.logMessage("Check that [Headline] " + headline + " and [Text] " + text + " values which entered in previous step were displayed");
+
+        if(headline != null) {
+            inputHeadline().assertValue(headline);
+            TestLogger.logMessage("Clearing [Headline] " + headline + " value");
             inputHeadline().clear();
         }
 
-        if(Objects.equals(newHeadline, "test")) {
+        if(text != null) {
+            inputText().assertValue(text);
+            TestLogger.logMessage("Clearing [Text] " + text + " value");
             inputText().clear();
         }
+    }
+
+    public ShowMessage editMessage(String newHeadline, String newText) {
+
+        if(newHeadline == null)
+        {
+            newHeadline = "headline" + Environment.generateUniqueString();
+        }
+        if(newText == null) {
+            newText = "text" + Environment.generateUniqueString();
+        }
+
         inputHeadline().enterValue(newHeadline);
         inputHeadline().assertValue(newHeadline);
         inputText().enterValue(newText);
@@ -96,7 +114,7 @@ public class EditMessage extends AbstractPage{
         return showMessage;
     }
 
-    /*private String getFieldValue(String fieldName)
+  /*  private String getFieldValue(String fieldName)
     {
         int fieldValue = tableOfFields().findRowIndexWithCellText(fieldNameCol, fieldName);
 

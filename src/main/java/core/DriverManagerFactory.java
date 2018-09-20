@@ -1,7 +1,7 @@
 package core;
 
 public class DriverManagerFactory {
-    protected static DriverManager getManager(DriverType type) {
+    public static DriverManager getManager(DriverType type) {
         DriverManager driverManager;
 
         switch (type) {

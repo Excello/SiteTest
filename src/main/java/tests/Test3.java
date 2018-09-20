@@ -1,6 +1,5 @@
 package tests;
 
-import core.AbstractTest;
 import helpers.LoginHelper;
 import helpers.MessageListHelper;
 import org.testng.annotations.Parameters;
@@ -22,6 +21,9 @@ public class Test3 extends AbstractTest {
 
         headline = message[0];
         text = message[1];
+
+        if (newHeadline.equals("")) newHeadline = null;
+        if (newText.equals("")) newText = null;
 
         messageListHelper.editMessage(headline, text, newHeadline, newText);
     }
