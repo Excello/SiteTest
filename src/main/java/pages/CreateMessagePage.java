@@ -9,7 +9,7 @@ import utils.Environment;
 
 //TODO CreateMessagePage
 //TODO Create и Edit message pages are almost same and should have own super class
-public class CreateMessage extends AbstractPage {
+public class CreateMessagePage extends AbstractPage {
 
     private static final By CREATE_MESSAGE_LABEL = By.xpath("//H1[text()= 'Create Message']");
     private static final By CREATE_BUTTON = By.cssSelector(".save");
@@ -38,7 +38,7 @@ public class CreateMessage extends AbstractPage {
     }
 
     public void isCreateMessagePageOpened() {
-        isPageOpened(createMessageLabel(), "Create Message");
+        assertPageOpened(createMessageLabel(), "Create Message");
     }
 
     private void clickCreate() {
@@ -56,7 +56,7 @@ public class CreateMessage extends AbstractPage {
         return messageList;
     }
 
-    public ShowMessage createMessage(String headline, String text) {
+    public ViewMessagePage createMessage(String headline, String text) {
 
         if (headline == null) {
             headline = Environment.generateUniqueString();
@@ -73,10 +73,10 @@ public class CreateMessage extends AbstractPage {
         inputText().assertValue(text);
         clickCreate();
 
-        ShowMessage showMessage = new ShowMessage();
-        showMessage.isShowMessagePageOpened();
+        ViewMessagePage viewMessagePage = new ViewMessagePage();
+        viewMessagePage.assertViewMessagePageOpened();
 
-        return showMessage;
+        return viewMessagePage;
     }
 
     public MessageList createMessageWithoutSaving(String headline, String text) {

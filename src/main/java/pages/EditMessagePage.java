@@ -8,7 +8,7 @@ import org.openqa.selenium.By;
 import utils.Environment;
 
 //TODO EditMessagePage
-public class EditMessage extends AbstractPage {
+public class EditMessagePage extends AbstractPage {
     private static final By EDIT_MESSAGE_LABEL = By.xpath("//H1[text()='Edit Message']");
     private static final By SAVE_BUTTON = By.cssSelector(".save");
     private static final By HEADLINE_FIELD = By.id("headline");
@@ -32,7 +32,7 @@ public class EditMessage extends AbstractPage {
     }
 
     public void isEditPageOpened() {
-        isPageOpened(editMessageLabel(), "Edit Message");
+        assertPageOpened(editMessageLabel(), "Edit Message");
     }
 
     private void clickSave() {
@@ -85,7 +85,7 @@ public class EditMessage extends AbstractPage {
         }
     }
 
-    public ShowMessage editMessage(String newHeadline, String newText) {
+    public ViewMessagePage editMessage(String newHeadline, String newText) {
 
         if (newHeadline == null) {
             newHeadline = "headline" + Environment.generateUniqueString();
@@ -100,10 +100,10 @@ public class EditMessage extends AbstractPage {
         inputText().assertValue(newText);
         clickSave();
 
-        ShowMessage showMessage = new ShowMessage();
-        showMessage.isShowMessagePageOpened();
+        ViewMessagePage viewMessagePage = new ViewMessagePage();
+        viewMessagePage.assertViewMessagePageOpened();
 
-        return showMessage;
+        return viewMessagePage;
     }
 
   /*  private String getFieldValue(String fieldName)

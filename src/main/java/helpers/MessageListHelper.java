@@ -4,7 +4,7 @@ import logging.TestLogger;
 import pages.AbstractPage;
 import pages.LoginPage;
 import pages.MessageList;
-import pages.ShowMessage;
+import pages.ViewMessagePage;
 
 public class MessageListHelper extends AbstractPage {
     private MessageList messageList;
@@ -35,7 +35,7 @@ public class MessageListHelper extends AbstractPage {
         text = message[1];
 
         //There is a created object and headline and text fields contains early filled values
-        messageList.isMessageIsInList(headline, text);
+        messageList.assertMessageIsInList(headline, text);
 
         return new String[] {headline, text};
     }
@@ -56,15 +56,15 @@ public class MessageListHelper extends AbstractPage {
         text2 = message[3];
 
         //There is a created object and headline and text fields contains early filled values
-        messageList.isMessageIsInList(headline1, text1);
+        messageList.assertMessageIsInList(headline1, text1);
 
         //There is a created object and headline and text fields contains early filled values
-        messageList.isMessageIsInList(headline2, text2);
+        messageList.assertMessageIsInList(headline2, text2);
 
         return new String[] {headline1, text1, headline2, text2};
     }
 
-    //TODO почему void? Почему не ShowMessage?
+    //TODO почему void? Почему не ViewMessagePage?
     //TODO Используй Message класс
     public void viewMessage(String headline, String text) {
         TestLogger.logMessage("Opening from the list to view the message with the values headline: " + headline + ", text: " + text);
@@ -73,20 +73,20 @@ public class MessageListHelper extends AbstractPage {
         messageList.isMessageListPageOpened();
 
         //View Message
-        ShowMessage showMessage =  messageList.openViewMessagePage(headline, text);
+        ViewMessagePage viewMessagePage =  messageList.openViewMessagePage(headline, text);
 
         //Assert Headline and Text values
         //TODO А зачем? Кто-то просил?
-        showMessage.verifyHeadlineValue(headline);
-        showMessage.verifyTextValue(text);
+        viewMessagePage.verifyHeadlineValue(headline);
+        viewMessagePage.verifyTextValue(text);
 
         //Tap 'Message List' button
         //TODO C какой стати мы идем обратно?
-        showMessage.clickMessageList();
+        viewMessagePage.clickMessageList();
 
         //There is a created object and headline and text fields contains early filled values
         //TODO Это еще зачем?
-        messageList.isMessageIsInList(headline, text);
+        messageList.assertMessageIsInList(headline, text);
     }
 
     //TODO Тоже дубликат с CreateMessageFormHelper
@@ -103,7 +103,7 @@ public class MessageListHelper extends AbstractPage {
         newText = message[1];
 
         //There is a last created object and headline and text fields contains early filled values
-        messageList.isMessageIsInList(newHeadline, newText);
+        messageList.assertMessageIsInList(newHeadline, newText);
     }
 
     public void deleteMessage(String headline, String text) {
@@ -159,13 +159,13 @@ public class MessageListHelper extends AbstractPage {
         messageList.selectAllUsersCheckBox();
 
         //Verify All Messages
-        messageList.isMessageIsInList(headline1, text1);
-        messageList.isMessageIsInList(headline2, text2);
+        messageList.assertMessageIsInList(headline1, text1);
+        messageList.assertMessageIsInList(headline2, text2);
 
 
         TestLogger.logMessage("Verify " + login + " messages");
         messageList.removeAllUsersCheckBox();
 
-        messageList.isMessageIsInList(headline1, text1);
+        messageList.assertMessageIsInList(headline1, text1);
     }
 }

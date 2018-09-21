@@ -25,7 +25,7 @@ public class LoginPage extends AbstractPage {
     }
 
     public void isLoginPageOpened() {
-        isPageOpened(inputLogin(), "Login");
+        assertPageOpened(inputLogin(), "Login");
     }
 
     public void signIn(String userName, String userPassword) {

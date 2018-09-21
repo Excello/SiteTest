@@ -33,6 +33,6 @@ public class MainPage extends AbstractPage {
     }
 
     public void isMainPageOpened() {
-        isPageOpened(linkUserControllerPage(), "Home Page");
+        assertPageOpened(linkUserControllerPage(), "Home Page");
     }
 }

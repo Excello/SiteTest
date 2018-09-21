@@ -7,7 +7,7 @@ import logging.TestLogger;
 import org.openqa.selenium.By;
 
 //TODO ShowMessagePage, а вообще корректнее ViewMessagePage
-public class ShowMessage extends AbstractPage {
+public class ViewMessagePage extends AbstractPage {
 
     private static final By SHOW_MESSAGE_LABEL = By.xpath("//H1[text()='Show Message']");
     private static final By MESSAGE_LIST_BUTTON = By.cssSelector(".list");
@@ -30,8 +30,8 @@ public class ShowMessage extends AbstractPage {
     }
 
     //TODO assertMessagePageIsOpened
-    public void isShowMessagePageOpened() {
-        isPageOpened(showMessage(), "Show Message");
+    public void assertViewMessagePageOpened() {
+        assertPageOpened(showMessage(), "Show Message");
     }
 
     public MessageList clickMessageList() {
@@ -72,12 +72,12 @@ public class ShowMessage extends AbstractPage {
         return tableOfFields().getCellText(iRow, fieldValueCol);
     }
 
-    public CreateMessage clickNewMessage() {
+    public CreateMessagePage clickNewMessage() {
         TestLogger.logMessage("Tap 'Create Message' button");
 
         newMessage().click();
-        CreateMessage createMessage = new CreateMessage();
-        createMessage.isCreateMessagePageOpened();
-        return createMessage;
+        CreateMessagePage createMessagePage = new CreateMessagePage();
+        createMessagePage.isCreateMessagePageOpened();
+        return createMessagePage;
     }
 }

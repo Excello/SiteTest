@@ -10,7 +10,7 @@ public class CreateMessageFormHelper extends AbstractPage {
     public String[] createNewMessage(String headline, String text, MessageList messageList) {
 
         //Tap 'New Message' button
-        CreateMessage pageCreateMessage = messageList.clickNewMessageButton();
+        CreateMessagePage pageCreateMessagePage = messageList.clickNewMessageButton();
 
         //Fill 'Headline' ant 'Text' fields
         if (headline == null) headline = "headline" + Environment.generateUniqueString();
@@ -18,31 +18,31 @@ public class CreateMessageFormHelper extends AbstractPage {
         if (text == null) text = "text" + Environment.generateUniqueString();
 
         //Tap 'Create' button
-        ShowMessage showMessage;
-        showMessage = pageCreateMessage.createMessage(headline, text);
+        ViewMessagePage viewMessagePage;
+        viewMessagePage = pageCreateMessagePage.createMessage(headline, text);
 
         //Verify that Show Message page is opened
-        assertShowMessagePage(headline, text, showMessage);
+        verifyShowMessagePage(headline, text, viewMessagePage);
 
         //Tap 'Message List' button
-        showMessage.clickMessageList();
+        viewMessagePage.clickMessageList();
 
         return new String[]{headline, text};
     }
 
     //TODO Плохой метод. Делает слишком много. Хелпер должен помогать что-то создать удалить. А этот хелпер по сути сам в себе работает.
-    //TODO Здесь выполнение должно прерываться на странице ShowMessage. Не должен этот метод возвращать на список
+    //TODO Здесь выполнение должно прерываться на странице ViewMessagePage. Не должен этот метод возвращать на список
     public String[] createMessageWithoutSaving(String headline, String text, MessageList messageList) {
 
         //Tap 'New Message' button
-        CreateMessage pageCreateMessage = messageList.clickNewMessageButton();
+        CreateMessagePage pageCreateMessagePage = messageList.clickNewMessageButton();
 
         //Fill 'Headline' ant 'Text' fields
         if (headline == null) headline = "headline" + Environment.generateUniqueString();
         if (text == null) text = "text" + Environment.generateUniqueString();
 
         //Tap 'Message List' button
-        pageCreateMessage.createMessageWithoutSaving(headline, text);
+        pageCreateMessagePage.createMessageWithoutSaving(headline, text);
 
         return new String[]{headline, text};
     }
@@ -51,34 +51,34 @@ public class CreateMessageFormHelper extends AbstractPage {
     public String[] createTwoMessages(String headline1, String text1, String headline2, String text2, MessageList messageList) {
 
         //Tap 'New Message' button
-        CreateMessage pageCreateMessage = messageList.clickNewMessageButton();
+        CreateMessagePage pageCreateMessagePage = messageList.clickNewMessageButton();
 
         //Fill 'Headline' ant 'Text' fields
         if (headline1 == null) headline1 = "headline" + Environment.generateUniqueString();
         if (text1 == null) text1 = "text" + Environment.generateUniqueString();
 
         //Tap 'Create' button
-        ShowMessage showMessage;
-        showMessage = pageCreateMessage.createMessage(headline1, text1);
+        ViewMessagePage viewMessagePage;
+        viewMessagePage = pageCreateMessagePage.createMessage(headline1, text1);
 
         //Verify that Show Message page is opened
-        assertShowMessagePage(headline1, text1, showMessage);
+        verifyShowMessagePage(headline1, text1, viewMessagePage);
 
         //Tap 'New Message' button
-        showMessage.clickNewMessage();
+        viewMessagePage.clickNewMessage();
 
         //Fill 'Headline' ant 'Text' fields
         if (headline2 == null) headline2 = "headline" + Environment.generateUniqueString();
         if (text2 == null) text2 = "text" + Environment.generateUniqueString();
 
         //Tap 'Create' button
-        pageCreateMessage.createMessage(headline2, text2);
+        pageCreateMessagePage.createMessage(headline2, text2);
 
         //Verify that Show Message page is opened
-        assertShowMessagePage(headline2, text2, showMessage);
+        verifyShowMessagePage(headline2, text2, viewMessagePage);
 
         //Tap 'Message List' button
-        showMessage.clickMessageList();
+        viewMessagePage.clickMessageList();
 
         return new String[]{headline1, text1, headline2, text2};
     }
@@ -86,24 +86,24 @@ public class CreateMessageFormHelper extends AbstractPage {
     //TODO Используй класс Message
     public String[] editMessage(String headline, String text, String newHeadline, String newText, MessageList messageList) {
 
-        EditMessage pageEditMessage = messageList.openEditMessagePage(headline, text);
+        EditMessagePage pageEditMessagePage = messageList.openEditMessagePage(headline, text);
 
 
         if (newHeadline == null) newHeadline = "headline" + Environment.generateUniqueString();
         if (newText == null) newText = "text" + Environment.generateUniqueString();
 
-        ShowMessage showMessage = pageEditMessage.editMessage(newHeadline, newText);
-        assertShowMessagePage(newHeadline, newText, showMessage);
+        ViewMessagePage viewMessagePage = pageEditMessagePage.editMessage(newHeadline, newText);
+        verifyShowMessagePage(newHeadline, newText, viewMessagePage);
 
-        showMessage.clickMessageList();
+        viewMessagePage.clickMessageList();
 
         return new String[]{newHeadline, newText};
     }
 
     //TODO Не нравится название метода, не отражает сути
-    private void assertShowMessagePage(String headline, String text, ShowMessage showMessage) {
+    private void verifyShowMessagePage(String headline, String text, ViewMessagePage viewMessagePage) {
         //TODO Метод assert должен вызывать методы assert. Verify - это мягкая проверка, assert - жесткая
-        showMessage.verifyHeadlineValue(headline);
-        showMessage.verifyTextValue(text);
+        viewMessagePage.verifyHeadlineValue(headline);
+        viewMessagePage.verifyTextValue(text);
     }
 }

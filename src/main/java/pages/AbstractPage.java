@@ -9,7 +9,7 @@ public class AbstractPage extends AbstractComponent {
 
     //TODO assertPageOpened
     //TODO Этот метод можно сделать public и без параметров
-    protected void isPageOpened(BaseElement element, String formName) {
+    public void assertPageOpened(BaseElement element, String formName) {
         try {
             element.assertExists();
             TestLogger.logMessage("Element " + formName + " is displayed");

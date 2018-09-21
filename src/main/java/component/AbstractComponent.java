@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 
 public abstract class AbstractComponent {
     //TODO Не статик
-    protected static WebDriver driver = WebDriverFactory.instance().get();
+    protected WebDriver driver = WebDriverFactory.instance().get();
     //protected static WebDriver driver = DriverManagerFactory.getManager(DriverType.CHROME);
 
     protected static void logDebug(String message) {

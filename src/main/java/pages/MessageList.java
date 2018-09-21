@@ -62,7 +62,7 @@ public class MessageList extends AbstractPage {
 
     //TODO assertMessageListOpened, методы is... должны возвращать булевый ответ и не вызовать никаких ошибок
     public void isMessageListPageOpened() {
-        isPageOpened(labelMessageList(), "Message List");
+        assertPageOpened(labelMessageList(), "Message List");
     }
 
     public void assertUsername(String expected) {
@@ -88,13 +88,13 @@ public class MessageList extends AbstractPage {
         return new LinkElement(DELETE_BUTTON, "Delete Link", cell);
     }
 
-    public CreateMessage clickNewMessageButton() {
+    public CreateMessagePage clickNewMessageButton() {
         TestLogger.logMessage("Tap 'New Message' button");
 
         newMessage().click();
-        CreateMessage createMessage = new CreateMessage();
-        createMessage.isCreateMessagePageOpened();
-        return createMessage;
+        CreateMessagePage createMessagePage = new CreateMessagePage();
+        createMessagePage.isCreateMessagePageOpened();
+        return createMessagePage;
     }
 
     public LoginPage clickLogOutButton() {
@@ -140,7 +140,7 @@ public class MessageList extends AbstractPage {
     }
 
     //TODO assertMesageInlist
-    public void isMessageIsInList(String headline, String text) {
+    public void assertMessageIsInList(String headline, String text) {
         TestLogger.logMessage("Check that there is an [headline] element in the table " + headline + " and [text] " + text);
 
         int index = findMessageRow(headline, text);
@@ -151,12 +151,14 @@ public class MessageList extends AbstractPage {
     }
 
     //TODO Что метод то делает?
+/*
     public void isMessageIsNotInList(String headline, String text) {
         TestLogger.logMessage("Check that there is no an headline element " + headline + " and Text " + text + " in the table");
 
         int index = findMessageRow(headline, text);
 
     }
+*/
 
     private void selectNextPage() {
         if (isPagingEnabled()) {
@@ -184,7 +186,7 @@ public class MessageList extends AbstractPage {
         }
     }
 
-    public ShowMessage openViewMessagePage(String headline, String text) {
+    public ViewMessagePage openViewMessagePage(String headline, String text) {
         int iRow = findMessageRow(headline, text);
 
         if (iRow < 1) {
@@ -194,12 +196,12 @@ public class MessageList extends AbstractPage {
         TestLogger.logMessage("Tap 'View' button");
         viewLink(iRow).click();
 
-        ShowMessage page = new ShowMessage();
-        page.isShowMessagePageOpened();
+        ViewMessagePage page = new ViewMessagePage();
+        page.assertViewMessagePageOpened();
         return page;
     }
 
-    public EditMessage openEditMessagePage(String headline, String text) {
+    public EditMessagePage openEditMessagePage(String headline, String text) {
         int iRow = findMessageRow(headline, text);
 
         if (iRow < 1) {
@@ -209,7 +211,7 @@ public class MessageList extends AbstractPage {
         TestLogger.logMessage("Tap 'Edit' button");
         editLink(iRow).click();
 
-        EditMessage page = new EditMessage();
+        EditMessagePage page = new EditMessagePage();
         page.isEditPageOpened();
         page.assertMessage(headline, text);
         return page;
