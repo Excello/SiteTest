@@ -7,6 +7,7 @@ import logging.TestLogger;
 import org.openqa.selenium.By;
 import utils.Environment;
 
+//TODO EditMessagePage
 public class EditMessage extends AbstractPage {
     private static final By EDIT_MESSAGE_LABEL = By.xpath("//H1[text()='Edit Message']");
     private static final By SAVE_BUTTON = By.cssSelector(".save");

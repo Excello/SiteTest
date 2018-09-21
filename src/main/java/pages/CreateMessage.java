@@ -7,6 +7,8 @@ import logging.TestLogger;
 import org.openqa.selenium.By;
 import utils.Environment;
 
+//TODO CreateMessagePage
+//TODO Create и Edit message pages are almost same and should have own super class
 public class CreateMessage extends AbstractPage {
 
     private static final By CREATE_MESSAGE_LABEL = By.xpath("//H1[text()= 'Create Message']");

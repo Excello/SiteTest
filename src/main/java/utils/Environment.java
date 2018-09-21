@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 /**
- * ��������� �����
+ * ��������� �����
  */
 public class Environment {
 
@@ -51,10 +51,12 @@ public class Environment {
         setTimeOutForPageLoad(TIME_OUT_FOR_PAGE_LOAD);
     }
 
+    //TODO Убрать. Не использвать implicitlyWait
     public static void setTimeOutForElements(int seconds) {
         WebDriverFactory.instance().get().manage().timeouts().implicitlyWait(seconds, TimeUnit.SECONDS);
     }
 
+    //TODO Должно задаваться только один раз при инициализации драйвера
     public static void setTimeOutForPageLoad(int seconds) {
         WebDriverFactory.instance().get().manage().timeouts().pageLoadTimeout(seconds, TimeUnit.SECONDS);
     }

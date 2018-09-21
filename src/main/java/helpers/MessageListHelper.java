@@ -1,7 +1,10 @@
 package helpers;
 
 import logging.TestLogger;
-import pages.*;
+import pages.AbstractPage;
+import pages.LoginPage;
+import pages.MessageList;
+import pages.ShowMessage;
 
 public class MessageListHelper extends AbstractPage {
     private MessageList messageList;
@@ -12,13 +15,15 @@ public class MessageListHelper extends AbstractPage {
         createMessageFormHelper = new CreateMessageFormHelper();
     }
 
+    //TODO Вместо String[] создай класс Message
     public String[] createMessage() {
-        String text = "text";
-        String headline = "headline";
+        String text = "text";//TODO Не костанатный текст, а генерируй случайную строку
+        String headline = "headline"; //TODO Same
         createMessage(headline, text);
         return new String[] {headline, text};
     }
 
+    //TODO Тоже возвращай класс Message,и на вход прнимай класс Message
     public String[] createMessage(String headline, String text){
 
         //Message List is displayed
@@ -35,6 +40,8 @@ public class MessageListHelper extends AbstractPage {
         return new String[] {headline, text};
     }
 
+    //TODO Не очень понимаю зачем этот хелпер. Только ради асертов? Логически стоило бы сделать наоборот.
+    //TODO Асерт на существование должен быть в CreateMessageFormHelper. Этот метод и выше выглядят дубликатами аналогов в CreateMessageFormHelper
     public String[] createTwoMessages(String headline1, String text1, String headline2, String text2) {
 
         //Message List is displayed
@@ -57,8 +64,9 @@ public class MessageListHelper extends AbstractPage {
         return new String[] {headline1, text1, headline2, text2};
     }
 
-    public void viewMessage(String headline, String text)
-    {
+    //TODO почему void? Почему не ShowMessage?
+    //TODO Используй Message класс
+    public void viewMessage(String headline, String text) {
         TestLogger.logMessage("Opening from the list to view the message with the values headline: " + headline + ", text: " + text);
 
         //Message List is displayed
@@ -68,16 +76,20 @@ public class MessageListHelper extends AbstractPage {
         ShowMessage showMessage =  messageList.openViewMessagePage(headline, text);
 
         //Assert Headline and Text values
+        //TODO А зачем? Кто-то просил?
         showMessage.verifyHeadlineValue(headline);
         showMessage.verifyTextValue(text);
 
         //Tap 'Message List' button
+        //TODO C какой стати мы идем обратно?
         showMessage.clickMessageList();
 
         //There is a created object and headline and text fields contains early filled values
+        //TODO Это еще зачем?
         messageList.isMessageIsInList(headline, text);
     }
 
+    //TODO Тоже дубликат с CreateMessageFormHelper
     public void editMessage(String headline, String text, String newHeadline, String newText) {
         TestLogger.logMessage("Opening from the list to edit the message with the values headline: " + headline + ", text" + text);
 
@@ -107,6 +119,7 @@ public class MessageListHelper extends AbstractPage {
         messageList.isMessageIsNotInList(headline, text);
     }
 
+    //TODO Тоже дубликат с CreateMessageFormHelper
     public void createMessageWithoutSaving(String headline, String text) {
         TestLogger.logMessage("Creating message without saving");
 
@@ -132,9 +145,13 @@ public class MessageListHelper extends AbstractPage {
         //Sign in as another user
         LoginPage loginPage = new LoginPage();
         loginPage.signIn(newUserName, newPassWord);
+        //TODO Не очень корректно использовать снова тот же messageList, если ты уже выполнил logout.
+        //TODO В силу разных причин страницы могут нечаянно хранить какую-то информацию о своем текущем состоянии на основании истории действий.
+        // TODO Такой подход в перспективе может породить много проблем, сложно отлаваливаемых
         messageList.assertUsername(expected);
     }
 
+    //TODO Метод называется All, но передавать может два и только два сообщения, да еще и логин какой-то непонятный
     public void verifyAllUsersMessages(String headline1, String text1, String headline2, String text2, String login) {
         TestLogger.logMessage("Verify all users messages");
 

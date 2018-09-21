@@ -9,8 +9,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import utils.Environment;
 
-import static org.testng.Assert.assertEquals;
-
 public class MessageList extends AbstractPage {
 
     private static final By TABLE = By.cssSelector(".list");
@@ -62,6 +60,7 @@ public class MessageList extends AbstractPage {
         return new ButtonElement(driver, ALL_USERS_CHECKBOX, "All Users Checkbox");
     }
 
+    //TODO assertMessageListOpened, методы is... должны возвращать булевый ответ и не вызовать никаких ошибок
     public void isMessageListPageOpened() {
         isPageOpened(labelMessageList(), "Message List");
     }
@@ -70,16 +69,20 @@ public class MessageList extends AbstractPage {
         userMessage().assertText(expected);
     }
 
+    //TOdo getViewLink или createViewLink. viewLink - означает выполнить действие
     private LinkElement viewLink(int iRow) {
         WebElement cell = tableMessages().getCell(iRow, ACTIONS_COL);
         return new LinkElement(VIEW_BUTTON, "View Link", cell);
     }
 
+    //TODo as above
     private LinkElement editLink(int iRow) {
         WebElement cell = tableMessages().getCell(iRow, ACTIONS_COL);
         return new LinkElement(EDIT_BUTTON, "Edit Link", cell);
     }
 
+
+    //TODo as above
     private LinkElement deleteLink(int iRow) {
         WebElement cell = tableMessages().getCell(iRow, ACTIONS_COL);
         return new LinkElement(DELETE_BUTTON, "Delete Link", cell);
@@ -103,6 +106,7 @@ public class MessageList extends AbstractPage {
         return loginPage;
     }
 
+    //TODO На вход класс Message
     private int findMessageRow(String headline, String text) {
         TestLogger.logMessage("Looking for line with [headline] " + headline + " and [text] " + text);
 
@@ -135,6 +139,7 @@ public class MessageList extends AbstractPage {
         return index;
     }
 
+    //TODO assertMesageInlist
     public void isMessageIsInList(String headline, String text) {
         TestLogger.logMessage("Check that there is an [headline] element in the table " + headline + " and [text] " + text);
 
@@ -145,6 +150,7 @@ public class MessageList extends AbstractPage {
         }
     }
 
+    //TODO Что метод то делает?
     public void isMessageIsNotInList(String headline, String text) {
         TestLogger.logMessage("Check that there is no an headline element " + headline + " and Text " + text + " in the table");
 
@@ -166,10 +172,12 @@ public class MessageList extends AbstractPage {
         return nextPage().exists(0);
     }
 
+
     private void selectFirstPage() {
 
         Environment.setTimeOutForPageLoad(Environment.TIME_OUT_FOR_PAGE_LOAD);
 
+        //TODO Разве там нет прямой ссылки на первую страницу?
         while (prevPage().exists(0)) {
             logDebug("Going to previous page");
             prevPage().click();
@@ -215,7 +223,7 @@ public class MessageList extends AbstractPage {
 
     public void selectAllUsersCheckBox() {
         TestLogger.logMessage("Tap 'All Users' checkbox");
-
+//TODO А если бокс был уже выбран?
         allUsersCheckBox().click();
         allUsersCheckBox().isCheckBoxSelected();
     }
@@ -223,6 +231,7 @@ public class MessageList extends AbstractPage {
     public void removeAllUsersCheckBox() {
         TestLogger.logMessage("Tap 'All Users' checkbox");
 
+        //TODO А если бокс был уже снят?
         allUsersCheckBox().click();
         allUsersCheckBox().isCheckBoxNotSelected();
     }

@@ -6,6 +6,7 @@ import elements.LabelElement;
 import logging.TestLogger;
 import org.openqa.selenium.By;
 
+//TODO ShowMessagePage, а вообще корректнее ViewMessagePage
 public class ShowMessage extends AbstractPage {
 
     private static final By SHOW_MESSAGE_LABEL = By.xpath("//H1[text()='Show Message']");
@@ -28,6 +29,7 @@ public class ShowMessage extends AbstractPage {
         return new ButtonElement(driver, NEW_MESSAGE_BUTTON, "New Message");
     }
 
+    //TODO assertMessagePageIsOpened
     public void isShowMessagePageOpened() {
         isPageOpened(showMessage(), "Show Message");
     }
