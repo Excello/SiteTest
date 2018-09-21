@@ -10,7 +10,7 @@ import utils.Environment;
 
 import java.util.Date;
 
-public class BaseElement extends AbstractComponent{
+public class BaseElement extends AbstractComponent {
 
     protected final By locator;
     protected final WebDriver driver;
@@ -34,7 +34,7 @@ public class BaseElement extends AbstractComponent{
     protected WebElement element() {
         WebElement result;
 
-        if(driver == null) {
+        if (driver == null) {
             result = parentElement.findElement(locator);
         } else {
             result = driver.findElement(locator);
@@ -63,13 +63,15 @@ public class BaseElement extends AbstractComponent{
         try {
             element();
             result = true;
-        } catch (Exception ex) { }
+        } catch (Exception ex) {
+        }
 
         while (!result && new Date().getTime() - start < timeout * 1000) {
             try {
                 element();
                 result = true;
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
         }
 
         Environment.resetTimeOutForPageElements();
@@ -100,21 +102,6 @@ public class BaseElement extends AbstractComponent{
         assertExists(Environment.TIME_OUT_FOR_ELEMENTS);
     }
 
-
-    /*private void assertNotExists(int timeout) {
-        TestLogger.debug("Verifying that the element " + name + " has not been displaying for " + timeout + " seconds");
-
-        if (exists(timeout)) {
-            TestLogger.logError("The element " + name + " is not displayed");
-        } else {
-            TestLogger.debug("The element " + name + " is displayed");
-        }
-    }
-
-    public void assertNotExists() {
-        assertNotExists(Environment.TIME_OUT_FOR_ELEMENTS);
-    }
-*/
     public void assertText(String expected) {
         String actual = element().getText();
         Assert.assertEquals(actual, expected);

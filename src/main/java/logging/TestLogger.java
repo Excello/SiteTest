@@ -7,13 +7,6 @@ public class TestLogger {
     private static int testFailsCount = 0;
     private static Logger logger = LoggerFactory.getLogger("test");
     public static boolean DEBUG = false;
-    static final String screenShotId = "[screenshot:";
-    static final String imagesFolder = "images";
-
-    private static enum Level {
-        WARN, INFO, DEBUG, FAIL, ERROR
-    }
-
     public static boolean hasErrors() {
         return testFailsCount > 0;
     }

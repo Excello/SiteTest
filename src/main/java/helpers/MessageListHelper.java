@@ -84,30 +84,14 @@ public class MessageListHelper extends AbstractPage {
         //Message List is displayed
         messageList.isMessageListPageOpened();
 
-        //Edit Message
-        //messageList.openEditMessagePage(headline, text);
-       /* openEditMessagePage.verifyHeadlineValue(headline);
-        openEditMessagePage.verifyHeadlineValue(text);*/
-
         //Enter new Headline and Text
         String[] message = createMessageFormHelper.editMessage(headline, text, newHeadline, newText, messageList);
 
         newHeadline = message[0];
         newText = message[1];
 
-
-        //Assert new Headline and Text
-
-
-        //Tap 'Message List' button
-
         //There is a last created object and headline and text fields contains early filled values
         messageList.isMessageIsInList(newHeadline, newText);
-
-
-        //удалить поля и заполнить их заново
-        /*openEditMessagePage.clickSave();*/
-        /*openViewMessagePage(headline, text);*/
     }
 
     public void deleteMessage(String headline, String text) {
@@ -151,8 +135,8 @@ public class MessageListHelper extends AbstractPage {
         messageList.assertUsername(expected);
     }
 
-    public void verifyAllUsersMessages(String headline1, String text1, String headline2, String text2) {
-        TestLogger.logMessage("Verifiy all messages");
+    public void verifyAllUsersMessages(String headline1, String text1, String headline2, String text2, String login) {
+        TestLogger.logMessage("Verify all users messages");
 
         //Select checkbox
         messageList.selectAllUsersCheckBox();
@@ -160,5 +144,11 @@ public class MessageListHelper extends AbstractPage {
         //Verify All Messages
         messageList.isMessageIsInList(headline1, text1);
         messageList.isMessageIsInList(headline2, text2);
+
+
+        TestLogger.logMessage("Verify " + login + " messages");
+        messageList.removeAllUsersCheckBox();
+
+        messageList.isMessageIsInList(headline1, text1);
     }
 }

@@ -1,6 +1,5 @@
 package pages;
 
-import elements.BaseElement;
 import elements.LinkElement;
 import logging.TestLogger;
 import org.openqa.selenium.By;

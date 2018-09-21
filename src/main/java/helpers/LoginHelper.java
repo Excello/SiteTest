@@ -8,7 +8,7 @@ public class LoginHelper extends AbstractPage {
 
     private MainPage mainPage;
 
-    public LoginHelper(){
+    public LoginHelper() {
         mainPage = new MainPage();
     }
 

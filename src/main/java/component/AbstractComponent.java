@@ -1,11 +1,8 @@
 package component;
 
-import core.DriverManagerFactory;
-import core.DriverType;
 import core.WebDriverFactory;
 import logging.TestLogger;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 public abstract class AbstractComponent {
     protected static WebDriver driver = WebDriverFactory.instance().get();

@@ -1,7 +1,7 @@
-package core;
-
-public enum DriverType {
-    CHROME,
-    FIREFOX,
-    IE;
-}
+//package core;
+//
+//public enum DriverType {
+//    CHROME,
+//    FIREFOX,
+//    IE;
+//}

@@ -6,7 +6,7 @@ import elements.LabelElement;
 import logging.TestLogger;
 import org.openqa.selenium.By;
 
-public class ShowMessage extends AbstractPage{
+public class ShowMessage extends AbstractPage {
 
     private static final By SHOW_MESSAGE_LABEL = By.xpath("//H1[text()='Show Message']");
     private static final By MESSAGE_LIST_BUTTON = By.cssSelector(".list");
@@ -41,34 +41,30 @@ public class ShowMessage extends AbstractPage{
         return messageList;
     }
 
-    private static TableManager tableOfFields(){
+    private static TableManager tableOfFields() {
         return new TableManager(TABLE);
     }
 
-    public void verifyHeadlineValue(String expected)
-    {
+    public void verifyHeadlineValue(String expected) {
         verifyFieldValue("Headline", expected);
     }
 
-    public void verifyTextValue(String expected)
-    {
+    public void verifyTextValue(String expected) {
         verifyFieldValue("Text", expected);
     }
 
-    private void verifyFieldValue(String fieldName, String expected)
-    {
+    private void verifyFieldValue(String fieldName, String expected) {
         TestLogger.logMessage("Check that field " + fieldName + " has value " + expected);
         String value = getFieldValue(fieldName);
 
-        if(value.equalsIgnoreCase(expected)){
-            TestLogger.logMessage("Field \"" + fieldName +  "\" has expected value: " + expected);
-        } else{
+        if (value.equalsIgnoreCase(expected)) {
+            TestLogger.logMessage("Field \"" + fieldName + "\" has expected value: " + expected);
+        } else {
             TestLogger.logError("Field \"" + fieldName + "\" has value:" + value + ", which is not expected( " + expected + ")");
         }
     }
 
-    private String getFieldValue(String fieldName)
-    {
+    private String getFieldValue(String fieldName) {
         int iRow = tableOfFields().findRowIndexWithCellText(fieldNameCol, fieldName);
 
         return tableOfFields().getCellText(iRow, fieldValueCol);

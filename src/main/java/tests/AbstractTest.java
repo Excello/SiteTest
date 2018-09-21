@@ -46,49 +46,25 @@ public abstract class AbstractTest {
     public static void beforeSuite(ITestContext context) {
 
 
-        WebDriverFactory.init(false, WebDriverFactory.Browser.CHROME); //инициализация драйвера
-        driver = WebDriverFactory.instance().openNewBrowser("default"); //открытие браузера
-        //driver = new InternetExplorerDriver();
-        //driver.get("default");
-
+        WebDriverFactory.init(false, WebDriverFactory.Browser.CHROME);
+        driver = WebDriverFactory.instance().openNewBrowser("default");
         markTestCriticalError();
     }
 
-    public static void removeCriticalError() {
-        if (criticalErrorFile.exists()) {
-            if (!criticalErrorFile.delete()) {
-                TestLogger.logError("Не удалось удалить файл " + criticalErrorFile + ". Снимите защиту от записи");
-            }
-        }
-    }
-
-    /**
-     * Инициализация перед выполнением метода (теста)
-     *
-     * @param method Метод, который будет выполняться
-     */
     @BeforeMethod
     public static void openStartPage(Method method) {
         TestLogger.logMessage("Start method " + method.getName());
-        driver.get(Environment.URL); //открытие стартовой страницы
+        driver.get(Environment.URL);
         driver.manage().window().maximize();
 
     }
 
-    /**
-     * Закрытие браузера
-     */
     @AfterSuite(alwaysRun = true)
     public static void closeBrowser() {
         driver.close();
         TestLogger.logMessage("Suite ended");
     }
 
-    /**
-     * Метод суммирует количество ошибок после выполнения тестаи выводит статус в лог
-     *
-     * @param result ITestResult
-     */
     @AfterMethod(alwaysRun = true)
     public static void verifyTestStatus(ITestResult result) {
 
@@ -98,7 +74,7 @@ public abstract class AbstractTest {
 
     }
 
-    public static void markTestCriticalError() {
+    private static void markTestCriticalError() {
         if (!criticalErrorFile.exists()) {
             boolean result = false;
 

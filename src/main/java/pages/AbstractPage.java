@@ -4,7 +4,7 @@ import component.AbstractComponent;
 import elements.BaseElement;
 import logging.TestLogger;
 
-public class AbstractPage extends AbstractComponent{
+public class AbstractPage extends AbstractComponent {
 
     protected void isPageOpened(BaseElement element, String formName) {
         try {

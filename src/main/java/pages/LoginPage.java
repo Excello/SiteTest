@@ -39,7 +39,6 @@ public class LoginPage extends AbstractPage {
         MessageList pageMessageList = new MessageList();
         pageMessageList.isMessageListPageOpened();
 
-
         loggedUser = userName;
     }
 }

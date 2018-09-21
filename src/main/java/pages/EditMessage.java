@@ -1,6 +1,5 @@
 package pages;
 
-import component.TableManager;
 import elements.ButtonElement;
 import elements.InputElement;
 import elements.LabelElement;
@@ -8,12 +7,9 @@ import logging.TestLogger;
 import org.openqa.selenium.By;
 import utils.Environment;
 
-import java.util.Objects;
-
-public class EditMessage extends AbstractPage{
+public class EditMessage extends AbstractPage {
     private static final By EDIT_MESSAGE_LABEL = By.xpath("//H1[text()='Edit Message']");
     private static final By SAVE_BUTTON = By.cssSelector(".save");
-    private static final By DELETE_BUTTON = By.cssSelector(".delete");
     private static final By HEADLINE_FIELD = By.id("headline");
     private static final By TEXT_FIELD = By.id("text");
 
@@ -24,10 +20,6 @@ public class EditMessage extends AbstractPage{
 
     private ButtonElement saveButton() {
         return new ButtonElement(driver, SAVE_BUTTON, "Save Button");
-    }
-
-    private ButtonElement deleteButton() {
-        return new ButtonElement(driver, DELETE_BUTTON, "Delete Button");
     }
 
     private InputElement inputHeadline() {
@@ -42,7 +34,7 @@ public class EditMessage extends AbstractPage{
         isPageOpened(editMessageLabel(), "Edit Message");
     }
 
-    private void clickSave(){
+    private void clickSave() {
         TestLogger.logMessage("Tap 'Save Button'");
         saveButton().click();
     }
@@ -79,13 +71,13 @@ public class EditMessage extends AbstractPage{
     public void assertMessage(String headline, String text) {
         TestLogger.logMessage("Check that [Headline] " + headline + " and [Text] " + text + " values which entered in previous step were displayed");
 
-        if(headline != null) {
+        if (headline != null) {
             inputHeadline().assertValue(headline);
             TestLogger.logMessage("Clearing [Headline] " + headline + " value");
             inputHeadline().clear();
         }
 
-        if(text != null) {
+        if (text != null) {
             inputText().assertValue(text);
             TestLogger.logMessage("Clearing [Text] " + text + " value");
             inputText().clear();
@@ -94,11 +86,10 @@ public class EditMessage extends AbstractPage{
 
     public ShowMessage editMessage(String newHeadline, String newText) {
 
-        if(newHeadline == null)
-        {
+        if (newHeadline == null) {
             newHeadline = "headline" + Environment.generateUniqueString();
         }
-        if(newText == null) {
+        if (newText == null) {
             newText = "text" + Environment.generateUniqueString();
         }
 

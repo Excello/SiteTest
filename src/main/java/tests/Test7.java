@@ -37,5 +37,7 @@ public class Test7 extends AbstractTest {
         messageListHelper.viewMessage(headline2, text2);
 
         messageListHelper.signInAnotherUser(login1, password1, expected1);
+
+        messageListHelper.verifyAllUsersMessages(headline1, text1, headline2, text2, login1);
     }
 }
