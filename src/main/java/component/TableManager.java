@@ -10,7 +10,7 @@ import utils.CollectionUtils;
 import java.util.List;
 import java.util.Properties;
 
-public class TableManager extends AbstractPage {
+public class TableManager extends AbstractComponent {
     private By tableLocator;
     private static final By ROW_LOCATOR = By.tagName("tr");
     private static final By CELL_LOCATOR = By.tagName("td");
@@ -90,17 +90,17 @@ public class TableManager extends AbstractPage {
 
     public int findRowIndexWithCellText(int cellIndex, String text) {
 
-        logDebug("Поиск строки с текстом " + text + " в колонке " + cellIndex);
+        logDebug("пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ " + text + " пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ " + cellIndex);
         boolean notFound;
         List<WebElement> rows = getRows();
 
         for (int i = 0; i < rows.size(); i++) {
 
             notFound = false;
-            logDebug("Проверка строки " + (i + 1));
+            logDebug("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ " + (i + 1));
 
             String cellText = getCellText(rows.get(i), cellIndex);
-            logDebug("Получено содержимое ячейки (" + (i + 1) + ", " + cellIndex + "), значение:" + cellText);
+            logDebug("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ (" + (i + 1) + ", " + cellIndex + "), пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ:" + cellText);
 
             if(cellText != null){
 
@@ -132,12 +132,12 @@ public class TableManager extends AbstractPage {
         for (int i = startFromRow - 1; i < rows.size(); i++) {
 
             notFound = false;
-            logDebug("Проверка строки " + (i + 1));
+            logDebug("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ " + (i + 1));
 
             for (int k = 0; k < cellIndexes.length; k++) {
 
                 String cellText = getCellText(rows.get(i), Integer.valueOf(cellIndexes[k].toString()));
-                logDebug("Получено содержимое ячейки (" + i + ", " + Integer.valueOf(cellIndexes[k].toString()) + "), значение:" + cellText);
+                logDebug("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ (" + i + ", " + Integer.valueOf(cellIndexes[k].toString()) + "), пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ:" + cellText);
 
                 if (cellText != null) {
 
@@ -164,7 +164,7 @@ public class TableManager extends AbstractPage {
 
         }
 
-        logDebug("Строка не найдена");
+        logDebug("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
 
         return -1;
     }

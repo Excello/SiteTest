@@ -1,10 +1,11 @@
 package helpers;
 
+import component.AbstractComponent;
 import pages.AbstractPage;
 import pages.LoginPage;
 import pages.MainPage;
 
-public class LoginHelper extends AbstractPage {
+public class LoginHelper extends AbstractComponent {
 
     private MainPage mainPage;
 

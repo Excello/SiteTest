@@ -39,7 +39,7 @@ public class ViewMessagePage extends AbstractPage {
 
         messageList().click();
         MessageList messageList = new MessageList();
-        messageList.isMessageListPageOpened();
+        messageList.assertMessageListPageOpened();
         return messageList;
     }
 

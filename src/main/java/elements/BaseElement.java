@@ -58,8 +58,6 @@ public class BaseElement extends AbstractComponent {
         long start = new Date().getTime();
         boolean result = false;
 
-        Environment.removeTimeOutForElements();
-
         try {
             element();
             result = true;
@@ -73,8 +71,6 @@ public class BaseElement extends AbstractComponent {
             } catch (Exception e) {
             }
         }
-
-        Environment.resetTimeOutForPageElements();
 
         if (result)
             logDebug("Element is displayed");

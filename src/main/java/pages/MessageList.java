@@ -1,6 +1,7 @@
 package pages;
 
 import component.TableManager;
+import elements.BaseElement;
 import elements.ButtonElement;
 import elements.LabelElement;
 import elements.LinkElement;
@@ -10,7 +11,6 @@ import org.openqa.selenium.WebElement;
 import utils.Environment;
 
 public class MessageList extends AbstractPage {
-
     private static final By TABLE = By.cssSelector(".list");
     private static final By LABEL_MESSAGE_LIST = By.xpath("//H1[text()='Message List']");
     private static final By NEW_MESSAGE_BUTTON = By.cssSelector(".create");
@@ -28,11 +28,16 @@ public class MessageList extends AbstractPage {
     private static final int ACTIONS_COL = 1;
     private static final int AUTHOR_COL = 4;
 
+    public MessageList(BaseElement identifyElementLocator, String formName) {
+        super(identifyElementLocator, formName);
+        messageListLabel();
+    }
+
     private static TableManager tableMessages() {
         return new TableManager(TABLE);
     }
 
-    private LabelElement labelMessageList() {
+    private LabelElement messageListLabel() {
         return new LabelElement(driver, LABEL_MESSAGE_LIST, "Message List Title");
     }
 
@@ -61,29 +66,28 @@ public class MessageList extends AbstractPage {
     }
 
     //TODO assertMessageListOpened, методы is... должны возвращать булевый ответ и не вызовать никаких ошибок
-    public void isMessageListPageOpened() {
-        assertPageOpened(labelMessageList(), "Message List");
+    public void assertMessageListPageOpened() {
+        assertPageOpened();
     }
 
     public void assertUsername(String expected) {
         userMessage().assertText(expected);
     }
 
-    //TOdo getViewLink или createViewLink. viewLink - означает выполнить действие
-    private LinkElement viewLink(int iRow) {
+    //TOdo getViewLink или createViewLink. getViewLink - означает выполнить действие
+    private LinkElement getViewLink(int iRow) {
         WebElement cell = tableMessages().getCell(iRow, ACTIONS_COL);
         return new LinkElement(VIEW_BUTTON, "View Link", cell);
     }
 
     //TODo as above
-    private LinkElement editLink(int iRow) {
+    private LinkElement getEditLink(int iRow) {
         WebElement cell = tableMessages().getCell(iRow, ACTIONS_COL);
         return new LinkElement(EDIT_BUTTON, "Edit Link", cell);
     }
 
-
     //TODo as above
-    private LinkElement deleteLink(int iRow) {
+    private LinkElement getDeleteLink(int iRow) {
         WebElement cell = tableMessages().getCell(iRow, ACTIONS_COL);
         return new LinkElement(DELETE_BUTTON, "Delete Link", cell);
     }
@@ -92,7 +96,7 @@ public class MessageList extends AbstractPage {
         TestLogger.logMessage("Tap 'New Message' button");
 
         newMessage().click();
-        CreateMessagePage createMessagePage = new CreateMessagePage();
+        CreateMessagePage createMessagePage = new CreateMessagePage("asd");
         createMessagePage.isCreateMessagePageOpened();
         return createMessagePage;
     }
@@ -101,7 +105,7 @@ public class MessageList extends AbstractPage {
         TestLogger.logMessage("Tap 'Logout' button");
 
         logOut().click();
-        LoginPage loginPage = new LoginPage();
+        LoginPage loginPage = new LoginPage("asd");
         loginPage.isLoginPageOpened();
         return loginPage;
     }
@@ -194,7 +198,7 @@ public class MessageList extends AbstractPage {
         }
 
         TestLogger.logMessage("Tap 'View' button");
-        viewLink(iRow).click();
+        getViewLink(iRow).click();
 
         ViewMessagePage page = new ViewMessagePage();
         page.assertViewMessagePageOpened();
@@ -209,7 +213,7 @@ public class MessageList extends AbstractPage {
         }
 
         TestLogger.logMessage("Tap 'Edit' button");
-        editLink(iRow).click();
+        getEditLink(iRow).click();
 
         EditMessagePage page = new EditMessagePage();
         page.isEditPageOpened();
@@ -219,7 +223,7 @@ public class MessageList extends AbstractPage {
 
     public MessageList deleteMessage(String headline, String text) {
         int iRow = findMessageRow(headline, text);
-        deleteLink(iRow).click();
+        getDeleteLink(iRow).click();
         return new MessageList();
     }
 

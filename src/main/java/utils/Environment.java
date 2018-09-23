@@ -1,10 +1,6 @@
 package utils;
 
-
-import core.WebDriverFactory;
-
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 /**
  * ��������� �����
@@ -33,33 +29,9 @@ public class Environment {
         return url;
     }
 
-    public static void removeTimeOutForElements() {
-        setTimeOutForElements(0);
-    }
-
-
-    public static void removeTimeOutForPageLoad() {
-        setTimeOutForPageLoad(0);
-    }
-
-    public static void resetTimeOutForPageElements() {
-        setTimeOutForElements(TIME_OUT_FOR_ELEMENTS);
-    }
-
-
-    public static void resetTimeOutForPageLoad() {
-        setTimeOutForPageLoad(TIME_OUT_FOR_PAGE_LOAD);
-    }
-
     //TODO Убрать. Не использвать implicitlyWait
-    public static void setTimeOutForElements(int seconds) {
-        WebDriverFactory.instance().get().manage().timeouts().implicitlyWait(seconds, TimeUnit.SECONDS);
-    }
 
     //TODO Должно задаваться только один раз при инициализации драйвера
-    public static void setTimeOutForPageLoad(int seconds) {
-        WebDriverFactory.instance().get().manage().timeouts().pageLoadTimeout(seconds, TimeUnit.SECONDS);
-    }
 
     public static String generateUniqueString() {
         return new Date().getTime() + "_" + System.getenv("COMPUTERNAME");

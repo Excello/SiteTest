@@ -1,43 +1,19 @@
 package pages;
 
-import elements.ButtonElement;
-import elements.InputElement;
 import elements.LabelElement;
 import logging.TestLogger;
 import org.openqa.selenium.By;
-import utils.Environment;
 
 //TODO EditMessagePage
-public class EditMessagePage extends AbstractPage {
+public class EditMessagePage extends CreateAndEditPage {
     private static final By EDIT_MESSAGE_LABEL = By.xpath("//H1[text()='Edit Message']");
-    private static final By SAVE_BUTTON = By.cssSelector(".save");
-    private static final By HEADLINE_FIELD = By.id("headline");
-    private static final By TEXT_FIELD = By.id("text");
-
 
     private LabelElement editMessageLabel() {
         return new LabelElement(driver, EDIT_MESSAGE_LABEL, "Save Button");
     }
 
-    private ButtonElement saveButton() {
-        return new ButtonElement(driver, SAVE_BUTTON, "Save Button");
-    }
-
-    private InputElement inputHeadline() {
-        return new InputElement(driver, HEADLINE_FIELD, "Headline Field");
-    }
-
-    private InputElement inputText() {
-        return new InputElement(driver, TEXT_FIELD, "Text Field");
-    }
-
     public void isEditPageOpened() {
         assertPageOpened(editMessageLabel(), "Edit Message");
-    }
-
-    private void clickSave() {
-        TestLogger.logMessage("Tap 'Save Button'");
-        saveButton().click();
     }
 
    /* public void verifyHeadlineValue()
@@ -68,7 +44,6 @@ public class EditMessagePage extends AbstractPage {
         inputText().clear();
     }*/
 
-
     public void assertMessage(String headline, String text) {
         TestLogger.logMessage("Check that [Headline] " + headline + " and [Text] " + text + " values which entered in previous step were displayed");
 
@@ -85,7 +60,7 @@ public class EditMessagePage extends AbstractPage {
         }
     }
 
-    public ViewMessagePage editMessage(String newHeadline, String newText) {
+  /*  public ViewMessagePage editMessage(String newHeadline, String newText) {
 
         if (newHeadline == null) {
             newHeadline = "headline" + Environment.generateUniqueString();
@@ -104,7 +79,7 @@ public class EditMessagePage extends AbstractPage {
         viewMessagePage.assertViewMessagePageOpened();
 
         return viewMessagePage;
-    }
+    }*/
 
   /*  private String getFieldValue(String fieldName)
     {

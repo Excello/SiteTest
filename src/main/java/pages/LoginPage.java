@@ -12,6 +12,10 @@ public class LoginPage extends AbstractPage {
     private static final By SIGN_IN_BUTTON = By.cssSelector(".save");
     private static String loggedUser = null;
 
+    protected LoginPage(String formName) {
+        super(formName);
+    }
+
     private InputElement inputLogin() {
         return new InputElement(driver, LOGIN_FIELD, "login");
     }
@@ -25,7 +29,7 @@ public class LoginPage extends AbstractPage {
     }
 
     public void isLoginPageOpened() {
-        assertPageOpened(inputLogin(), "Login");
+        assertPageOpened();
     }
 
     public void signIn(String userName, String userPassword) {
@@ -37,7 +41,7 @@ public class LoginPage extends AbstractPage {
         signInButton().click();
 
         MessageList pageMessageList = new MessageList();
-        pageMessageList.isMessageListPageOpened();
+        pageMessageList.assertMessageListPageOpened();
 
         loggedUser = userName;
     }

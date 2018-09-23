@@ -8,7 +8,6 @@ import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.Reporter;
-import org.testng.TestRunner;
 import org.testng.annotations.*;
 import utils.Environment;
 
@@ -54,9 +53,9 @@ public abstract class AbstractTest {
     @BeforeMethod
     public static void openStartPage(Method method) {
         TestLogger.logMessage("Start method " + method.getName());
-        driver.get(Environment.URL);
         driver.manage().window().maximize();
-
+        driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+        driver.get(Environment.URL);
     }
 
     @AfterSuite(alwaysRun = true)
@@ -71,7 +70,6 @@ public abstract class AbstractTest {
         if (TestLogger.hasErrors()) {
             Reporter.log("Test ended with errors.");
         }
-
     }
 
     private static void markTestCriticalError() {

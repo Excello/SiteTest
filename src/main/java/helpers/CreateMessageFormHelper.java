@@ -1,13 +1,15 @@
 package helpers;
 
+import component.AbstractComponent;
+import data.Message;
 import pages.*;
 import utils.Environment;
 
 //TODO Общее замечание. Я бы во всех этих методах возвращал не сообщение, а страницу
 //TODO Чисто технически все эти методы так или иначе меняют итоговую страницу (да, она остается та же что была изначально, но формально messageList на входе и страница списка на выходе - разные страницы)
-public class CreateMessageFormHelper extends AbstractPage {
+public class CreateMessageFormHelper extends AbstractComponent {
     //TODO Используй класс Message
-    public String[] createNewMessage(String headline, String text, MessageList messageList) {
+    public Message createNewMessage(String headline, String text, MessageList messageList) {
 
         //Tap 'New Message' button
         CreateMessagePage pageCreateMessagePage = messageList.clickNewMessageButton();
@@ -22,12 +24,12 @@ public class CreateMessageFormHelper extends AbstractPage {
         viewMessagePage = pageCreateMessagePage.createMessage(headline, text);
 
         //Verify that Show Message page is opened
-        verifyShowMessagePage(headline, text, viewMessagePage);
+        verifyViewMessagePage(headline, text, viewMessagePage);
 
         //Tap 'Message List' button
         viewMessagePage.clickMessageList();
 
-        return new String[]{headline, text};
+        return new Message(headline, text);
     }
 
     //TODO Плохой метод. Делает слишком много. Хелпер должен помогать что-то создать удалить. А этот хелпер по сути сам в себе работает.
@@ -62,7 +64,7 @@ public class CreateMessageFormHelper extends AbstractPage {
         viewMessagePage = pageCreateMessagePage.createMessage(headline1, text1);
 
         //Verify that Show Message page is opened
-        verifyShowMessagePage(headline1, text1, viewMessagePage);
+        verifyViewMessagePage(headline1, text1, viewMessagePage);
 
         //Tap 'New Message' button
         viewMessagePage.clickNewMessage();
@@ -75,7 +77,7 @@ public class CreateMessageFormHelper extends AbstractPage {
         pageCreateMessagePage.createMessage(headline2, text2);
 
         //Verify that Show Message page is opened
-        verifyShowMessagePage(headline2, text2, viewMessagePage);
+        verifyViewMessagePage(headline2, text2, viewMessagePage);
 
         //Tap 'Message List' button
         viewMessagePage.clickMessageList();
@@ -93,7 +95,7 @@ public class CreateMessageFormHelper extends AbstractPage {
         if (newText == null) newText = "text" + Environment.generateUniqueString();
 
         ViewMessagePage viewMessagePage = pageEditMessagePage.editMessage(newHeadline, newText);
-        verifyShowMessagePage(newHeadline, newText, viewMessagePage);
+        verifyViewMessagePage(newHeadline, newText, viewMessagePage);
 
         viewMessagePage.clickMessageList();
 
@@ -101,7 +103,7 @@ public class CreateMessageFormHelper extends AbstractPage {
     }
 
     //TODO Не нравится название метода, не отражает сути
-    private void verifyShowMessagePage(String headline, String text, ViewMessagePage viewMessagePage) {
+    private void verifyViewMessagePage(String headline, String text, ViewMessagePage viewMessagePage) {
         //TODO Метод assert должен вызывать методы assert. Verify - это мягкая проверка, assert - жесткая
         viewMessagePage.verifyHeadlineValue(headline);
         viewMessagePage.verifyTextValue(text);

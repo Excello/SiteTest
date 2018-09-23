@@ -1,12 +1,14 @@
 package helpers;
 
+import component.AbstractComponent;
+import data.Message;
 import logging.TestLogger;
 import pages.AbstractPage;
 import pages.LoginPage;
 import pages.MessageList;
 import pages.ViewMessagePage;
 
-public class MessageListHelper extends AbstractPage {
+public class MessageListHelper extends AbstractComponent {
     private MessageList messageList;
     private CreateMessageFormHelper createMessageFormHelper;
 
@@ -16,18 +18,18 @@ public class MessageListHelper extends AbstractPage {
     }
 
     //TODO Вместо String[] создай класс Message
-    public String[] createMessage() {
+    public Message createMessage() {
         String text = "text";//TODO Не костанатный текст, а генерируй случайную строку
         String headline = "headline"; //TODO Same
         createMessage(headline, text);
-        return new String[] {headline, text};
+        return new Message(headline, text);
     }
 
     //TODO Тоже возвращай класс Message,и на вход прнимай класс Message
     public String[] createMessage(String headline, String text){
 
         //Message List is displayed
-        messageList.isMessageListPageOpened();
+        messageList.assertMessageListPageOpened();
 
         //Create Message
         String [] message = createMessageFormHelper.createNewMessage(headline, text, messageList);
@@ -45,7 +47,7 @@ public class MessageListHelper extends AbstractPage {
     public String[] createTwoMessages(String headline1, String text1, String headline2, String text2) {
 
         //Message List is displayed
-        messageList.isMessageListPageOpened();
+        messageList.assertMessageListPageOpened();
 
         //Create Two Messages
         String[] message = createMessageFormHelper.createTwoMessages(headline1, text1, headline2, text2, messageList);
@@ -70,7 +72,7 @@ public class MessageListHelper extends AbstractPage {
         TestLogger.logMessage("Opening from the list to view the message with the values headline: " + headline + ", text: " + text);
 
         //Message List is displayed
-        messageList.isMessageListPageOpened();
+        messageList.assertMessageListPageOpened();
 
         //View Message
         ViewMessagePage viewMessagePage =  messageList.openViewMessagePage(headline, text);
@@ -94,7 +96,7 @@ public class MessageListHelper extends AbstractPage {
         TestLogger.logMessage("Opening from the list to edit the message with the values headline: " + headline + ", text" + text);
 
         //Message List is displayed
-        messageList.isMessageListPageOpened();
+        messageList.assertMessageListPageOpened();
 
         //Enter new Headline and Text
         String[] message = createMessageFormHelper.editMessage(headline, text, newHeadline, newText, messageList);
@@ -110,7 +112,7 @@ public class MessageListHelper extends AbstractPage {
         TestLogger.logMessage("Deleting from the list the message: " + headline + ", text: " + text);
 
         //Message List is displayed
-        messageList.isMessageListPageOpened();
+        messageList.assertMessageListPageOpened();
 
         //Delete Message
         messageList.deleteMessage(headline, text);
@@ -124,7 +126,7 @@ public class MessageListHelper extends AbstractPage {
         TestLogger.logMessage("Creating message without saving");
 
         //Message List is displayed
-        messageList.isMessageListPageOpened();
+        messageList.assertMessageListPageOpened();
 
         //Create message without saving it
         String[] message = createMessageFormHelper.createMessageWithoutSaving(headline, text, messageList);
