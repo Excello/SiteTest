@@ -8,6 +8,10 @@ public class MainPage extends AbstractPage {
     private static final By USER_CONTROLLER_LINK = By.linkText("qulixteachingsite.UserController");
     private static final By MESSAGE_CONTROLLER_LINK = By.linkText("qulixteachingsite.MessageController");
 
+    public MainPage() {
+        super(USER_CONTROLLER_LINK, "Home Page");
+    }
+
     private LinkElement linkUserControllerPage() {
         return new LinkElement(driver, USER_CONTROLLER_LINK, "qulixteachingsite.UserController");
     }
@@ -33,6 +37,6 @@ public class MainPage extends AbstractPage {
     }
 
     public void isMainPageOpened() {
-        assertPageOpened(linkUserControllerPage(), "Home Page");
+        assertPageOpened();
     }
 }

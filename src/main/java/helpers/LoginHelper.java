@@ -1,7 +1,6 @@
 package helpers;
 
 import component.AbstractComponent;
-import pages.AbstractPage;
 import pages.LoginPage;
 import pages.MainPage;
 

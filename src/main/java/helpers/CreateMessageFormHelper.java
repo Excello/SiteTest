@@ -8,6 +8,14 @@ import utils.Environment;
 //TODO Общее замечание. Я бы во всех этих методах возвращал не сообщение, а страницу
 //TODO Чисто технически все эти методы так или иначе меняют итоговую страницу (да, она остается та же что была изначально, но формально messageList на входе и страница списка на выходе - разные страницы)
 public class CreateMessageFormHelper extends AbstractComponent {
+    private Message message;
+    private String headline;
+    private String text;
+
+    public CreateMessageFormHelper() {
+        message = new Message(headline, text);
+    }
+
     //TODO Используй класс Message
     public Message createNewMessage(String headline, String text, MessageList messageList) {
 
@@ -15,9 +23,9 @@ public class CreateMessageFormHelper extends AbstractComponent {
         CreateMessagePage pageCreateMessagePage = messageList.clickNewMessageButton();
 
         //Fill 'Headline' ant 'Text' fields
-        if (headline == null) headline = "headline" + Environment.generateUniqueString();
-
-        if (text == null) text = "text" + Environment.generateUniqueString();
+        if (headline == null && text == null) {
+            Message.createRandom();
+        }
 
         //Tap 'Create' button
         ViewMessagePage viewMessagePage;

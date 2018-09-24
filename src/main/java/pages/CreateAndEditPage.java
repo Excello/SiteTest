@@ -1,6 +1,7 @@
 package pages;
 
 
+import data.Message;
 import elements.BaseElement;
 import elements.ButtonElement;
 import elements.InputElement;
@@ -14,7 +15,7 @@ public class CreateAndEditPage extends AbstractPage {
     private static final By TEXT_FIELD = By.id("text");
     private static final By MESSAGE_LIST_BUTTON = By.cssSelector(".list");
 
-    public CreateAndEditPage(BaseElement identifyElementLocator, String formName) {
+    public CreateAndEditPage(By identifyElementLocator, String formName) {
         super(identifyElementLocator, formName);
     }
 
@@ -52,7 +53,7 @@ public class CreateAndEditPage extends AbstractPage {
     public ViewMessagePage createMessage(String headline, String text) {
 
         if (headline == null) {
-            headline = Environment.generateUniqueString();
+            headline = Message.createRandom();
         }
 
         if (text == null) {

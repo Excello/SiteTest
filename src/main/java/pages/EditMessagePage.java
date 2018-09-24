@@ -1,6 +1,5 @@
 package pages;
 
-import elements.LabelElement;
 import logging.TestLogger;
 import org.openqa.selenium.By;
 
@@ -8,13 +7,33 @@ import org.openqa.selenium.By;
 public class EditMessagePage extends CreateAndEditPage {
     private static final By EDIT_MESSAGE_LABEL = By.xpath("//H1[text()='Edit Message']");
 
-    private LabelElement editMessageLabel() {
-        return new LabelElement(driver, EDIT_MESSAGE_LABEL, "Save Button");
+    public EditMessagePage() {
+        super(EDIT_MESSAGE_LABEL, "Edit Message Page");
     }
 
     public void isEditPageOpened() {
-        assertPageOpened(editMessageLabel(), "Edit Message");
+        assertPageOpened();
     }
+
+    public void assertMessage(String headline, String text) {
+        TestLogger.logMessage("Check that [Headline] " + headline + " and [Text] " + text + " values which entered in previous step were displayed");
+
+        if (headline != null) {
+            inputHeadline().assertValue(headline);
+            TestLogger.logMessage("Clearing [Headline] " + headline + " value");
+            inputHeadline().clear();
+        }
+
+        if (text != null) {
+            inputText().assertValue(text);
+            TestLogger.logMessage("Clearing [Text] " + text + " value");
+            inputText().clear();
+        }
+    }
+}
+/* private LabelElement editMessageLabel() {
+        return new LabelElement(driver, EDIT_MESSAGE_LABEL, "Save Button");
+    }*/
 
    /* public void verifyHeadlineValue()
     {
@@ -36,29 +55,13 @@ public class EditMessagePage extends CreateAndEditPage {
         } else{
             TestLogger.logError("Field \"" + fieldName + "\" has value:" + value +", which is not expected( " + expected + ")");
         }
-    }*/
+}*/
 
-    /*public void clearFields(){
+/*public void clearFields(){
         TestLogger.logMessage("Clearing fields");
         inputHeadline().clear();
         inputText().clear();
-    }*/
-
-    public void assertMessage(String headline, String text) {
-        TestLogger.logMessage("Check that [Headline] " + headline + " and [Text] " + text + " values which entered in previous step were displayed");
-
-        if (headline != null) {
-            inputHeadline().assertValue(headline);
-            TestLogger.logMessage("Clearing [Headline] " + headline + " value");
-            inputHeadline().clear();
-        }
-
-        if (text != null) {
-            inputText().assertValue(text);
-            TestLogger.logMessage("Clearing [Text] " + text + " value");
-            inputText().clear();
-        }
-    }
+}*/
 
   /*  public ViewMessagePage editMessage(String newHeadline, String newText) {
 
@@ -87,4 +90,3 @@ public class EditMessagePage extends CreateAndEditPage {
 
         return tableOfFields().getCellText(iRow, fieldValueCol);
     }*/
-}

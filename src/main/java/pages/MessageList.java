@@ -28,17 +28,12 @@ public class MessageList extends AbstractPage {
     private static final int ACTIONS_COL = 1;
     private static final int AUTHOR_COL = 4;
 
-    public MessageList(BaseElement identifyElementLocator, String formName) {
-        super(identifyElementLocator, formName);
-        messageListLabel();
+    public MessageList() {
+        super(LABEL_MESSAGE_LIST, "Message List Page");
     }
 
     private static TableManager tableMessages() {
         return new TableManager(TABLE);
-    }
-
-    private LabelElement messageListLabel() {
-        return new LabelElement(driver, LABEL_MESSAGE_LIST, "Message List Title");
     }
 
     private LabelElement userMessage() {
@@ -96,7 +91,7 @@ public class MessageList extends AbstractPage {
         TestLogger.logMessage("Tap 'New Message' button");
 
         newMessage().click();
-        CreateMessagePage createMessagePage = new CreateMessagePage("asd");
+        CreateMessagePage createMessagePage = new CreateMessagePage();
         createMessagePage.isCreateMessagePageOpened();
         return createMessagePage;
     }
@@ -105,7 +100,7 @@ public class MessageList extends AbstractPage {
         TestLogger.logMessage("Tap 'Logout' button");
 
         logOut().click();
-        LoginPage loginPage = new LoginPage("asd");
+        LoginPage loginPage = new LoginPage();
         loginPage.isLoginPageOpened();
         return loginPage;
     }
@@ -155,18 +150,9 @@ public class MessageList extends AbstractPage {
     }
 
     //TODO Что метод то делает?
-/*
-    public void isMessageIsNotInList(String headline, String text) {
-        TestLogger.logMessage("Check that there is no an headline element " + headline + " and Text " + text + " in the table");
-
-        int index = findMessageRow(headline, text);
-
-    }
-*/
 
     private void selectNextPage() {
         if (isPagingEnabled()) {
-            Environment.setTimeOutForPageLoad(Environment.TIME_OUT_FOR_PAGE_LOAD);
             nextPage().click();
             TestLogger.logMessage("Next page is opened");
         } else {
@@ -180,12 +166,9 @@ public class MessageList extends AbstractPage {
 
 
     private void selectFirstPage() {
-
-        Environment.setTimeOutForPageLoad(Environment.TIME_OUT_FOR_PAGE_LOAD);
-
         //TODO Разве там нет прямой ссылки на первую страницу?
         while (prevPage().exists(0)) {
-            logDebug("Going to previous page");
+            TestLogger.logMessage("Going to previous page");
             prevPage().click();
         }
     }
@@ -242,3 +225,17 @@ public class MessageList extends AbstractPage {
         allUsersCheckBox().isCheckBoxNotSelected();
     }
 }
+
+
+  /*private LabelElement messageListLabel() {
+        return new LabelElement(driver, LABEL_MESSAGE_LIST, "Message List Title");
+    }*/
+
+  /*
+    public void isMessageIsNotInList(String headline, String text) {
+        TestLogger.logMessage("Check that there is no an headline element " + headline + " and Text " + text + " in the table");
+
+        int index = findMessageRow(headline, text);
+
+    }
+*/

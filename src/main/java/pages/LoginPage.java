@@ -6,14 +6,13 @@ import logging.TestLogger;
 import org.openqa.selenium.By;
 
 public class LoginPage extends AbstractPage {
-
     private static final By LOGIN_FIELD = By.id("login");
     private static final By PASSWORD_FIELD = By.id("password");
     private static final By SIGN_IN_BUTTON = By.cssSelector(".save");
     private static String loggedUser = null;
 
-    protected LoginPage(String formName) {
-        super(formName);
+    public LoginPage() {
+        super(LOGIN_FIELD, "Login Page");
     }
 
     private InputElement inputLogin() {

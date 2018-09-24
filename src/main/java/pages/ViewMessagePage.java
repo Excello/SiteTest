@@ -8,7 +8,6 @@ import org.openqa.selenium.By;
 
 //TODO ShowMessagePage, а вообще корректнее ViewMessagePage
 public class ViewMessagePage extends AbstractPage {
-
     private static final By SHOW_MESSAGE_LABEL = By.xpath("//H1[text()='Show Message']");
     private static final By MESSAGE_LIST_BUTTON = By.cssSelector(".list");
     private static final By TABLE = By.cssSelector(".dialog");
@@ -17,12 +16,12 @@ public class ViewMessagePage extends AbstractPage {
     private static final int fieldNameCol = 1;
     private static final int fieldValueCol = 2;
 
-    private ButtonElement messageList() {
-        return new ButtonElement(driver, MESSAGE_LIST_BUTTON, "Message List");
+    public ViewMessagePage() {
+        super(SHOW_MESSAGE_LABEL, "Show Message Page");
     }
 
-    private LabelElement showMessage() {
-        return new LabelElement(driver, SHOW_MESSAGE_LABEL, "Show Message");
+    private ButtonElement messageList() {
+        return new ButtonElement(driver, MESSAGE_LIST_BUTTON, "Message List");
     }
 
     private ButtonElement newMessage() {
@@ -31,7 +30,7 @@ public class ViewMessagePage extends AbstractPage {
 
     //TODO assertMessagePageIsOpened
     public void assertViewMessagePageOpened() {
-        assertPageOpened(showMessage(), "Show Message");
+        assertPageOpened();
     }
 
     public MessageList clickMessageList() {
@@ -81,3 +80,6 @@ public class ViewMessagePage extends AbstractPage {
         return createMessagePage;
     }
 }
+/*private LabelElement showMessage() {
+        return new LabelElement(driver, SHOW_MESSAGE_LABEL, "Show Message");
+    }*/

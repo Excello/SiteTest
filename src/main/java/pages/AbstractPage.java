@@ -1,23 +1,20 @@
 package pages;
 
 import core.WebDriverFactory;
-import elements.BaseElement;
 import logging.TestLogger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 
 //TODO Страница не может наследоваться от компонента
 public class AbstractPage {
-    private final BaseElement identifyElementLocator;
-    private String formName;
+    private final By identifyElementLocator;
+    private final String formName;
     protected WebDriver driver = WebDriverFactory.instance().get();
 
-    protected AbstractPage(BaseElement identifyElementLocator, String formName) {
+    public AbstractPage(By identifyElementLocator, String formName) {
         this.identifyElementLocator = identifyElementLocator;
-        this.formName = formName;
-    }
-
-    protected AbstractPage(String formName) {
-        this.identifyElementLocator = null;
         this.formName = formName;
     }
 
@@ -25,7 +22,8 @@ public class AbstractPage {
     //TODO Этот метод можно сделать public и без параметров
     public void assertPageOpened() {
         try {
-            identifyElementLocator.assertExists();
+            WebElement pageElement = driver.findElement(identifyElementLocator);
+            Assert.assertTrue(pageElement.isDisplayed());
             TestLogger.logMessage("Element " + formName + " is displayed");
         } catch (Exception ex) {
             TestLogger.logError("Element " + formName + " is not displayed");
