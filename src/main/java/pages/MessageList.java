@@ -1,6 +1,7 @@
 package pages;
 
 import component.TableManager;
+import data.Message;
 import elements.BaseElement;
 import elements.ButtonElement;
 import elements.LabelElement;
@@ -70,7 +71,7 @@ public class MessageList extends AbstractPage {
     }
 
     //TOdo getViewLink или createViewLink. getViewLink - означает выполнить действие
-    private LinkElement getViewLink(int iRow) {
+    private LinkElement getViewLink(Message iRow) {
         WebElement cell = tableMessages().getCell(iRow, ACTIONS_COL);
         return new LinkElement(VIEW_BUTTON, "View Link", cell);
     }
@@ -106,7 +107,7 @@ public class MessageList extends AbstractPage {
     }
 
     //TODO На вход класс Message
-    private int findMessageRow(String headline, String text) {
+    private Message findMessageRow(String headline, String text) {
         TestLogger.logMessage("Looking for line with [headline] " + headline + " and [text] " + text);
 
         TableManager.RowCondition cond = TableManager.createCondition();
@@ -120,7 +121,7 @@ public class MessageList extends AbstractPage {
 
         if (index > 1) {
             TestLogger.logMessage("Elements are displayed");
-            return index;
+            return new Message(headline, text);
         } else {
             TestLogger.logMessage("Elements are not displayed on page. Will be attempt to move to the next page");
         }
@@ -130,19 +131,19 @@ public class MessageList extends AbstractPage {
             index = tableMessages().getIndexOfRow(cond);
             if (index > 1) {
                 TestLogger.logMessage("Element is displayed");
-                return index;
+                return new Message(headline, text);
             } else {
                 TestLogger.logMessage("Element is not displayed on page. Will be attempt to move to the next page");
             }
         }
-        return index;
+        return new Message(headline, text);
     }
 
     //TODO assertMesageInlist
     public void assertMessageIsInList(String headline, String text) {
         TestLogger.logMessage("Check that there is an [headline] element in the table " + headline + " and [text] " + text);
 
-        int index = findMessageRow(headline, text);
+        Message index = findMessageRow(headline, text);
 
         if (index < 1) {
             TestLogger.logError("The element is not displayed");
@@ -174,7 +175,7 @@ public class MessageList extends AbstractPage {
     }
 
     public ViewMessagePage openViewMessagePage(String headline, String text) {
-        int iRow = findMessageRow(headline, text);
+        Message iRow = findMessageRow(headline, text);
 
         if (iRow < 1) {
             TestLogger.logError("Element is not displayed");

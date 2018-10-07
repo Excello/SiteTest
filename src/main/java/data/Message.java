@@ -6,15 +6,13 @@ public class Message {
     private String headline;
     private String text;
 
-    public Message(String headline, String text) {
-        this.headline = headline;
-        this.text = text;
+    public Message() {
+        this.headline = createRandom();
+        this.text = createRandom();
     }
 
-    public static Message createRandom(){
-        String randomHeadline = "headline" + Environment.generateUniqueString();
-        String randomText = "text" + Environment.generateUniqueString();
-        return new Message(randomHeadline, randomText);
+    private static String createRandom(){
+        return Environment.generateUniqueString();
     }
 
     public String getHeadline() {
