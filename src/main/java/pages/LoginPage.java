@@ -1,5 +1,6 @@
 package pages;
 
+import data.User;
 import elements.ButtonElement;
 import elements.InputElement;
 import logging.TestLogger;
@@ -31,17 +32,19 @@ public class LoginPage extends AbstractPage {
         assertPageOpened();
     }
 
-    public void signIn(String userName, String userPassword) {
-        TestLogger.logMessage("Logging in to application: " + userName + "\\" + userPassword);
+    public MessageList signIn(User user) {
+        TestLogger.logMessage("Logging in to application: " + user.getUserName() + "\\" + user.getPassword());
 
         driver.switchTo().defaultContent();
-        inputLogin().enterValue(userName);
-        inputPassword().enterValue(userPassword);
+        inputLogin().enterValue(user.getUserName());
+        inputPassword().enterValue(user.getPassword());
         signInButton().click();
 
         MessageList pageMessageList = new MessageList();
         pageMessageList.assertMessageListPageOpened();
 
-        loggedUser = userName;
+        loggedUser = user.getName();
+
+        return new MessageList();
     }
 }

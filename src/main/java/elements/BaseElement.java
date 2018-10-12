@@ -101,7 +101,6 @@ public class BaseElement extends AbstractComponent {
     public void assertText(String expected) {
         String actual = element().getText();
         Assert.assertEquals(actual, expected);
-
     }
 
     protected String getName() {

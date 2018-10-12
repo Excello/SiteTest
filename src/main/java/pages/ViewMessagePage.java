@@ -2,7 +2,6 @@ package pages;
 
 import component.TableManager;
 import elements.ButtonElement;
-import elements.LabelElement;
 import logging.TestLogger;
 import org.openqa.selenium.By;
 
@@ -46,15 +45,15 @@ public class ViewMessagePage extends AbstractPage {
         return new TableManager(TABLE);
     }
 
-    public void verifyHeadlineValue(String expected) {
-        verifyFieldValue("Headline", expected);
+    public void assertHeadlineValue(String expected) {
+        assertFieldValue("Headline", expected);
     }
 
-    public void verifyTextValue(String expected) {
-        verifyFieldValue("Text", expected);
+    public void assertTextValue(String expected) {
+        assertFieldValue("Text", expected);
     }
 
-    private void verifyFieldValue(String fieldName, String expected) {
+    private void assertFieldValue(String fieldName, String expected) {
         TestLogger.logMessage("Check that field " + fieldName + " has value " + expected);
         String value = getFieldValue(fieldName);
 

@@ -1,27 +1,30 @@
 package tests;
 
+import data.Message;
+import data.User;
 import helpers.LoginHelper;
 import helpers.MessageListHelper;
+import helpers.ViewMessageHelper;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class Test2 extends AbstractTest {
     @Test(description = "Case 2. Creation and view message")
-    @Parameters({"Login", "Password", "HeadlineValue", "TextValue"})
-    public void test(String login, String password, String headline, String text) {
+    @Parameters({"User", "Message"})
+    public void test(Message message) {
         MessageListHelper messageListHelper = new MessageListHelper();
         LoginHelper loginHelper = new LoginHelper();
+        ViewMessageHelper viewMessageHelper = new ViewMessageHelper();
 
-        loginHelper.signInToUserController(login, password);
+        loginHelper.signInToUserController(User.USER_ADMIN);
 
-        if (headline.equals("")) headline = null;
-        if (text.equals("")) text = null;
+        /*if (headline.equals("")) headline = null;
+        if (text.equals("")) text = null;*/
 
-        String[] message = messageListHelper.createMessage(headline, text);
+        Message userMessage = messageListHelper.createMessage(message);
 
-        headline = message[0];
-        text = message[1];
+        viewMessageHelper.assertMessageIsCorrect(userMessage);
 
-        messageListHelper.viewMessage(headline, text);
+        messageListHelper.assertMessageIsCorrect(userMessage);
     }
 }

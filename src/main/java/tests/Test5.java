@@ -1,5 +1,7 @@
 package tests;
 
+import data.Message;
+import data.User;
 import helpers.LoginHelper;
 import helpers.MessageListHelper;
 import org.testng.annotations.Parameters;
@@ -7,16 +9,18 @@ import org.testng.annotations.Test;
 
 public class Test5 extends AbstractTest {
     @Test(description = "Case 5. Creation of message without saving")
-    @Parameters({"Login", "Password", "HeadlineValue", "TextValue"})
-    public void test(String login, String password, String headline, String text) {
+    @Parameters({"Message"})
+    public void test(Message message) {
         MessageListHelper messageListHelper = new MessageListHelper();
         LoginHelper loginHelper = new LoginHelper();
 
-        loginHelper.signInToUserController(login, password);
+        loginHelper.signInToUserController(User.USER_ADMIN);
 
+/*
         if (headline.equals("")) headline = null;
         if (text.equals("")) text = null;
+*/
 
-        messageListHelper.createMessageWithoutSaving(headline, text);
+        messageListHelper.createMessageWithoutSaving(message);
     }
 }

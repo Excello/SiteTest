@@ -11,15 +11,8 @@ public class ButtonElement extends BaseElement {
         super(driver, locator, name);
     }
 
-    public void isCheckBoxSelected() {
+    public boolean isCheckBoxSelected() {
         TestLogger.logMessage("Check that checkbox " + name + " is selected");
-
-        Assert.assertTrue(element().isSelected());
-    }
-
-    public void isCheckBoxNotSelected() {
-        TestLogger.logMessage("Check that checkbox " + name + " is not selected");
-
-        Assert.assertFalse(element().isSelected());
+        return element().isSelected();
     }
 }

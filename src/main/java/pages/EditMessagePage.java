@@ -4,7 +4,7 @@ import logging.TestLogger;
 import org.openqa.selenium.By;
 
 //TODO EditMessagePage
-public class EditMessagePage extends CreateAndEditPage {
+public class EditMessagePage extends MessagePage {
     private static final By EDIT_MESSAGE_LABEL = By.xpath("//H1[text()='Edit Message']");
 
     public EditMessagePage() {
@@ -15,7 +15,7 @@ public class EditMessagePage extends CreateAndEditPage {
         assertPageOpened();
     }
 
-    public void assertMessage(String headline, String text) {
+    /*public void assertMessage(Message message) {
         TestLogger.logMessage("Check that [Headline] " + headline + " and [Text] " + text + " values which entered in previous step were displayed");
 
         if (headline != null) {
@@ -29,18 +29,18 @@ public class EditMessagePage extends CreateAndEditPage {
             TestLogger.logMessage("Clearing [Text] " + text + " value");
             inputText().clear();
         }
-    }
+    }*/
 }
 /* private LabelElement editMessageLabel() {
         return new LabelElement(driver, EDIT_MESSAGE_LABEL, "Save Button");
     }*/
 
-   /* public void verifyHeadlineValue()
+   /* public void assertHeadlineValue()
     {
         inputHeadline().assertValue(headline);
     }
 
-    public void verifyTextValue(String expected)
+    public void assertTextValue(String expected)
     {
         verifyFieldValue("Text", expected);
     }

@@ -2,16 +2,8 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="TestsAutomation">
   <test verbose="1" name="Case 7" annotations="JDK" preserve-order="true">
-	  <parameter name="login1" value="admin"/>
-	  <parameter name="password1" value="password"/>
-	  <parameter name="login2" value="jdoe"/>
-	  <parameter name="password2" value="password"/>
-	  <parameter name="headline1" value=""/>
-	  <parameter name="text1" value=""/>
-	  <parameter name="headline2" value=""/>
-	  <parameter name="text2" value=""/>
-	  <parameter name="expected" value="Hello John Doe!"/>
-	  <parameter name="expected1" value="Hello Administrator!"/>
+	  <parameter name="AdminMessage" value="null"/>
+	  <parameter name="JdoeMessage" value="null"/>
 	  <classes>
 		<class name="tests.Test7">
 			<methods>

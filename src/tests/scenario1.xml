@@ -4,7 +4,7 @@
 	<test verbose="1" name="Case 1" annotations="JDK" preserve-order="true">
 	<parameter name="Login" value="admin"/>
 	<parameter name="Password" value="password"/> 
-	<parameter name="HeadlineValue" value=""/>
+	<parameter name="Message" value=""/>
 	<parameter name="TextValue" value=""/>
     <classes>
 		<class name="tests.Test1">

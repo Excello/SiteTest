@@ -1,6 +1,7 @@
 package helpers;
 
 import component.AbstractComponent;
+import data.User;
 import pages.LoginPage;
 import pages.MainPage;
 
@@ -18,9 +19,9 @@ public class LoginHelper extends AbstractComponent {
         return mainPage.openUserControllerPage();
     }
 
-    public void signInToUserController(String userName, String password) {
+    public void signInToUserController(User user) {
         LoginPage loginPage = openUserControllerPage();
-        loginPage.signIn(userName, password);
+        loginPage.signIn(user);
     }
 
     private LoginPage openMessageControllerPage() {
@@ -28,13 +29,13 @@ public class LoginHelper extends AbstractComponent {
         return mainPage.openMessageControllerPage();
     }
 
-    public void signInToMessageController(String userName, String password) {
+    public void signInToMessageController(User user) {
         LoginPage loginPage = openMessageControllerPage();
-        loginPage.signIn(userName, password);
+        loginPage.signIn(user);
     }
 
-    public void signInAnotherUser(String userName, String password) {
+   /* public void signInAnotherUser(String userName, String password) {
         LoginPage loginPage = new LoginPage();
         loginPage.signIn(userName, password);
-    }
+    }*/
 }
