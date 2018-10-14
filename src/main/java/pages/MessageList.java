@@ -32,12 +32,6 @@ public class MessageList extends AbstractPage {
         super(LABEL_MESSAGE_LIST, "Message List Page");
     }
 
-    public MessageList(String headline, String text) {
-        super(LABEL_MESSAGE_LIST, "Message List Page");
-        String headline1 = headline;
-        String text1 = text;
-    }
-
     private static TableManager tableMessages() {
         return new TableManager(TABLE);
     }
@@ -274,7 +268,7 @@ public class MessageList extends AbstractPage {
         //TODO А если бокс был уже выбран?
         if(!isCheckBoxSelected()) {
             allUsersCheckBox().click();
-            TestLogger.logMessage("Tap 'All Users' checkbox");
+            TestLogger.logMessage("'All Users' checkbox is selected");
         } else {
             TestLogger.logMessage("Checkbox has already selected");
         }
@@ -284,7 +278,7 @@ public class MessageList extends AbstractPage {
         //TODO А если бокс был уже снят?
         if(isCheckBoxSelected()) {
             allUsersCheckBox().click();
-            TestLogger.logMessage("Tap 'All Users' checkbox");
+            TestLogger.logMessage("'All Users' checkbox is removed");
         } else {
             TestLogger.logMessage("Checkbox has not already selected");
         }

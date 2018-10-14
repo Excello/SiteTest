@@ -2,12 +2,8 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="TestsAutomation">
   <test verbose="1" name="Case 6" annotations="JDK" preserve-order="true">
-	  <parameter name="Login" value="admin"/>
-	  <parameter name="Password" value="password"/>
-	  <parameter name="Headline1Value" value=""/>
-	  <parameter name="Text1Value" value=""/>
-	  <parameter name="Headline2Value" value=""/>
-	  <parameter name="Text2Value" value=""/>
+	  <parameter name="Message" value="null"/>
+	  <parameter name="NewMessage" value="null"/>
 	  <classes>
 		<class name="tests.Test6">
 			<methods>

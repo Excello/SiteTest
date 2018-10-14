@@ -33,9 +33,4 @@ public class LoginHelper extends AbstractComponent {
         LoginPage loginPage = openMessageControllerPage();
         loginPage.signIn(user);
     }
-
-   /* public void signInAnotherUser(String userName, String password) {
-        LoginPage loginPage = new LoginPage();
-        loginPage.signIn(userName, password);
-    }*/
 }

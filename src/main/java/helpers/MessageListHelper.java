@@ -16,63 +16,33 @@ public class MessageListHelper extends AbstractComponent {
     }
 
     //TODO Вместо String[] создай класс Message
-    public Message createMessage() {
+    public CreateMessagePage tapCreateMessage() {
        //TODO Не костанатный текст, а генерируй случайную строку
        //TODO Same
-        Message message = Message.createRandom();
-        createMessage(message);
-        return new Message(message.getHeadline(), message.getText());
+        TestLogger.logMessage("Tap 'Create Message' button");
+
+        messageList.clickNewMessageButton();
+
+        return new CreateMessagePage();
     }
 
     //TODO Тоже возвращай класс Message,и на вход прнимай класс Message
     public Message createMessage(Message message){
 
-        //Message List is displayed
-        messageList.assertMessageListPageOpened();
+        if (message == null) {
+            message = Message.createRandom();
+        }
+
+        CreateMessagePage createMessagePage = new CreateMessagePage();
 
         //Create Message
-        messageList = createMessageFormHelper.createNewMessage(message, messageList);
-
-        //There is a created object and headline and text fields contains early filled values
-        messageList.assertMessageIsInList(message);
-
-        return new Message(message.getHeadline(), message.getText());
-    }
-
-    public Message createnewMessage(Message message){
-
-        //Message List is displayed
-        messageList.assertMessageListPageOpened();
-
-        //Create Message
-        messageList = createMessageFormHelper.createNewMessage(message, messageList);
+        createMessageFormHelper.createNewMessage(message, createMessagePage);
 
         return new Message(message.getHeadline(), message.getText());
     }
 
     //TODO Не очень понимаю зачем этот хелпер. Только ради асертов? Логически стоило бы сделать наоборот.
     //TODO Асерт на существование должен быть в CreateMessageFormHelper. Этот метод и выше выглядят дубликатами аналогов в CreateMessageFormHelper
-    /*public String[] createTwoMessages(String headline1, String text1, String headline2, String text2) {
-
-        //Message List is displayed
-        messageList.assertMessageListPageOpened();
-
-        //Create Two Messages
-        String[] message = createMessageFormHelper.createTwoMessages(headline1, text1, headline2, text2, messageList);
-
-        headline1 = message[0];
-        text1 = message[1];
-        headline2 = message[2];
-        text2 = message[3];
-
-        //There is a created object and headline and text fields contains early filled values
-        messageList.assertMessageIsInList(headline1, text1);
-
-        //There is a created object and headline and text fields contains early filled values
-        messageList.assertMessageIsInList(headline2, text2);
-
-        return new String[] {headline1, text1, headline2, text2};
-    }*/
 
     //TODO почему void? Почему не ViewMessagePage?
     public ViewMessagePage viewMessage(Message message) {
@@ -95,11 +65,12 @@ public class MessageListHelper extends AbstractComponent {
 
     public void assertMessageIsCorrect(Message message) {
         //TODO Это еще зачем?
-        //There is a created object and headline and text fields contains early filled values
+        //Check that there is message in the list
         messageList.assertMessageIsInList(message);
     }
 
-    public void assertMesseageIsNotDisplayed(Message message) {
+    public void assertMessageIsNotDisplayed(Message message) {
+        //Check that there is no message in the list
         messageList.assertMessageIsNotInList(message);
     }
 
@@ -108,14 +79,15 @@ public class MessageListHelper extends AbstractComponent {
     public void editMessage(Message message, Message newMessage) {
         TestLogger.logMessage("Opening from the list to edit the message with the values headline: " + message.getHeadline() + ", text" + message.getText());
 
+        if (newMessage == null) {
+            newMessage = Message.createRandom();
+        }
+
         //Message List is displayed
         messageList.assertMessageListPageOpened();
 
         //Enter new Headline and Text
         messageList = createMessageFormHelper.editMessage(message, newMessage, messageList);
-
-      /*  newHeadline = message[0];
-        newText = message[1];*/
 
         //There is a last created object and headline and text fields contains early filled values
         messageList.assertMessageIsInList(newMessage);
@@ -135,8 +107,12 @@ public class MessageListHelper extends AbstractComponent {
     }
 
     //TODO Тоже дубликат с CreateMessageFormHelper
-    public void createMessageWithoutSaving(Message message) {
+    public Message createMessageWithoutSaving(Message message) {
         TestLogger.logMessage("Creating message without saving");
+
+        if (message == null) {
+            message = Message.createRandom();
+        }
 
         //Message List is displayed
         messageList.assertMessageListPageOpened();
@@ -144,8 +120,7 @@ public class MessageListHelper extends AbstractComponent {
         //Create message without saving it
         createMessageFormHelper.createMessageWithoutSaving(message, messageList);
 
-        //Check that Message is not saved
-        messageList.assertMessageIsNotInList(message);
+        return new Message(message.getHeadline(), message.getText());
     }
 
     public void signInAnotherUser(User user) {
@@ -164,6 +139,8 @@ public class MessageListHelper extends AbstractComponent {
     }
 
     public MessageList selectCheckbox() {
+
+        // Select checkbox
         messageList.selectAllUsersCheckBox();
 
         return new MessageList();
@@ -171,18 +148,15 @@ public class MessageListHelper extends AbstractComponent {
 
     public MessageList removeCheckbox() {
 
+        // Remove Checkbox
         messageList.removeAllUsersCheckBox();
 
         return new MessageList();
     }
 
-
     //TODO Метод называется All, но передавать может два и только два сообщения, да еще и логин какой-то непонятный
     public void verifyUserMessage(Message message, String author) {
         TestLogger.logMessage("Verify user " + author + " messages");
-
-        //Select checkbox
-        messageList.selectAllUsersCheckBox();
 
         //Verify All Messages
         messageList.assertMessageIsInList(message, author);

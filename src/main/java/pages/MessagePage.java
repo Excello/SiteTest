@@ -62,9 +62,9 @@ public class MessagePage extends AbstractPage {
         inputText().clear();
         inputHeadline().clear();
 
-        if (message.getHeadline() == null && message.getText() == null) {
+        /*if (message.getHeadline() == null && message.getText() == null) {
             Message.createRandom();
-        }
+        }*/
 
         TestLogger.logMessage("Filling 'Edit Message' form with new [headline] " + message.getHeadline() + " and [text] " + message.getText() + " values");
         inputHeadline().enterValue(message.getHeadline());
@@ -80,9 +80,9 @@ public class MessagePage extends AbstractPage {
     }
 
     public ViewMessagePage createMessage(Message message) {
-        if (message.getHeadline() == null && message.getText() == null) {
+        /*if (message.getHeadline() == null && message.getText() == null) {
             Message.createRandom();
-        }
+        }*/
 
         TestLogger.logMessage("Filling 'Create Message' form with value [headline] " + message.getHeadline() + " and [text] " + message.getText());
         inputHeadline().enterValue(message.getHeadline());
@@ -98,9 +98,9 @@ public class MessagePage extends AbstractPage {
     }
 
     public void fillValues(Message message) {
-        if (message.getHeadline() == null && message.getText() == null) {
+        /*if (message.getHeadline() == null && message.getText() == null) {
             message = Message.createRandom();
-        }
+        }*/
 
         TestLogger.logMessage("Filling 'Create Message' form with value [headline] " + message.getHeadline() + " and [text] " + message.getText());
         inputHeadline().enterValue(message.getHeadline());

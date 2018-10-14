@@ -8,32 +8,27 @@ import pages.*;
 //TODO Чисто технически все эти методы так или иначе меняют итоговую страницу (да, она остается та же что была изначально, но формально messageList на входе и страница списка на выходе - разные страницы)
 public class CreateMessageFormHelper extends AbstractComponent {
 
-
-    public MessageList createNewMessage(Message message, MessageList messageList) {
+    public ViewMessagePage createNewMessage(Message message, CreateMessagePage createMessagePage) {
 
         //Tap 'New Message' button
-        CreateMessagePage pageCreateMessagePage = messageList.clickNewMessageButton();
+        //CreateMessagePage pageCreateMessagePage = messageList.clickNewMessageButton();
 
         //Fill 'Headline' ant 'Text' fields
-/*
-        if (message.getHeadline() == null && message.getText() == null) {
+        /*if (message == null) {
             message = Message.createRandom();
-        }
-*/
-
-
+        }*/
 
         //Tap 'Create' button
         ViewMessagePage viewMessagePage;
-        viewMessagePage = pageCreateMessagePage.createMessage(message);
+        viewMessagePage = createMessagePage.createMessage(message);
 
         //Verify that Show Message page is opened
         assertMessage(message, viewMessagePage);
 
         //Tap 'Message List' button
-        viewMessagePage.clickMessageList();
+        //viewMessagePage.clickMessageList();
 
-        return new MessageList(message.getHeadline(), message.getText());
+        return new ViewMessagePage();
     }
 
     //TODO Плохой метод. Делает слишком много. Хелпер должен помогать что-то создать удалить. А этот хелпер по сути сам в себе работает.
@@ -44,9 +39,9 @@ public class CreateMessageFormHelper extends AbstractComponent {
         CreateMessagePage pageCreateMessagePage = messageList.clickNewMessageButton();
 
         //Fill 'Headline' ant 'Text' fields
-        if (message.getHeadline() == null && message.getText() == null) {
+       /* if (message == null) {
             message = Message.createRandom();
-        }
+        }*/
 
         pageCreateMessagePage.fillValues(message);
 
@@ -55,7 +50,6 @@ public class CreateMessageFormHelper extends AbstractComponent {
 
         return new MessageList();
     }
-
 
     //TODO А смысл? Лучше дважды вызвать createNewMessage
 
@@ -66,16 +60,21 @@ public class CreateMessageFormHelper extends AbstractComponent {
 
         pageEditMessagePage.assertMessageIsCorrect(message);
 
-        if (newMessage.getHeadline() == null && newMessage.getText() == null) {
+        /*if (newMessage.getHeadline() == null && newMessage.getText() == null) {
             newMessage = Message.createRandom();
-        }
+        }*/
 
         ViewMessagePage viewMessagePage = pageEditMessagePage.fillNewValues(newMessage);
         assertMessage(newMessage, viewMessagePage);
 
-        viewMessagePage.clickMessageList();
+        goToMessageListPage(viewMessagePage);
 
         return new MessageList();
+    }
+
+    private MessageList goToMessageListPage(ViewMessagePage viewMessagePage) {
+        viewMessagePage.clickMessageList();
+        return new  MessageList();
     }
 
     //TODO Не нравится название метода, не отражает сути

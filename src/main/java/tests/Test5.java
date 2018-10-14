@@ -16,11 +16,8 @@ public class Test5 extends AbstractTest {
 
         loginHelper.signInToUserController(User.USER_ADMIN);
 
-/*
-        if (headline.equals("")) headline = null;
-        if (text.equals("")) text = null;
-*/
+        Message userMessage = messageListHelper.createMessageWithoutSaving(message);
 
-        messageListHelper.createMessageWithoutSaving(message);
+        messageListHelper.assertMessageIsNotDisplayed(userMessage);
     }
 }

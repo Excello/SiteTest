@@ -8,47 +8,51 @@ import helpers.ViewMessageHelper;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import static data.Message.createRandom;
-
 public class Test7 extends AbstractTest {
     @Test(description = "Case 7. Creation and view of 2 messages")
     @Parameters({"AdminMessage", "JdoeMessage"})
-    public void test() {
+    public void test(Message message, Message anotherMessage) {
         MessageListHelper messageListHelper = new MessageListHelper();
         LoginHelper loginHelper = new LoginHelper();
         ViewMessageHelper viewMessageHelper = new ViewMessageHelper();
-        Message message = createRandom();
-        Message anotherMessage = createRandom();
+
+        // Working as ADMIN
 
         loginHelper.signInToUserController(User.USER_ADMIN);
 
-       /* if (headline1.equals("")) headline1 = null;
-        if (text1.equals("")) text1 = null;*/
+        messageListHelper.tapCreateMessage();
 
         Message adminMessage = messageListHelper.createMessage(message);
 
-        /*headline1 = message1[0];
-        text1 = message1[1];*/
-
-        messageListHelper.viewMessage(adminMessage);
-
-        viewMessageHelper.assertMessageIsCorrect(adminMessage);
+        viewMessageHelper.openMessageList(adminMessage);
 
         messageListHelper.assertMessageIsCorrect(adminMessage);
 
+        messageListHelper.viewMessage(adminMessage);
+
+        viewMessageHelper.openMessageList(adminMessage);
+
+        messageListHelper.assertMessageIsCorrect(adminMessage);
+
+        // Working as JDOE
+
         messageListHelper.signInAnotherUser(User.USER_JDOE);
 
-        /*if (headline2.equals("")) headline2 = null;
-        if (text2.equals("")) text2 = null;*/
+        messageListHelper.tapCreateMessage();
 
         Message jdoeMessage = messageListHelper.createMessage(anotherMessage);
 
-        messageListHelper.viewMessage(jdoeMessage);
-
-        viewMessageHelper.assertMessageIsCorrect(jdoeMessage);
+        viewMessageHelper.openMessageList(jdoeMessage);
 
         messageListHelper.assertMessageIsCorrect(jdoeMessage);
 
+        messageListHelper.viewMessage(jdoeMessage);
+
+        viewMessageHelper.openMessageList(jdoeMessage);
+
+        messageListHelper.assertMessageIsCorrect(jdoeMessage);
+
+        // Working as ADMIN
 
         messageListHelper.signInAnotherUser(User.USER_ADMIN);
 
@@ -62,6 +66,6 @@ public class Test7 extends AbstractTest {
 
         messageListHelper.verifyUserMessage(adminMessage, User.USER_ADMIN.getName());
 
-        messageListHelper.assertMesseageIsNotDisplayed(jdoeMessage);
+        messageListHelper.assertMessageIsNotDisplayed(jdoeMessage);
     }
 }
