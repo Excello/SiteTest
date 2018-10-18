@@ -2,14 +2,10 @@ package pages;
 
 
 import data.Message;
-import elements.BaseElement;
 import elements.ButtonElement;
 import elements.InputElement;
 import logging.TestLogger;
 import org.openqa.selenium.By;
-import utils.Environment;
-
-import static java.awt.SystemColor.text;
 
 public class MessagePage extends AbstractPage {
     private static final By CREATE_BUTTON = By.cssSelector(".save");
@@ -68,7 +64,7 @@ public class MessagePage extends AbstractPage {
 
         TestLogger.logMessage("Filling 'Edit Message' form with new [headline] " + message.getHeadline() + " and [text] " + message.getText() + " values");
         inputHeadline().enterValue(message.getHeadline());
-        inputHeadline().assertValue(message.getHeadline());
+        inputHeadline().assertValue(message.getHeadline());//TODO В целом это конечно можно делать, но в данном случае это избыточно
         inputText().enterValue(message.getText());
         inputText().assertValue(message.getText());
         clickCreate();
@@ -79,6 +75,7 @@ public class MessagePage extends AbstractPage {
         return viewMessagePage;
     }
 
+    //TODO Не понимаю разницы с методом выше
     public ViewMessagePage createMessage(Message message) {
         /*if (message.getHeadline() == null && message.getText() == null) {
             Message.createRandom();

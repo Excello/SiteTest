@@ -3,7 +3,6 @@ package elements;
 import logging.TestLogger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
 
 
 public class ButtonElement extends BaseElement {
@@ -11,6 +10,7 @@ public class ButtonElement extends BaseElement {
         super(driver, locator, name);
     }
 
+    //TODO Какое отношение чекбокс имеет к кнопке?
     public boolean isCheckBoxSelected() {
         TestLogger.logMessage("Check that checkbox " + name + " is selected");
         return element().isSelected();

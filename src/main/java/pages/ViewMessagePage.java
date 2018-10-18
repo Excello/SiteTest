@@ -5,7 +5,7 @@ import elements.ButtonElement;
 import logging.TestLogger;
 import org.openqa.selenium.By;
 
-//TODO ShowMessagePage, а вообще корректнее ViewMessagePage
+
 public class ViewMessagePage extends AbstractPage {
     private static final By SHOW_MESSAGE_LABEL = By.xpath("//H1[text()='Show Message']");
     private static final By MESSAGE_LIST_BUTTON = By.cssSelector(".list");
@@ -27,7 +27,7 @@ public class ViewMessagePage extends AbstractPage {
         return new ButtonElement(driver, NEW_MESSAGE_BUTTON, "New Message");
     }
 
-    //TODO assertMessagePageIsOpened
+    //TODO А смысл в этом методе если есть assertPageOpened?
     public void assertViewMessagePageOpened() {
         assertPageOpened();
     }

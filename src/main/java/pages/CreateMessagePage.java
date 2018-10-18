@@ -2,8 +2,6 @@ package pages;
 
 import org.openqa.selenium.By;
 
-//TODO CreateMessagePage
-//TODO Create и Edit message pages are almost same and should have own super class
 public class CreateMessagePage extends MessagePage {
     private static final By CREATE_MESSAGE_LABEL = By.xpath("//H1[text()= 'Create Message']");
 
@@ -11,6 +9,7 @@ public class CreateMessagePage extends MessagePage {
         super(CREATE_MESSAGE_LABEL, "Create Message");
     }
 
+    //TODO А смысл в этом методе если есть assertPageOpened?
     public void isCreateMessagePageOpened() {
         assertPageOpened();
     }

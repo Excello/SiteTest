@@ -60,7 +60,7 @@ public class MessageList extends AbstractPage {
         return new ButtonElement(driver, ALL_USERS_CHECKBOX, "All Users Checkbox");
     }
 
-    //TODO assertMessageListOpened, методы is... должны возвращать булевый ответ и не вызовать никаких ошибок
+    //TODO Зачем? Хватит и assertPageOpened
     public void assertMessageListPageOpened() {
         assertPageOpened();
     }
@@ -73,19 +73,19 @@ public class MessageList extends AbstractPage {
         return allUsersCheckBox().isCheckBoxSelected();
     }
 
-    //TOdo getViewLink или createViewLink. getViewLink - означает выполнить действие
+
     private LinkElement getViewLink(int iRow) {
         WebElement cell = tableMessages().getCell(iRow, ACTIONS_COL);
         return new LinkElement(VIEW_BUTTON, "View Link", cell);
     }
 
-    //TODo as above
+
     private LinkElement getEditLink(int iRow) {
         WebElement cell = tableMessages().getCell(iRow, ACTIONS_COL);
         return new LinkElement(EDIT_BUTTON, "Edit Link", cell);
     }
 
-    //TODo as above
+
     private LinkElement getDeleteLink(int iRow) {
         WebElement cell = tableMessages().getCell(iRow, ACTIONS_COL);
         return new LinkElement(DELETE_BUTTON, "Delete Link", cell);
@@ -109,7 +109,7 @@ public class MessageList extends AbstractPage {
         return loginPage;
     }
 
-    //TODO На вход класс Message
+
     private int findMessageRow(Message message, String author) {
         TestLogger.logMessage("Looking for line with [headline] " + message.getHeadline() + " and [text] " + message.getText());
 
@@ -146,7 +146,6 @@ public class MessageList extends AbstractPage {
         return index;
     }
 
-    //TODO assertMesageInlist
     public void assertMessageIsInList(Message message) {
         TestLogger.logMessage("Check that there is an [headline] " + message.getHeadline() + " and [text] " + message.getText() + " elements are in the table");
 
@@ -167,7 +166,6 @@ public class MessageList extends AbstractPage {
         }
     }
 
-    //TODO Что метод то делает?
     public void assertMessageIsNotInList(Message message) {
         TestLogger.logMessage("Check that there is an [headline] " + message.getHeadline() + " and [text] " + message.getText() + " elements are not in the table");
         assertMessageIsNotInList(message, EMPTY_AUTHOR);
@@ -245,7 +243,7 @@ public class MessageList extends AbstractPage {
 
         deleteMessage(message, EMPTY_AUTHOR);
 
-        return new MessageList();
+        return new MessageList(); //TODO Зачем new? почему не this?
     }
 
     public MessageList deleteMessage(Message message, String author) {
@@ -261,11 +259,10 @@ public class MessageList extends AbstractPage {
         } else {
             TestLogger.logError("It is impossible to tap 'Delete' button");
         }
-        return new MessageList();
+        return new MessageList(); //TODO Зачем new? почему не this?
     }
 
     public void selectAllUsersCheckBox() {
-        //TODO А если бокс был уже выбран?
         if(!isCheckBoxSelected()) {
             allUsersCheckBox().click();
             TestLogger.logMessage("'All Users' checkbox is selected");
@@ -275,7 +272,6 @@ public class MessageList extends AbstractPage {
     }
 
     public void removeAllUsersCheckBox() {
-        //TODO А если бокс был уже снят?
         if(isCheckBoxSelected()) {
             allUsersCheckBox().click();
             TestLogger.logMessage("'All Users' checkbox is removed");

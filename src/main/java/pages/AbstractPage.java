@@ -18,8 +18,6 @@ public class AbstractPage {
         this.formName = formName;
     }
 
-    //TODO assertPageOpened
-    //TODO Этот метод можно сделать public и без параметров
     public void assertPageOpened() {
         try {
             WebElement pageElement = driver.findElement(identifyElementLocator);

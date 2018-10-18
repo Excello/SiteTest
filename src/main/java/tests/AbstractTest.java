@@ -8,7 +8,10 @@ import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.Reporter;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 import utils.Environment;
 
 import java.io.File;
@@ -39,7 +42,7 @@ public abstract class AbstractTest {
         driverManager.quitDriver();
     }*/
     private static File criticalErrorFile = new File("CRITICAL_ERROR.TXT");
-    protected static WebDriver driver;
+    protected static WebDriver driver; //TODO Не статик
 
     @BeforeSuite
     public static void beforeSuite(ITestContext context) {
@@ -72,6 +75,7 @@ public abstract class AbstractTest {
         }
     }
 
+    //TODO А что это делает и зачем?
     private static void markTestCriticalError() {
         if (!criticalErrorFile.exists()) {
             boolean result = false;

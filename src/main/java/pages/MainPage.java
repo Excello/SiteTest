@@ -36,6 +36,7 @@ public class MainPage extends AbstractPage {
         return loginPage;
     }
 
+    //TODO Зачем? Хватит и assertPageOpened
     public void isMainPageOpened() {
         assertPageOpened();
     }

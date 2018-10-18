@@ -1,9 +1,8 @@
 package pages;
 
-import logging.TestLogger;
 import org.openqa.selenium.By;
 
-//TODO EditMessagePage
+
 public class EditMessagePage extends MessagePage {
     private static final By EDIT_MESSAGE_LABEL = By.xpath("//H1[text()='Edit Message']");
 
@@ -11,6 +10,7 @@ public class EditMessagePage extends MessagePage {
         super(EDIT_MESSAGE_LABEL, "Edit Message Page");
     }
 
+    //TODO А смысл в этом методе если есть assertPageOpened?
     public void isEditPageOpened() {
         assertPageOpened();
     }

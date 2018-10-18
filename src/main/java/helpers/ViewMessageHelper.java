@@ -22,6 +22,8 @@ public class ViewMessageHelper extends AbstractComponent {
         viewMessagePage.assertTextValue(message.getText());
     }
 
+    //TODO Зачем тут делать assert перед переходом?
+    //TODo Вообще не логично
     public MessageList openMessageList(Message message) {
         assertMessageIsCorrect(message);
 
@@ -30,6 +32,7 @@ public class ViewMessageHelper extends AbstractComponent {
         return new MessageList();
     }
 
+    //TODO Аналогично методу выше
     public CreateMessagePage createNewMessage(Message message) {
         assertMessageIsCorrect(message);
 

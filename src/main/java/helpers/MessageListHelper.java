@@ -4,7 +4,10 @@ import component.AbstractComponent;
 import data.Message;
 import data.User;
 import logging.TestLogger;
-import pages.*;
+import pages.CreateMessagePage;
+import pages.LoginPage;
+import pages.MessageList;
+import pages.ViewMessagePage;
 
 public class MessageListHelper extends AbstractComponent {
     private MessageList messageList;
@@ -15,10 +18,8 @@ public class MessageListHelper extends AbstractComponent {
         createMessageFormHelper = new CreateMessageFormHelper();
     }
 
-    //TODO Вместо String[] создай класс Message
+    //TODO Этот метод по сути ничего не делает. Ничто не мешает в тестах так и писать  messageList.clickNewMessageButton();
     public CreateMessagePage tapCreateMessage() {
-       //TODO Не костанатный текст, а генерируй случайную строку
-       //TODO Same
         TestLogger.logMessage("Tap 'Create Message' button");
 
         messageList.clickNewMessageButton();
@@ -26,7 +27,10 @@ public class MessageListHelper extends AbstractComponent {
         return new CreateMessagePage();
     }
 
-    //TODO Тоже возвращай класс Message,и на вход прнимай класс Message
+    //TODO Ну вот посмотри на логику своего метода. Он же странный до нельзя:
+    //1. Создать рандомное сообщение, если оно не Null. А почему оно должно быть null???
+    //2. Создать на ровном месте страницу CreateMessagePage. Т.е. это предполагает, что метод должен быть вызван, когда открыта страница CreateNewMessagePage. Но это вообще не очевидно и неправильно так писать
+    //3. По факту ты снова просто дергаешь один метод у createMessageFormHelper. Т.е. снова этот метод вообще не пойми зачем нужен
     public Message createMessage(Message message){
 
         if (message == null) {
@@ -38,13 +42,10 @@ public class MessageListHelper extends AbstractComponent {
         //Create Message
         createMessageFormHelper.createNewMessage(message, createMessagePage);
 
-        return new Message(message.getHeadline(), message.getText());
+        return new Message(message.getHeadline(), message.getText()); //TODO Ну зачем??? у тебя уже есть message, зачем создавать дубликат
     }
 
-    //TODO Не очень понимаю зачем этот хелпер. Только ради асертов? Логически стоило бы сделать наоборот.
-    //TODO Асерт на существование должен быть в CreateMessageFormHelper. Этот метод и выше выглядят дубликатами аналогов в CreateMessageFormHelper
-
-    //TODO почему void? Почему не ViewMessagePage?
+    //TODO Я все равно не понимаю необходимость в этом методе. Ради одного асерта создавать метод хелпера? Попробуй вообще отказаться от хелперов, не думаю, что ты много потеряешь
     public ViewMessagePage viewMessage(Message message) {
         TestLogger.logMessage("Opening from the list to view the message with the values headline: " + message.getHeadline() + ", text: " + message.getText());
 
@@ -54,28 +55,24 @@ public class MessageListHelper extends AbstractComponent {
         //View Message
         messageList.openViewMessagePage(message);
 
-        return new ViewMessagePage();
+        return new ViewMessagePage(); //TODO Зачем new????  messageList.openViewMessagePage(message) возвращает страницу
     }
 
-        //TODO А зачем? Кто-то просил?
-        // создан метод assertMessageIsCorrect в ViewMessageHelper
-
-        //TODO C какой стати мы идем обратно?
-        // the same as above
-
+    //TODO Ну вот снова. Один единственный метод вызывается. Зачем его оборачивать
     public void assertMessageIsCorrect(Message message) {
         //TODO Это еще зачем?
         //Check that there is message in the list
         messageList.assertMessageIsInList(message);
     }
 
+    //TODO Ну вот снова. Один единственный метод вызывается. Зачем его оборачивать
     public void assertMessageIsNotDisplayed(Message message) {
         //Check that there is no message in the list
         messageList.assertMessageIsNotInList(message);
     }
 
 
-    //TODO Тоже дубликат с CreateMessageFormHelper
+
     public void editMessage(Message message, Message newMessage) {
         TestLogger.logMessage("Opening from the list to edit the message with the values headline: " + message.getHeadline() + ", text" + message.getText());
 
@@ -106,7 +103,7 @@ public class MessageListHelper extends AbstractComponent {
         messageList.assertMessageIsNotInList(message);
     }
 
-    //TODO Тоже дубликат с CreateMessageFormHelper
+    //TODO Метод снова ничего не делает по сути. Он тут не нужен
     public Message createMessageWithoutSaving(Message message) {
         TestLogger.logMessage("Creating message without saving");
 
@@ -120,7 +117,7 @@ public class MessageListHelper extends AbstractComponent {
         //Create message without saving it
         createMessageFormHelper.createMessageWithoutSaving(message, messageList);
 
-        return new Message(message.getHeadline(), message.getText());
+        return new Message(message.getHeadline(), message.getText()); //TODO Ну зачем??? у тебя уже есть message, зачем создавать дубликат
     }
 
     public void signInAnotherUser(User user) {
@@ -135,9 +132,11 @@ public class MessageListHelper extends AbstractComponent {
         //TODO Не очень корректно использовать снова тот же messageList, если ты уже выполнил logout.
         //TODO В силу разных причин страницы могут нечаянно хранить какую-то информацию о своем текущем состоянии на основании истории действий.
         // TODO Такой подход в перспективе может породить много проблем, сложно отлаваливаемых
+        //TODO Так и не исправлено
         messageList.assertUsername(user.getName());
     }
 
+    //TODO Ну вот у тебя в странице метод называется selectAllUsersCheckBox, а тут какой-то хер пойми selectCheckbox. И он тут тоже не нужен, можно дернуть напрямую метод у страницы, зачем это делегировать хелперу
     public MessageList selectCheckbox() {
 
         // Select checkbox
@@ -146,6 +145,7 @@ public class MessageListHelper extends AbstractComponent {
         return new MessageList();
     }
 
+    //TODO То же что и выше
     public MessageList removeCheckbox() {
 
         // Remove Checkbox
@@ -154,7 +154,7 @@ public class MessageListHelper extends AbstractComponent {
         return new MessageList();
     }
 
-    //TODO Метод называется All, но передавать может два и только два сообщения, да еще и логин какой-то непонятный
+    //TODO Опять. Ну на кой это совать в хелпер
     public void verifyUserMessage(Message message, String author) {
         TestLogger.logMessage("Verify user " + author + " messages");
 

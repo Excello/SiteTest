@@ -28,6 +28,7 @@ public class LoginPage extends AbstractPage {
         return new ButtonElement(driver, SIGN_IN_BUTTON, "save");
     }
 
+    //TODO Зачем? Хватит и assertPageOpened
     public void isLoginPageOpened() {
         assertPageOpened();
     }
