@@ -19,30 +19,30 @@ public class MessageListHelper extends AbstractComponent {
     }
 
     //TODO Этот метод по сути ничего не делает. Ничто не мешает в тестах так и писать  messageList.clickNewMessageButton();
-    public CreateMessagePage tapCreateMessage() {
+    /*public CreateMessagePage tapCreateMessage() {
         TestLogger.logMessage("Tap 'Create Message' button");
 
         messageList.clickNewMessageButton();
 
         return new CreateMessagePage();
-    }
+    }*/
 
     //TODO Ну вот посмотри на логику своего метода. Он же странный до нельзя:
     //1. Создать рандомное сообщение, если оно не Null. А почему оно должно быть null???
     //2. Создать на ровном месте страницу CreateMessagePage. Т.е. это предполагает, что метод должен быть вызван, когда открыта страница CreateNewMessagePage. Но это вообще не очевидно и неправильно так писать
     //3. По факту ты снова просто дергаешь один метод у createMessageFormHelper. Т.е. снова этот метод вообще не пойми зачем нужен
-    public Message createMessage(Message message){
+    public Message createNewMessage(Message message){
 
-        if (message == null) {
-            message = Message.createRandom();
-        }
-
-        CreateMessagePage createMessagePage = new CreateMessagePage();
+        //Message List is displayed
+        messageList.assertPageOpened();
 
         //Create Message
-        createMessageFormHelper.createNewMessage(message, createMessagePage);
+        messageList = createMessageFormHelper.createNewMessage(message, messageList);
 
-        return new Message(message.getHeadline(), message.getText()); //TODO Ну зачем??? у тебя уже есть message, зачем создавать дубликат
+        //Check that message is in the list
+        messageList.assertMessageIsInList(message);
+
+        return message; //TODO Ну зачем??? у тебя уже есть message, зачем создавать дубликат
     }
 
     //TODO Я все равно не понимаю необходимость в этом методе. Ради одного асерта создавать метод хелпера? Попробуй вообще отказаться от хелперов, не думаю, что ты много потеряешь
@@ -50,26 +50,26 @@ public class MessageListHelper extends AbstractComponent {
         TestLogger.logMessage("Opening from the list to view the message with the values headline: " + message.getHeadline() + ", text: " + message.getText());
 
         //Message List is displayed
-        messageList.assertMessageListPageOpened();
+        messageList.assertPageOpened();
 
         //View Message
-        messageList.openViewMessagePage(message);
+        //messageList.openViewMessagePage(message);
 
-        return new ViewMessagePage(); //TODO Зачем new????  messageList.openViewMessagePage(message) возвращает страницу
+        return messageList.openViewMessagePage(message); //TODO Зачем new????  messageList.openViewMessagePage(message) возвращает страницу
     }
 
     //TODO Ну вот снова. Один единственный метод вызывается. Зачем его оборачивать
-    public void assertMessageIsCorrect(Message message) {
+    /*public void assertMessageIsCorrect(Message message) {
         //TODO Это еще зачем?
         //Check that there is message in the list
         messageList.assertMessageIsInList(message);
-    }
+    }*/
 
     //TODO Ну вот снова. Один единственный метод вызывается. Зачем его оборачивать
-    public void assertMessageIsNotDisplayed(Message message) {
+    /*public void assertMessageIsNotDisplayed(Message message) {
         //Check that there is no message in the list
         messageList.assertMessageIsNotInList(message);
-    }
+    }*/
 
 
 
@@ -81,7 +81,7 @@ public class MessageListHelper extends AbstractComponent {
         }
 
         //Message List is displayed
-        messageList.assertMessageListPageOpened();
+        messageList.assertPageOpened();
 
         //Enter new Headline and Text
         messageList = createMessageFormHelper.editMessage(message, newMessage, messageList);
@@ -94,7 +94,7 @@ public class MessageListHelper extends AbstractComponent {
         TestLogger.logMessage("Deleting from the list the message: " + message.getHeadline() + ", text: " + message.getText());
 
         //Message List is displayed
-        messageList.assertMessageListPageOpened();
+        messageList.assertPageOpened();
 
         //Delete Message
         messageList.deleteMessage(message);
@@ -112,12 +112,12 @@ public class MessageListHelper extends AbstractComponent {
         }
 
         //Message List is displayed
-        messageList.assertMessageListPageOpened();
+        messageList.assertPageOpened();
 
         //Create message without saving it
         createMessageFormHelper.createMessageWithoutSaving(message, messageList);
 
-        return new Message(message.getHeadline(), message.getText()); //TODO Ну зачем??? у тебя уже есть message, зачем создавать дубликат
+        return message; //TODO Ну зачем??? у тебя уже есть message, зачем создавать дубликат
     }
 
     public void signInAnotherUser(User user) {
@@ -137,28 +137,28 @@ public class MessageListHelper extends AbstractComponent {
     }
 
     //TODO Ну вот у тебя в странице метод называется selectAllUsersCheckBox, а тут какой-то хер пойми selectCheckbox. И он тут тоже не нужен, можно дернуть напрямую метод у страницы, зачем это делегировать хелперу
-    public MessageList selectCheckbox() {
+   /* public MessageList selectCheckbox() {
 
         // Select checkbox
         messageList.selectAllUsersCheckBox();
 
         return new MessageList();
-    }
+    }*/
 
     //TODO То же что и выше
-    public MessageList removeCheckbox() {
+    /*public MessageList removeCheckbox() {
 
         // Remove Checkbox
         messageList.removeAllUsersCheckBox();
 
         return new MessageList();
-    }
+    }*/
 
     //TODO Опять. Ну на кой это совать в хелпер
-    public void verifyUserMessage(Message message, String author) {
+    /*public void verifyUserMessage(Message message, String author) {
         TestLogger.logMessage("Verify user " + author + " messages");
 
         //Verify All Messages
         messageList.assertMessageIsInList(message, author);
-    }
+    }*/
 }

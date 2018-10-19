@@ -2,7 +2,6 @@ package pages;
 
 import org.openqa.selenium.By;
 
-
 public class EditMessagePage extends MessagePage {
     private static final By EDIT_MESSAGE_LABEL = By.xpath("//H1[text()='Edit Message']");
 
@@ -11,11 +10,10 @@ public class EditMessagePage extends MessagePage {
     }
 
     //TODO А смысл в этом методе если есть assertPageOpened?
-    public void isEditPageOpened() {
-        assertPageOpened();
-    }
+}
 
-    /*public void assertMessage(Message message) {
+
+/*public void assertMessage(Message message) {
         TestLogger.logMessage("Check that [Headline] " + headline + " and [Text] " + text + " values which entered in previous step were displayed");
 
         if (headline != null) {
@@ -30,7 +28,7 @@ public class EditMessagePage extends MessagePage {
             inputText().clear();
         }
     }*/
-}
+
 /* private LabelElement editMessageLabel() {
         return new LabelElement(driver, EDIT_MESSAGE_LABEL, "Save Button");
     }*/

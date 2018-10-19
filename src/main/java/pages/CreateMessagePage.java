@@ -8,14 +8,7 @@ public class CreateMessagePage extends MessagePage {
     public CreateMessagePage() {
         super(CREATE_MESSAGE_LABEL, "Create Message");
     }
-
     //TODO А смысл в этом методе если есть assertPageOpened?
-    public void isCreateMessagePageOpened() {
-        assertPageOpened();
-    }
 }
-/*public LabelElement createMessageLabel() {
-        return new LabelElement(driver, CREATE_MESSAGE_LABEL, "Create Message Label");
-}*/
 
 

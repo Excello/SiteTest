@@ -3,6 +3,7 @@ package pages;
 import component.TableManager;
 import data.Message;
 import elements.ButtonElement;
+import elements.CheckboxElement;
 import elements.LabelElement;
 import elements.LinkElement;
 import logging.TestLogger;
@@ -56,14 +57,11 @@ public class MessageList extends AbstractPage {
         return new ButtonElement(driver, LOGOUT_BUTTON, "Logout");
     }
 
-    private ButtonElement allUsersCheckBox() {
-        return new ButtonElement(driver, ALL_USERS_CHECKBOX, "All Users Checkbox");
+    private CheckboxElement allUsersCheckBox() {
+        return new CheckboxElement(driver, ALL_USERS_CHECKBOX, "All Users Checkbox");
     }
 
     //TODO Зачем? Хватит и assertPageOpened
-    public void assertMessageListPageOpened() {
-        assertPageOpened();
-    }
 
     public void assertUsername(String expected) {
         userMessage().assertText("Hello " + expected + "!");
@@ -96,7 +94,7 @@ public class MessageList extends AbstractPage {
 
         newMessage().click();
         CreateMessagePage createMessagePage = new CreateMessagePage();
-        createMessagePage.isCreateMessagePageOpened();
+        createMessagePage.assertPageOpened();
         return createMessagePage;
     }
 
@@ -105,7 +103,7 @@ public class MessageList extends AbstractPage {
 
         logOut().click();
         LoginPage loginPage = new LoginPage();
-        loginPage.isLoginPageOpened();
+        loginPage.assertPageOpened();
         return loginPage;
     }
 
@@ -218,7 +216,7 @@ public class MessageList extends AbstractPage {
         getViewLink(iRow).click();
 
         ViewMessagePage page = new ViewMessagePage();
-        page.assertViewMessagePageOpened();
+        page.assertPageOpened();
         return page;
     }
 
@@ -233,7 +231,7 @@ public class MessageList extends AbstractPage {
         getEditLink(iRow).click();
 
         EditMessagePage page = new EditMessagePage();
-        page.isEditPageOpened();
+        page.assertPageOpened();
         //page.assertMessage(message);
         return page;
     }
@@ -243,7 +241,7 @@ public class MessageList extends AbstractPage {
 
         deleteMessage(message, EMPTY_AUTHOR);
 
-        return new MessageList(); //TODO Зачем new? почему не this?
+        return this; //TODO Зачем new? почему не this?
     }
 
     public MessageList deleteMessage(Message message, String author) {
@@ -259,7 +257,7 @@ public class MessageList extends AbstractPage {
         } else {
             TestLogger.logError("It is impossible to tap 'Delete' button");
         }
-        return new MessageList(); //TODO Зачем new? почему не this?
+        return this; //TODO Зачем new? почему не this?
     }
 
     public void selectAllUsersCheckBox() {

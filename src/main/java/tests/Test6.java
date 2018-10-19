@@ -20,11 +20,11 @@ public class Test6 extends AbstractTest {
 
         messageListHelper.tapCreateMessage();
 
-        Message firstMessage = messageListHelper.createMessage(message);
+        Message firstMessage = messageListHelper.createNewMessage(message);
 
         viewMessageHelper.createNewMessage(firstMessage);
 
-        Message secondMessage = messageListHelper.createMessage(newMessage);
+        Message secondMessage = messageListHelper.createNewMessage(newMessage);
 
         viewMessageHelper.openMessageList(secondMessage);
 

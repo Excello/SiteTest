@@ -44,7 +44,7 @@ public class MessagePage extends AbstractPage {
 
         messageList().click();
         MessageList messageList = new MessageList();
-        messageList.assertMessageListPageOpened();
+        messageList.assertPageOpened();
         return messageList;
     }
 
@@ -53,56 +53,45 @@ public class MessagePage extends AbstractPage {
         inputText().assertValue(message.getText());
     }
 
-    public ViewMessagePage fillNewValues(Message message) {
+    public void clearFields() {
         TestLogger.logMessage("Clearing fields");
+
         inputText().clear();
         inputHeadline().clear();
+    }
 
-        /*if (message.getHeadline() == null && message.getText() == null) {
-            Message.createRandom();
-        }*/
-
+    /*public ViewMessagePage fillNewValues(Message message) {
         TestLogger.logMessage("Filling 'Edit Message' form with new [headline] " + message.getHeadline() + " and [text] " + message.getText() + " values");
+
         inputHeadline().enterValue(message.getHeadline());
-        inputHeadline().assertValue(message.getHeadline());//TODO В целом это конечно можно делать, но в данном случае это избыточно
+        //TODO В целом это конечно можно делать, но в данном случае это избыточно
         inputText().enterValue(message.getText());
-        inputText().assertValue(message.getText());
         clickCreate();
 
         ViewMessagePage viewMessagePage = new ViewMessagePage();
-        viewMessagePage.assertViewMessagePageOpened();
+        viewMessagePage.assertPageOpened();
 
         return viewMessagePage;
-    }
+    }*/
 
     //TODO Не понимаю разницы с методом выше
     public ViewMessagePage createMessage(Message message) {
-        /*if (message.getHeadline() == null && message.getText() == null) {
-            Message.createRandom();
-        }*/
+        TestLogger.logMessage("Filling 'Message' form with value [headline] " + message.getHeadline() + " and [text] " + message.getText());
 
-        TestLogger.logMessage("Filling 'Create Message' form with value [headline] " + message.getHeadline() + " and [text] " + message.getText());
         inputHeadline().enterValue(message.getHeadline());
-        inputHeadline().assertValue(message.getHeadline());
         inputText().enterValue(message.getText());
-        inputText().assertValue(message.getText());
         clickCreate();
 
         ViewMessagePage viewMessagePage = new ViewMessagePage();
-        viewMessagePage.assertViewMessagePageOpened();
+        viewMessagePage.assertPageOpened();
 
         return viewMessagePage;
     }
 
-    public void fillValues(Message message) {
-        /*if (message.getHeadline() == null && message.getText() == null) {
-            message = Message.createRandom();
-        }*/
-
+    public void fillFieldsWithValues(Message message) {
         TestLogger.logMessage("Filling 'Create Message' form with value [headline] " + message.getHeadline() + " and [text] " + message.getText());
+
         inputHeadline().enterValue(message.getHeadline());
-        inputHeadline().assertValue(message.getHeadline());
         inputText().enterValue(message.getText());
-        inputText().assertValue(message.getText());
     }
 }

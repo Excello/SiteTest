@@ -41,20 +41,17 @@ public abstract class AbstractTest {
     public void afterMethod() {
         driverManager.quitDriver();
     }*/
-    private static File criticalErrorFile = new File("CRITICAL_ERROR.TXT");
-    protected static WebDriver driver; //TODO Не статик
+
+    protected WebDriver driver; //TODO Не статик
 
     @BeforeSuite
-    public static void beforeSuite(ITestContext context) {
-
-
+    public void beforeSuite(ITestContext context) {
         WebDriverFactory.init(false, WebDriverFactory.Browser.CHROME);
         driver = WebDriverFactory.instance().openNewBrowser("default");
-        markTestCriticalError();
     }
 
     @BeforeMethod
-    public static void openStartPage(Method method) {
+    public void openStartPage(Method method) {
         TestLogger.logMessage("Start method " + method.getName());
         driver.manage().window().maximize();
         driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
@@ -62,34 +59,17 @@ public abstract class AbstractTest {
     }
 
     @AfterSuite(alwaysRun = true)
-    public static void closeBrowser() {
+    public void closeBrowser() {
         driver.close();
         TestLogger.logMessage("Suite ended");
     }
 
     @AfterMethod(alwaysRun = true)
-    public static void verifyTestStatus(ITestResult result) {
+    public void verifyTestStatus(ITestResult result) {
 
         if (TestLogger.hasErrors()) {
             Reporter.log("Test ended with errors.");
         }
     }
-
     //TODO А что это делает и зачем?
-    private static void markTestCriticalError() {
-        if (!criticalErrorFile.exists()) {
-            boolean result = false;
-
-            try {
-                result = criticalErrorFile.createNewFile();
-            } catch (IOException e) {
-                TestLogger.logError("Can't create file " + criticalErrorFile + ". " + e.getMessage() + "\n" +
-                        StringUtils.join(e.getStackTrace(), "\n"));
-            }
-
-            if (!result) {
-                TestLogger.logError("Can't create file " + criticalErrorFile + ". File has write protection/");
-            }
-        }
-    }
 }

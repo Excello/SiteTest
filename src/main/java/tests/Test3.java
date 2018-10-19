@@ -20,7 +20,7 @@ public class Test3 extends AbstractTest {
 
         messageListHelper.tapCreateMessage();
 
-        Message userMessage = messageListHelper.createMessage(message);
+        Message userMessage = messageListHelper.createNewMessage(message);
 
         viewMessageHelper.openMessageList(userMessage);
 

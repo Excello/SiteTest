@@ -5,7 +5,6 @@ import elements.ButtonElement;
 import logging.TestLogger;
 import org.openqa.selenium.By;
 
-
 public class ViewMessagePage extends AbstractPage {
     private static final By SHOW_MESSAGE_LABEL = By.xpath("//H1[text()='Show Message']");
     private static final By MESSAGE_LIST_BUTTON = By.cssSelector(".list");
@@ -28,16 +27,13 @@ public class ViewMessagePage extends AbstractPage {
     }
 
     //TODO А смысл в этом методе если есть assertPageOpened?
-    public void assertViewMessagePageOpened() {
-        assertPageOpened();
-    }
 
     public MessageList clickMessageList() {
         TestLogger.logMessage("Tap 'Message List' button");
 
         messageList().click();
         MessageList messageList = new MessageList();
-        messageList.assertMessageListPageOpened();
+        messageList.assertPageOpened();
         return messageList;
     }
 
@@ -75,7 +71,7 @@ public class ViewMessagePage extends AbstractPage {
 
         newMessage().click();
         CreateMessagePage createMessagePage = new CreateMessagePage();
-        createMessagePage.isCreateMessagePageOpened();
+        createMessagePage.assertPageOpened();
         return createMessagePage;
     }
 }

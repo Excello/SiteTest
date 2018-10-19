@@ -22,7 +22,7 @@ public class Test7 extends AbstractTest {
 
         messageListHelper.tapCreateMessage();
 
-        Message adminMessage = messageListHelper.createMessage(message);
+        Message adminMessage = messageListHelper.createNewMessage(message);
 
         viewMessageHelper.openMessageList(adminMessage);
 
@@ -40,7 +40,7 @@ public class Test7 extends AbstractTest {
 
         messageListHelper.tapCreateMessage();
 
-        Message jdoeMessage = messageListHelper.createMessage(anotherMessage);
+        Message jdoeMessage = messageListHelper.createNewMessage(anotherMessage);
 
         viewMessageHelper.openMessageList(jdoeMessage);
 

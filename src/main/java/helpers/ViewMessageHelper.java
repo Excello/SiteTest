@@ -14,7 +14,11 @@ public class ViewMessageHelper extends AbstractComponent {
         viewMessagePage = new ViewMessagePage();
     }
 
-    private void assertMessageIsCorrect(Message message) {
+    public void goToMessageList() {
+        viewMessagePage.clickMessageList();
+    }
+
+    public void assertMessageIsCorrect(Message message) {
         TestLogger.logMessage("Verify correctness of [headline] " + message.getHeadline() + " and [text] " + message.getText() + " values");
 
         //Assert Headline and Text values

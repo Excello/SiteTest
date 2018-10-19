@@ -29,9 +29,6 @@ public class LoginPage extends AbstractPage {
     }
 
     //TODO Зачем? Хватит и assertPageOpened
-    public void isLoginPageOpened() {
-        assertPageOpened();
-    }
 
     public MessageList signIn(User user) {
         TestLogger.logMessage("Logging in to application: " + user.getUserName() + "\\" + user.getPassword());
@@ -42,7 +39,7 @@ public class LoginPage extends AbstractPage {
         signInButton().click();
 
         MessageList pageMessageList = new MessageList();
-        pageMessageList.assertMessageListPageOpened();
+        pageMessageList.assertPageOpened();
 
         loggedUser = user.getName();
 

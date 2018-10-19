@@ -9,27 +9,22 @@ import pages.ViewMessagePage;
 
 public class CreateMessageFormHelper extends AbstractComponent {
 
-    public ViewMessagePage createNewMessage(Message message, CreateMessagePage createMessagePage) {
+    public MessageList createNewMessage(Message message, MessageList messageList) {
 
         //Tap 'New Message' button
-        //CreateMessagePage pageCreateMessagePage = messageList.clickNewMessageButton();
-
-        //Fill 'Headline' ant 'Text' fields
-        /*if (message == null) {
-            message = Message.createRandom();
-        }*/
+        CreateMessagePage pageCreateMessagePage = messageList.clickNewMessageButton();
 
         //Tap 'Create' button
         ViewMessagePage viewMessagePage;
-        viewMessagePage = createMessagePage.createMessage(message);
+        viewMessagePage = pageCreateMessagePage.createMessage(message);
 
         //Verify that Show Message page is opened
         assertMessage(message, viewMessagePage);
 
         //Tap 'Message List' button
-        //viewMessagePage.clickMessageList();
+        messageList = viewMessagePage.clickMessageList();
 
-        return new ViewMessagePage();//TODO почему new? У тебя уже есть экземпляр
+        return messageList;//TODO почему new? У тебя уже есть экземпляр
     }
 
     //TODO Плохой метод. Делает слишком много. Хелпер должен помогать что-то создать удалить. А этот хелпер по сути сам в себе работает.
@@ -44,12 +39,12 @@ public class CreateMessageFormHelper extends AbstractComponent {
             message = Message.createRandom();
         }*/
 
-        pageCreateMessagePage.fillValues(message);
+        pageCreateMessagePage.fillFieldsWithValues(message);
 
         //Tap 'Message List' button
-        pageCreateMessagePage.clickMessageList();
+        messageList = pageCreateMessagePage.clickMessageList();
 
-        return new MessageList();//TODO У тебя MessageList возвращается из pageCreateMessagePage.clickMessageList();
+        return messageList;//TODO У тебя MessageList возвращается из pageCreateMessagePage.clickMessageList();
     }
 
     public MessageList editMessage(Message message, Message newMessage, MessageList messageList) {

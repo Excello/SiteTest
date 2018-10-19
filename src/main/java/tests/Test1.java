@@ -7,24 +7,17 @@ import helpers.MessageListHelper;
 import helpers.ViewMessageHelper;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import pages.ViewMessagePage;
+import pages.MessageList;
 
 public class Test1 extends AbstractTest{
     @Test(description = "Case 1. Create Message")
-    @Parameters({"Message"})
-    public void test(Message message){
+    public void test(){
         MessageListHelper messageListHelper = new MessageListHelper();
         LoginHelper loginHelper = new LoginHelper();
-        ViewMessageHelper viewMessageHelper = new ViewMessageHelper();
+        Message message = Message.createRandom();
 
         loginHelper.signInToUserController(User.USER_ADMIN);
 
-        messageListHelper.tapCreateMessage();
-
-        Message userMessage = messageListHelper.createMessage(message);
-
-        viewMessageHelper.openMessageList(userMessage);
-
-        messageListHelper.assertMessageIsCorrect(userMessage);
+        messageListHelper.createNewMessage(message);
     }
 }

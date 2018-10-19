@@ -24,7 +24,7 @@ public class MainPage extends AbstractPage {
         TestLogger.logMessage("Open qulixteachingsite.UserController link");
         linkUserControllerPage().click();
         LoginPage loginPage = new LoginPage();
-        loginPage.isLoginPageOpened();
+        loginPage.assertPageOpened();
         return loginPage;
     }
 
@@ -32,12 +32,8 @@ public class MainPage extends AbstractPage {
         TestLogger.logMessage("Open qulixteachingsite.MessageController link");
         linkMessageControllerPage().click();
         LoginPage loginPage = new LoginPage();
-        loginPage.isLoginPageOpened();
+        loginPage.assertPageOpened();
         return loginPage;
     }
-
     //TODO Зачем? Хватит и assertPageOpened
-    public void isMainPageOpened() {
-        assertPageOpened();
-    }
 }
