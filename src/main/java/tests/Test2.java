@@ -4,10 +4,10 @@ import data.Message;
 import data.User;
 import helpers.LoginHelper;
 import helpers.MessageListHelper;
-import helpers.ViewMessageHelper;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import pages.MessageList;
+import pages.ViewMessagePage;
 
 public class Test2 extends AbstractTest {
     @Test(description = "Case 2. Creation and view message")
@@ -15,29 +15,21 @@ public class Test2 extends AbstractTest {
     public void test() {
         MessageListHelper messageListHelper = new MessageListHelper();
         LoginHelper loginHelper = new LoginHelper();
-        MessageList messageList = new MessageList();
-        ViewMessageHelper viewMessageHelper = new ViewMessageHelper();
-        Message message = Message.createRandom();
 
         loginHelper.signInToUserController(User.USER_ADMIN);
 
+        Message message = Message.createRandom();
+
         messageListHelper.createNewMessage(message);
 
-        messageList.openViewMessagePage(message);
+        MessageList messageList = new MessageList();
 
-        viewMessageHelper.assertMessageIsCorrect(message);
+        ViewMessagePage viewMessagePage = messageList.openViewMessagePage(message);
 
-        viewMessageHelper.goToMessageList();
+        viewMessagePage.assertMessage(message);
 
+        messageList = viewMessagePage.clickMessageList();
 
-
-
-        viewMessageHelper.openMessageList(userMessage);
-
-        messageListHelper.viewMessage(userMessage);
-
-        viewMessageHelper.openMessageList(userMessage);
-
-        messageListHelper.assertMessageIsCorrect(userMessage);
+        messageList.assertMessageIsInList(message);
     }
 }

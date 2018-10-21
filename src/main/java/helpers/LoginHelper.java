@@ -15,7 +15,7 @@ public class LoginHelper extends AbstractComponent {
 
 
     private LoginPage openUserControllerPage() {
-        mainPage.isMainPageOpened();
+        mainPage.assertPageOpened();
         return mainPage.openUserControllerPage();
     }
 
@@ -25,7 +25,7 @@ public class LoginHelper extends AbstractComponent {
     }
 
     private LoginPage openMessageControllerPage() {
-        mainPage.isMainPageOpened();
+        mainPage.assertPageOpened();
         return mainPage.openMessageControllerPage();
     }
 

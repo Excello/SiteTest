@@ -3,33 +3,49 @@ package tests;
 import data.Message;
 import data.User;
 import helpers.LoginHelper;
-import helpers.MessageListHelper;
-import helpers.ViewMessageHelper;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import pages.MessageList;
+import pages.MessagePage;
+import pages.ViewMessagePage;
 
 public class Test6 extends AbstractTest {
     @Test(description = "Case 6. Create 2 messages")
-    @Parameters({"Message", "NewMessage"})
-    public void test(Message message, Message newMessage) {
-        MessageListHelper messageListHelper = new MessageListHelper();
+    //@Parameters({"Message", "NewMessage"})
+    public void test() {
         LoginHelper loginHelper = new LoginHelper();
-        ViewMessageHelper viewMessageHelper = new ViewMessageHelper();
 
         loginHelper.signInToUserController(User.USER_ADMIN);
 
-        messageListHelper.tapCreateMessage();
+        MessageList messageListPage = new MessageList();
 
-        Message firstMessage = messageListHelper.createNewMessage(message);
+        messageListPage.assertPageOpened();
 
-        viewMessageHelper.createNewMessage(firstMessage);
+        //First Message
 
-        Message secondMessage = messageListHelper.createNewMessage(newMessage);
+        MessagePage createMessagePage = messageListPage.clickNewMessageButton();
 
-        viewMessageHelper.openMessageList(secondMessage);
+        Message firstMessage = Message.createRandom();
 
-        messageListHelper.assertMessageIsCorrect(firstMessage);
+        ViewMessagePage viewMessagePage = createMessagePage.createMessage(firstMessage);
 
-        messageListHelper.assertMessageIsCorrect(secondMessage);
+        viewMessagePage.assertMessage(firstMessage);
+
+        //Second Message
+
+        createMessagePage = viewMessagePage.clickNewMessage();
+
+        Message secondMessage = Message.createRandom();
+
+        viewMessagePage = createMessagePage.createMessage(secondMessage);
+
+        viewMessagePage.assertMessage(secondMessage);
+
+        messageListPage = viewMessagePage.clickMessageList();
+
+        //Verify Messages
+
+        messageListPage.assertMessageIsInList(firstMessage);
+
+        messageListPage.assertMessageIsInList(secondMessage);
     }
 }

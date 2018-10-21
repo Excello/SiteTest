@@ -125,20 +125,20 @@ public class MessageList extends AbstractPage {
         index = tableMessages().getIndexOfRow(cond);
 
         if (index > 1) {
-            TestLogger.logMessage("Elements are displayed");
+            TestLogger.logMessage("Message is displayed");
             return index;
         } else {
-            TestLogger.logMessage("Elements are not displayed on page. Will be attempt to move to the next page");
+            TestLogger.logMessage("Message is not displayed on page. Will be attempt to move to the next page");
         }
 
         while (isPagingEnabled()) {
             selectNextPage();
             index = tableMessages().getIndexOfRow(cond);
             if (index > 1) {
-                TestLogger.logMessage("Element is displayed");
+                TestLogger.logMessage("Message is displayed");
                 return index;
             } else {
-                TestLogger.logMessage("Element is not displayed on page. Will be attempt to move to the next page");
+                TestLogger.logMessage("Message is not displayed on page. Will be attempt to move to the next page");
             }
         }
         return index;
@@ -158,9 +158,9 @@ public class MessageList extends AbstractPage {
         int index = findMessageRow(message, author);
 
         if (index > 1) {
-            TestLogger.logMessage("The element is displayed");
+            TestLogger.logMessage("The message is displayed");
         } else {
-            TestLogger.logError("The element is not displayed");
+            TestLogger.logError("The message is not displayed");
         }
     }
 
@@ -177,9 +177,9 @@ public class MessageList extends AbstractPage {
         int index = findMessageRow(message, author);
 
         if (index > 1) {
-            TestLogger.logError("The element is displayed");
+            TestLogger.logError("The message is displayed");
         } else {
-            TestLogger.logMessage("The element is not displayed");
+            TestLogger.logMessage("The message is not displayed");
         }
     }
 
@@ -209,7 +209,7 @@ public class MessageList extends AbstractPage {
         int iRow = findMessageRow(message, EMPTY_AUTHOR);
 
         if (iRow < 1) {
-            TestLogger.logError("Element is not displayed");
+            TestLogger.logError("Message is not displayed");
         }
 
         TestLogger.logMessage("Tap 'View' button");
@@ -224,7 +224,7 @@ public class MessageList extends AbstractPage {
         int iRow = findMessageRow(message, EMPTY_AUTHOR);
 
         if (iRow < 1) {
-            TestLogger.logError("Element is not displayed");
+            TestLogger.logError("Message is not displayed");
         }
 
         TestLogger.logMessage("Tap 'Edit' button");

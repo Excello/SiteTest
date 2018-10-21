@@ -4,10 +4,8 @@ import component.AbstractComponent;
 import data.Message;
 import data.User;
 import logging.TestLogger;
-import pages.CreateMessagePage;
 import pages.LoginPage;
 import pages.MessageList;
-import pages.ViewMessagePage;
 
 public class MessageListHelper extends AbstractComponent {
     private MessageList messageList;
@@ -19,13 +17,6 @@ public class MessageListHelper extends AbstractComponent {
     }
 
     //TODO Этот метод по сути ничего не делает. Ничто не мешает в тестах так и писать  messageList.clickNewMessageButton();
-    /*public CreateMessagePage tapCreateMessage() {
-        TestLogger.logMessage("Tap 'Create Message' button");
-
-        messageList.clickNewMessageButton();
-
-        return new CreateMessagePage();
-    }*/
 
     //TODO Ну вот посмотри на логику своего метода. Он же странный до нельзя:
     //1. Создать рандомное сообщение, если оно не Null. А почему оно должно быть null???
@@ -46,39 +37,16 @@ public class MessageListHelper extends AbstractComponent {
     }
 
     //TODO Я все равно не понимаю необходимость в этом методе. Ради одного асерта создавать метод хелпера? Попробуй вообще отказаться от хелперов, не думаю, что ты много потеряешь
-    public ViewMessagePage viewMessage(Message message) {
-        TestLogger.logMessage("Opening from the list to view the message with the values headline: " + message.getHeadline() + ", text: " + message.getText());
-
-        //Message List is displayed
-        messageList.assertPageOpened();
-
-        //View Message
-        //messageList.openViewMessagePage(message);
-
-        return messageList.openViewMessagePage(message); //TODO Зачем new????  messageList.openViewMessagePage(message) возвращает страницу
-    }
+    //TODO Зачем new????  messageList.openViewMessagePage(message) возвращает страницу
 
     //TODO Ну вот снова. Один единственный метод вызывается. Зачем его оборачивать
-    /*public void assertMessageIsCorrect(Message message) {
-        //TODO Это еще зачем?
-        //Check that there is message in the list
-        messageList.assertMessageIsInList(message);
-    }*/
+    //TODO Это еще зачем?
 
     //TODO Ну вот снова. Один единственный метод вызывается. Зачем его оборачивать
-    /*public void assertMessageIsNotDisplayed(Message message) {
-        //Check that there is no message in the list
-        messageList.assertMessageIsNotInList(message);
-    }*/
-
-
 
     public void editMessage(Message message, Message newMessage) {
         TestLogger.logMessage("Opening from the list to edit the message with the values headline: " + message.getHeadline() + ", text" + message.getText());
 
-        if (newMessage == null) {
-            newMessage = Message.createRandom();
-        }
 
         //Message List is displayed
         messageList.assertPageOpened();
@@ -104,23 +72,9 @@ public class MessageListHelper extends AbstractComponent {
     }
 
     //TODO Метод снова ничего не делает по сути. Он тут не нужен
-    public Message createMessageWithoutSaving(Message message) {
-        TestLogger.logMessage("Creating message without saving");
+    //TODO Ну зачем??? у тебя уже есть message, зачем создавать дубликат
 
-        if (message == null) {
-            message = Message.createRandom();
-        }
-
-        //Message List is displayed
-        messageList.assertPageOpened();
-
-        //Create message without saving it
-        createMessageFormHelper.createMessageWithoutSaving(message, messageList);
-
-        return message; //TODO Ну зачем??? у тебя уже есть message, зачем создавать дубликат
-    }
-
-    public void signInAnotherUser(User user) {
+    public MessageList signInAnotherUser(User user) {
         TestLogger.logMessage("Tap 'Logout' button");
 
         //Perform logout
@@ -128,37 +82,17 @@ public class MessageListHelper extends AbstractComponent {
 
         //Sign in as another user
         LoginPage loginPage = new LoginPage();
-        loginPage.signIn(user);
+        messageList = loginPage.signIn(user);
         //TODO Не очень корректно использовать снова тот же messageList, если ты уже выполнил logout.
         //TODO В силу разных причин страницы могут нечаянно хранить какую-то информацию о своем текущем состоянии на основании истории действий.
         // TODO Такой подход в перспективе может породить много проблем, сложно отлаваливаемых
         //TODO Так и не исправлено
         messageList.assertUsername(user.getName());
+
+        return messageList;
     }
 
     //TODO Ну вот у тебя в странице метод называется selectAllUsersCheckBox, а тут какой-то хер пойми selectCheckbox. И он тут тоже не нужен, можно дернуть напрямую метод у страницы, зачем это делегировать хелперу
-   /* public MessageList selectCheckbox() {
-
-        // Select checkbox
-        messageList.selectAllUsersCheckBox();
-
-        return new MessageList();
-    }*/
-
     //TODO То же что и выше
-    /*public MessageList removeCheckbox() {
-
-        // Remove Checkbox
-        messageList.removeAllUsersCheckBox();
-
-        return new MessageList();
-    }*/
-
     //TODO Опять. Ну на кой это совать в хелпер
-    /*public void verifyUserMessage(Message message, String author) {
-        TestLogger.logMessage("Verify user " + author + " messages");
-
-        //Verify All Messages
-        messageList.assertMessageIsInList(message, author);
-    }*/
 }

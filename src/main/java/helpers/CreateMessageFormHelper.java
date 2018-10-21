@@ -29,23 +29,7 @@ public class CreateMessageFormHelper extends AbstractComponent {
 
     //TODO Плохой метод. Делает слишком много. Хелпер должен помогать что-то создать удалить. А этот хелпер по сути сам в себе работает.
     //TODO Здесь выполнение должно прерываться на странице ViewMessagePage. Не должен этот метод возвращать на список
-    public MessageList createMessageWithoutSaving(Message message, MessageList messageList) {
-
-        //Tap 'New Message' button
-        CreateMessagePage pageCreateMessagePage = messageList.clickNewMessageButton();
-
-        //Fill 'Headline' ant 'Text' fields
-       /* if (message == null) {
-            message = Message.createRandom();
-        }*/
-
-        pageCreateMessagePage.fillFieldsWithValues(message);
-
-        //Tap 'Message List' button
-        messageList = pageCreateMessagePage.clickMessageList();
-
-        return messageList;//TODO У тебя MessageList возвращается из pageCreateMessagePage.clickMessageList();
-    }
+    //TODO У тебя MessageList возвращается из pageCreateMessagePage.clickMessageList();
 
     public MessageList editMessage(Message message, Message newMessage, MessageList messageList) {
 
@@ -53,28 +37,21 @@ public class CreateMessageFormHelper extends AbstractComponent {
 
         pageEditMessagePage.assertMessageIsCorrect(message);
 
-        /*if (newMessage.getHeadline() == null && newMessage.getText() == null) {
-            newMessage = Message.createRandom();
-        }*/
+        pageEditMessagePage.clearFields();
 
-        ViewMessagePage viewMessagePage = pageEditMessagePage.fillNewValues(newMessage);
+        ViewMessagePage viewMessagePage = pageEditMessagePage.createMessage(newMessage);
         assertMessage(newMessage, viewMessagePage);
 
-        goToMessageListPage(viewMessagePage);
+        messageList = viewMessagePage.clickMessageList();
 
-        return new MessageList(); //TODO У тебя MessageList возвращается из  goToMessageListPage(viewMessagePage);
+        return messageList; //TODO У тебя MessageList возвращается из  goToMessageListPage(viewMessagePage);
     }
 
     //TODO Этот метод реально нужен? Просто нажатие кнопки, чего не вызывать его прямо там где требуется
-    private MessageList goToMessageListPage(ViewMessagePage viewMessagePage) {
-        viewMessagePage.clickMessageList();
-        return new MessageList(); //TODO У тебя MessageList возвращается из viewMessagePage.clickMessageList();
-    }
-
+    //TODO У тебя MessageList возвращается из viewMessagePage.clickMessageList();
 
     private void assertMessage(Message message, ViewMessagePage viewMessagePage) {
 //TODO Я бы просто в ViewMessagePage добавил метод assertMessage(Message)
-        viewMessagePage.assertHeadlineValue(message.getHeadline());
-        viewMessagePage.assertTextValue(message.getText());
+        viewMessagePage.assertMessage(message);
     }
 }

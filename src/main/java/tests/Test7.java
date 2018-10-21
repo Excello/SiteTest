@@ -4,68 +4,66 @@ import data.Message;
 import data.User;
 import helpers.LoginHelper;
 import helpers.MessageListHelper;
-import helpers.ViewMessageHelper;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import pages.MessageList;
+import pages.ViewMessagePage;
 
 public class Test7 extends AbstractTest {
     @Test(description = "Case 7. Creation and view of 2 messages")
-    @Parameters({"AdminMessage", "JdoeMessage"})
-    public void test(Message message, Message anotherMessage) {
+    //@Parameters({"AdminMessage", "JdoeMessage"})
+    public void test() {
         MessageListHelper messageListHelper = new MessageListHelper();
         LoginHelper loginHelper = new LoginHelper();
-        ViewMessageHelper viewMessageHelper = new ViewMessageHelper();
 
         // Working as ADMIN
 
         loginHelper.signInToUserController(User.USER_ADMIN);
 
-        messageListHelper.tapCreateMessage();
+        Message adminMessage = Message.createRandom();
 
-        Message adminMessage = messageListHelper.createNewMessage(message);
+        messageListHelper.createNewMessage(adminMessage);
 
-        viewMessageHelper.openMessageList(adminMessage);
+        MessageList messageList = new MessageList();
 
-        messageListHelper.assertMessageIsCorrect(adminMessage);
+        ViewMessagePage viewMessagePage = messageList.openViewMessagePage(adminMessage);
 
-        messageListHelper.viewMessage(adminMessage);
+        viewMessagePage.assertMessage(adminMessage);
 
-        viewMessageHelper.openMessageList(adminMessage);
+        messageList = viewMessagePage.clickMessageList();
 
-        messageListHelper.assertMessageIsCorrect(adminMessage);
+        messageList.assertMessageIsInList(adminMessage);
 
         // Working as JDOE
 
-        messageListHelper.signInAnotherUser(User.USER_JDOE);
+        messageList = messageListHelper.signInAnotherUser(User.USER_JDOE);
 
-        messageListHelper.tapCreateMessage();
+        Message jdoeMessage = Message.createRandom();
 
-        Message jdoeMessage = messageListHelper.createNewMessage(anotherMessage);
+        messageListHelper.createNewMessage(jdoeMessage);
 
-        viewMessageHelper.openMessageList(jdoeMessage);
+        viewMessagePage = messageList.openViewMessagePage(jdoeMessage);
 
-        messageListHelper.assertMessageIsCorrect(jdoeMessage);
+        viewMessagePage.assertMessage(jdoeMessage);
 
-        messageListHelper.viewMessage(jdoeMessage);
+        messageList = viewMessagePage.clickMessageList();
 
-        viewMessageHelper.openMessageList(jdoeMessage);
+        messageList.assertMessageIsInList(jdoeMessage);
 
-        messageListHelper.assertMessageIsCorrect(jdoeMessage);
 
         // Working as ADMIN
 
-        messageListHelper.signInAnotherUser(User.USER_ADMIN);
+        messageList = messageListHelper.signInAnotherUser(User.USER_ADMIN);
 
-        messageListHelper.selectCheckbox();
+        messageList.selectAllUsersCheckBox();
 
-        messageListHelper.verifyUserMessage(adminMessage, User.USER_ADMIN.getName());
+        messageList.assertMessageIsInList(adminMessage, User.USER_ADMIN.getName());
 
-        messageListHelper.verifyUserMessage(jdoeMessage, User.USER_JDOE.getName());
+        messageList.assertMessageIsInList(jdoeMessage, User.USER_JDOE.getName());
 
-        messageListHelper.removeCheckbox();
+        messageList.removeAllUsersCheckBox();
 
-        messageListHelper.verifyUserMessage(adminMessage, User.USER_ADMIN.getName());
+        messageList.assertMessageIsInList(adminMessage, User.USER_ADMIN.getName());
 
-        messageListHelper.assertMessageIsNotDisplayed(jdoeMessage);
+        messageList.assertMessageIsNotInList(jdoeMessage);
     }
 }

@@ -1,6 +1,7 @@
 package pages;
 
 import component.TableManager;
+import data.Message;
 import elements.ButtonElement;
 import logging.TestLogger;
 import org.openqa.selenium.By;
@@ -35,6 +36,11 @@ public class ViewMessagePage extends AbstractPage {
         MessageList messageList = new MessageList();
         messageList.assertPageOpened();
         return messageList;
+    }
+
+    public void assertMessage(Message message) {
+        assertHeadlineValue(message.getHeadline());
+        assertTextValue(message.getText());
     }
 
     private static TableManager tableOfFields() {
