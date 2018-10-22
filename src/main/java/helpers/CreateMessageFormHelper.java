@@ -24,12 +24,8 @@ public class CreateMessageFormHelper extends AbstractComponent {
         //Tap 'Message List' button
         messageList = viewMessagePage.clickMessageList();
 
-        return messageList;//TODO почему new? У тебя уже есть экземпляр
+        return messageList;
     }
-
-    //TODO Плохой метод. Делает слишком много. Хелпер должен помогать что-то создать удалить. А этот хелпер по сути сам в себе работает.
-    //TODO Здесь выполнение должно прерываться на странице ViewMessagePage. Не должен этот метод возвращать на список
-    //TODO У тебя MessageList возвращается из pageCreateMessagePage.clickMessageList();
 
     public MessageList editMessage(Message message, Message newMessage, MessageList messageList) {
 
@@ -44,14 +40,12 @@ public class CreateMessageFormHelper extends AbstractComponent {
 
         messageList = viewMessagePage.clickMessageList();
 
-        return messageList; //TODO У тебя MessageList возвращается из  goToMessageListPage(viewMessagePage);
+        return messageList;
     }
 
-    //TODO Этот метод реально нужен? Просто нажатие кнопки, чего не вызывать его прямо там где требуется
-    //TODO У тебя MessageList возвращается из viewMessagePage.clickMessageList();
-
     private void assertMessage(Message message, ViewMessagePage viewMessagePage) {
-//TODO Я бы просто в ViewMessagePage добавил метод assertMessage(Message)
+//TODO Я бы просто в ViewMessagePage добавил метод assertMessage(Message).
+        //TODO при  таком раскладе зачем нам этот метод? Просто вызывай viewMessagePage.assertMessage(message) там где надо
         viewMessagePage.assertMessage(message);
     }
 }

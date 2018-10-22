@@ -74,7 +74,9 @@ public class MessagePage extends AbstractPage {
         return viewMessagePage;
     }*/
 
-    //TODO Не понимаю разницы с методом выше
+
+    //TODO По хорошему при вводе любых значений в поля их надо сначала чистить
+    //TODO Твой InputElement к слову именно так и делает
     public ViewMessagePage createMessage(Message message) {
         TestLogger.logMessage("Filling 'Message' form with value [headline] " + message.getHeadline() + " and [text] " + message.getText());
 

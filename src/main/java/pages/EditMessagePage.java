@@ -9,7 +9,6 @@ public class EditMessagePage extends MessagePage {
         super(EDIT_MESSAGE_LABEL, "Edit Message Page");
     }
 
-    //TODO А смысл в этом методе если есть assertPageOpened?
 }
 
 

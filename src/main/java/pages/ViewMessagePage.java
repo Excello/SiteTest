@@ -27,8 +27,6 @@ public class ViewMessagePage extends AbstractPage {
         return new ButtonElement(driver, NEW_MESSAGE_BUTTON, "New Message");
     }
 
-    //TODO А смысл в этом методе если есть assertPageOpened?
-
     public MessageList clickMessageList() {
         TestLogger.logMessage("Tap 'Message List' button");
 

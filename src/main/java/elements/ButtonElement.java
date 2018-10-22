@@ -7,5 +7,5 @@ public class ButtonElement extends BaseElement {
     public ButtonElement(WebDriver driver, By locator, String name) {
         super(driver, locator, name);
     }
-    //TODO Какое отношение чекбокс имеет к кнопке?
+
 }

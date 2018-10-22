@@ -61,8 +61,6 @@ public class MessageList extends AbstractPage {
         return new CheckboxElement(driver, ALL_USERS_CHECKBOX, "All Users Checkbox");
     }
 
-    //TODO Зачем? Хватит и assertPageOpened
-
     public void assertUsername(String expected) {
         userMessage().assertText("Hello " + expected + "!");
     }
@@ -198,7 +196,6 @@ public class MessageList extends AbstractPage {
 
 
     private void selectFirstPage() {
-        //TODO Разве там нет прямой ссылки на первую страницу?
         while (firstPage().exists(0)) {
             TestLogger.logMessage("Going to previous page");
             firstPage().click();
@@ -241,7 +238,7 @@ public class MessageList extends AbstractPage {
 
         deleteMessage(message, EMPTY_AUTHOR);
 
-        return this; //TODO Зачем new? почему не this?
+        return this;
     }
 
     public MessageList deleteMessage(Message message, String author) {
@@ -257,7 +254,7 @@ public class MessageList extends AbstractPage {
         } else {
             TestLogger.logError("It is impossible to tap 'Delete' button");
         }
-        return this; //TODO Зачем new? почему не this?
+        return this;
     }
 
     public void selectAllUsersCheckBox() {

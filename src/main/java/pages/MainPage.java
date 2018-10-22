@@ -35,5 +35,4 @@ public class MainPage extends AbstractPage {
         loginPage.assertPageOpened();
         return loginPage;
     }
-    //TODO Зачем? Хватит и assertPageOpened
 }

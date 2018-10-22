@@ -21,6 +21,7 @@ public class Test3 extends AbstractTest {
 
         Message secondMessage = Message.createRandom();
 
+        //TODO Ну вот например тут совсем неочевидно, что messageListHelper проверит корректность операции редактирования, потому и совать туда асерт смысла не было
         messageListHelper.editMessage(firstMessage, secondMessage);
     }
 }
