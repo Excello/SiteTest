@@ -53,28 +53,7 @@ public class MessagePage extends AbstractPage {
         inputText().assertValue(message.getText());
     }
 
-    public void clearFields() {
-        TestLogger.logMessage("Clearing fields");
-
-        inputText().clear();
-        inputHeadline().clear();
-    }
-
-    /*public ViewMessagePage fillNewValues(Message message) {
-        TestLogger.logMessage("Filling 'Edit Message' form with new [headline] " + message.getHeadline() + " and [text] " + message.getText() + " values");
-
-        inputHeadline().enterValue(message.getHeadline());
-        //TODO В целом это конечно можно делать, но в данном случае это избыточно
-        inputText().enterValue(message.getText());
-        clickCreate();
-
-        ViewMessagePage viewMessagePage = new ViewMessagePage();
-        viewMessagePage.assertPageOpened();
-
-        return viewMessagePage;
-    }*/
-
-
+    //TODO В целом это конечно можно делать, но в данном случае это избыточно
     //TODO По хорошему при вводе любых значений в поля их надо сначала чистить
     //TODO Твой InputElement к слову именно так и делает
     public ViewMessagePage createMessage(Message message) {

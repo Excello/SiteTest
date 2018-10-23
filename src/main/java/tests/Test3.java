@@ -2,9 +2,11 @@ package tests;
 
 import data.Message;
 import data.User;
+import helpers.CreateMessageFormHelper;
 import helpers.LoginHelper;
 import helpers.MessageListHelper;
 import org.testng.annotations.Test;
+import pages.MessageList;
 
 public class Test3 extends AbstractTest {
     @Test(description = "Case 3. Creating and editing of message")
@@ -12,6 +14,7 @@ public class Test3 extends AbstractTest {
     public void test() {
         MessageListHelper messageListHelper = new MessageListHelper();
         LoginHelper loginHelper = new LoginHelper();
+        CreateMessageFormHelper createMessageFormHelper = new CreateMessageFormHelper();
 
         loginHelper.signInToUserController(User.USER_ADMIN);
 
@@ -21,7 +24,11 @@ public class Test3 extends AbstractTest {
 
         Message secondMessage = Message.createRandom();
 
+        MessageList messageList = new MessageList();
+
+        messageList = createMessageFormHelper.editMessage(firstMessage, secondMessage, messageList);
         //TODO Ну вот например тут совсем неочевидно, что messageListHelper проверит корректность операции редактирования, потому и совать туда асерт смысла не было
-        messageListHelper.editMessage(firstMessage, secondMessage);
+
+        messageList.assertMessageIsInList(secondMessage);
     }
 }

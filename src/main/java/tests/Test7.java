@@ -35,7 +35,7 @@ public class Test7 extends AbstractTest {
 
         // Working as JDOE
 
-        messageList = messageListHelper.signInAnotherUser(User.USER_JDOE);
+        messageListHelper.signInAnotherUser(User.USER_JDOE);
 
         Message jdoeMessage = Message.createRandom();
 
@@ -52,7 +52,7 @@ public class Test7 extends AbstractTest {
 
         // Working as ADMIN
 
-        messageList = messageListHelper.signInAnotherUser(User.USER_ADMIN);
+        messageListHelper.signInAnotherUser(User.USER_ADMIN);
 
         messageList.selectAllUsersCheckBox();
 

@@ -29,7 +29,7 @@ public class ViewMessageHelper extends AbstractComponent {
     }
 
     //TODO Аналогично методу выше
-    *//*public CreateMessagePage createNewMessage() {
+    *//*public CreateMessagePage editMessage() {
         viewMessagePage.clickNewMessage();
         return new CreateMessagePage();
     }*//*

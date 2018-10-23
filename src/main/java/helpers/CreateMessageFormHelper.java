@@ -2,10 +2,7 @@ package helpers;
 
 import component.AbstractComponent;
 import data.Message;
-import pages.CreateMessagePage;
-import pages.EditMessagePage;
-import pages.MessageList;
-import pages.ViewMessagePage;
+import pages.*;
 
 public class CreateMessageFormHelper extends AbstractComponent {
 
@@ -15,11 +12,10 @@ public class CreateMessageFormHelper extends AbstractComponent {
         CreateMessagePage pageCreateMessagePage = messageList.clickNewMessageButton();
 
         //Tap 'Create' button
-        ViewMessagePage viewMessagePage;
-        viewMessagePage = pageCreateMessagePage.createMessage(message);
+        ViewMessagePage viewMessagePage = pageCreateMessagePage.createMessage(message);
 
         //Verify that Show Message page is opened
-        assertMessage(message, viewMessagePage);
+        viewMessagePage.assertMessage(message);
 
         //Tap 'Message List' button
         messageList = viewMessagePage.clickMessageList();
@@ -33,19 +29,13 @@ public class CreateMessageFormHelper extends AbstractComponent {
 
         pageEditMessagePage.assertMessageIsCorrect(message);
 
-        pageEditMessagePage.clearFields();
-
         ViewMessagePage viewMessagePage = pageEditMessagePage.createMessage(newMessage);
-        assertMessage(newMessage, viewMessagePage);
+        viewMessagePage.assertMessage(newMessage);
 
         messageList = viewMessagePage.clickMessageList();
 
         return messageList;
     }
-
-    private void assertMessage(Message message, ViewMessagePage viewMessagePage) {
-//TODO Я бы просто в ViewMessagePage добавил метод assertMessage(Message).
-        //TODO при  таком раскладе зачем нам этот метод? Просто вызывай viewMessagePage.assertMessage(message) там где надо
-        viewMessagePage.assertMessage(message);
-    }
+    //TODO Я бы просто в ViewMessagePage добавил метод assertMessage(Message).
+    //TODO при  таком раскладе зачем нам этот метод? Просто вызывай viewMessagePage.assertMessage(message) там где надо
 }
