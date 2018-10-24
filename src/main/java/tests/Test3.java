@@ -20,11 +20,11 @@ public class Test3 extends AbstractTest {
 
         Message firstMessage = Message.createRandom();
 
-        messageListHelper.createNewMessage(firstMessage);
+        MessageList messageList = new MessageList();
+
+        messageListHelper.createNewMessage(firstMessage, messageList);
 
         Message secondMessage = Message.createRandom();
-
-        MessageList messageList = new MessageList();
 
         messageList = createMessageFormHelper.editMessage(firstMessage, secondMessage, messageList);
         //TODO Ну вот например тут совсем неочевидно, что messageListHelper проверит корректность операции редактирования, потому и совать туда асерт смысла не было

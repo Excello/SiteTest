@@ -6,7 +6,6 @@ import data.User;
 import logging.TestLogger;
 import pages.LoginPage;
 import pages.MessageList;
-import pages.ViewMessagePage;
 
 public class MessageListHelper extends AbstractComponent {
     private MessageList messageList;
@@ -19,7 +18,7 @@ public class MessageListHelper extends AbstractComponent {
 
     //TODO Снова ты исходишь из того, что ты сейчас на странице MessageList. Но нигде нет такого ограничения
     //TODO Зачем возвращать Message который ты итак получил на входе?
-    public void createNewMessage(Message message){
+    public void createNewMessage(Message message, MessageList messageList){
 
         //Message List is displayed
         messageList.assertPageOpened();

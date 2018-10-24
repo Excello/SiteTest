@@ -21,9 +21,11 @@ public class Test7 extends AbstractTest {
 
         Message adminMessage = Message.createRandom();
 
-        messageListHelper.createNewMessage(adminMessage);
-
         MessageList messageList = new MessageList();
+
+        messageListHelper.createNewMessage(adminMessage, messageList);
+
+
 
         ViewMessagePage viewMessagePage = messageList.openViewMessagePage(adminMessage);
 
@@ -39,7 +41,7 @@ public class Test7 extends AbstractTest {
 
         Message jdoeMessage = Message.createRandom();
 
-        messageListHelper.createNewMessage(jdoeMessage);
+        messageListHelper.createNewMessage(jdoeMessage, messageList);
 
         viewMessagePage = messageList.openViewMessagePage(jdoeMessage);
 

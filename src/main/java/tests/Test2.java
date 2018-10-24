@@ -20,9 +20,9 @@ public class Test2 extends AbstractTest {
 
         Message message = Message.createRandom();
 
-        messageListHelper.createNewMessage(message);
-
         MessageList messageList = new MessageList();
+
+        messageListHelper.createNewMessage(message, messageList);
 
         ViewMessagePage viewMessagePage = messageList.openViewMessagePage(message);
 

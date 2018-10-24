@@ -5,6 +5,7 @@ import data.User;
 import helpers.LoginHelper;
 import helpers.MessageListHelper;
 import org.testng.annotations.Test;
+import pages.MessageList;
 
 public class Test4 extends AbstractTest {
     @Test(description = "Case 4. Delete message")
@@ -17,7 +18,9 @@ public class Test4 extends AbstractTest {
 
         Message message = Message.createRandom();
 
-        messageListHelper.createNewMessage(message);
+        MessageList messageList = new MessageList();
+
+        messageListHelper.createNewMessage(message, messageList);
 
         messageListHelper.deleteMessage(message);
     }

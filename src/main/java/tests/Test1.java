@@ -20,8 +20,6 @@ public class Test1 extends AbstractTest{
 
         MessageList messageList = new MessageList();
 
-        messageList.clickNewMessageButton();
-
-        messageListHelper.createNewMessage(message);
+        messageListHelper.createNewMessage(message, messageList);
     }
 }
