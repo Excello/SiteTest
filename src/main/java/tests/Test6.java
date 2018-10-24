@@ -3,6 +3,7 @@ package tests;
 import data.Message;
 import data.User;
 import helpers.LoginHelper;
+import helpers.MessageListHelper;
 import org.testng.annotations.Test;
 import pages.MessageList;
 import pages.MessagePage;
@@ -25,6 +26,14 @@ public class Test6 extends AbstractTest {
         MessagePage createMessagePage = messageListPage.clickNewMessageButton();
 
         Message firstMessage = Message.createRandom();
+
+        Message secondMessage = null;
+
+        MessageListHelper messageListHelper = new MessageListHelper();
+
+
+
+        messageListHelper.createNewMessage(firstMessage, secondMessage);
 
         ViewMessagePage viewMessagePage = createMessagePage.createMessage(firstMessage);
 

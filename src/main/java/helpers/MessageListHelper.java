@@ -11,6 +11,7 @@ import pages.ViewMessagePage;
 public class MessageListHelper extends AbstractComponent {
     private MessageList messageList;
     private CreateMessageFormHelper createMessageFormHelper;
+    private Message emptyMessage = null;
 
     public MessageListHelper() {
         messageList = new MessageList();
@@ -20,12 +21,20 @@ public class MessageListHelper extends AbstractComponent {
     //TODO Снова ты исходишь из того, что ты сейчас на странице MessageList. Но нигде нет такого ограничения
     //TODO Зачем возвращать Message который ты итак получил на входе?
     public void createNewMessage(Message message){
+        createNewMessage(message, emptyMessage);
+    }
 
+    public void createNewMessage(Message message, Message messages) {
         //Message List is displayed
         messageList.assertPageOpened();
 
         //Create Message
+
         messageList = createMessageFormHelper.createNewMessage(message, messageList);
+
+        if (messages != null) {
+            messageList = createMessageFormHelper.createNewMessage(message);
+        }
 
         //Check that Message is existed
         messageList.assertMessageIsInList(message);

@@ -5,11 +5,16 @@ import data.Message;
 import pages.*;
 
 public class CreateMessageFormHelper extends AbstractComponent {
+    private MessageList emptyMessageList = null;
 
     public MessageList createNewMessage(Message message, MessageList messageList) {
 
+        CreateMessagePage pageCreateMessagePage = new CreateMessagePage();
+
         //Tap 'New Message' button
-        CreateMessagePage pageCreateMessagePage = messageList.clickNewMessageButton();
+        if(messageList != null) {
+             pageCreateMessagePage = messageList.clickNewMessageButton();
+        }
 
         //Tap 'Create' button
         ViewMessagePage viewMessagePage = pageCreateMessagePage.createMessage(message);
@@ -21,6 +26,10 @@ public class CreateMessageFormHelper extends AbstractComponent {
         messageList = viewMessagePage.clickMessageList();
 
         return messageList;
+    }
+
+    public MessageList createNewMessage(Message message) {
+        return createNewMessage(message, emptyMessageList);
     }
 
     public MessageList editMessage(Message message, Message newMessage, MessageList messageList) {
