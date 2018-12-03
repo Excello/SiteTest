@@ -20,7 +20,7 @@ public class Test2 extends AbstractTest {
 
         Message message = Message.createRandom();
 
-        MessageList messageList = new MessageList();
+        MessageList messageList = new MessageList(); //TODO Нет. Это должен быть результат loginHelper.signInToUserController
 
         messageListHelper.createNewMessage(message, messageList);
 

@@ -20,15 +20,13 @@ public class Test3 extends AbstractTest {
 
         Message firstMessage = Message.createRandom();
 
-        MessageList messageList = new MessageList();
+        MessageList messageList = new MessageList(); //TODO Нет. Это должен быть результат loginHelper.signInToUserController
 
         messageListHelper.createNewMessage(firstMessage, messageList);
 
         Message secondMessage = Message.createRandom();
 
         messageList = createMessageFormHelper.editMessage(firstMessage, secondMessage, messageList);
-        //TODO Ну вот например тут совсем неочевидно, что messageListHelper проверит корректность операции редактирования, потому и совать туда асерт смысла не было
-
         messageList.assertMessageIsInList(secondMessage);
     }
 }

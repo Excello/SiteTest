@@ -2,7 +2,10 @@ package helpers;
 
 import component.AbstractComponent;
 import data.Message;
-import pages.*;
+import pages.CreateMessagePage;
+import pages.EditMessagePage;
+import pages.MessageList;
+import pages.ViewMessagePage;
 
 public class CreateMessageFormHelper extends AbstractComponent {
 
@@ -36,6 +39,4 @@ public class CreateMessageFormHelper extends AbstractComponent {
 
         return messageList;
     }
-    //TODO Я бы просто в ViewMessagePage добавил метод assertMessage(Message).
-    //TODO при  таком раскладе зачем нам этот метод? Просто вызывай viewMessagePage.assertMessage(message) там где надо
 }

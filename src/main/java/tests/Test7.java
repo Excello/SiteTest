@@ -21,7 +21,7 @@ public class Test7 extends AbstractTest {
 
         Message adminMessage = Message.createRandom();
 
-        MessageList messageList = new MessageList();
+        MessageList messageList = new MessageList(); //TODO Нет. Это должен быть результат loginHelper.signInToUserController
 
         messageListHelper.createNewMessage(adminMessage, messageList);
 
