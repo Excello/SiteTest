@@ -14,15 +14,13 @@ public class Test6 extends AbstractTest {
     public void test() {
         LoginHelper loginHelper = new LoginHelper();
 
-        loginHelper.signInToUserController(User.USER_ADMIN);
+        MessageList messageList = loginHelper.signInToUserController(User.USER_ADMIN);
 
-        MessageList messageListPage = new MessageList();
-
-        messageListPage.assertPageOpened();
+        messageList.assertPageOpened();
 
         //First Message
 
-        MessagePage createMessagePage = messageListPage.clickNewMessageButton();
+        MessagePage createMessagePage = messageList.clickNewMessageButton();
 
         Message firstMessage = Message.createRandom();
 
@@ -40,12 +38,12 @@ public class Test6 extends AbstractTest {
 
         viewMessagePage.assertMessage(secondMessage);
 
-        messageListPage = viewMessagePage.clickMessageList();
+        messageList = viewMessagePage.clickMessageList();
 
         //Verify Messages
 
-        messageListPage.assertMessageIsInList(firstMessage);
+        messageList.assertMessageIsInList(firstMessage);
 
-        messageListPage.assertMessageIsInList(secondMessage);
+        messageList.assertMessageIsInList(secondMessage);
     }
 }

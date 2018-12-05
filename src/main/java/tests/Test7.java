@@ -12,20 +12,15 @@ public class Test7 extends AbstractTest {
     @Test(description = "Case 7. Creation and view of 2 messages")
     //@Parameters({"AdminMessage", "JdoeMessage"})
     public void test() {
-        MessageListHelper messageListHelper = new MessageListHelper();
         LoginHelper loginHelper = new LoginHelper();
 
         // Working as ADMIN
 
-        loginHelper.signInToUserController(User.USER_ADMIN);
-
         Message adminMessage = Message.createRandom();
 
-        MessageList messageList = new MessageList(); //TODO Нет. Это должен быть результат loginHelper.signInToUserController
+        MessageList messageList = loginHelper.signInToUserController(User.USER_ADMIN); //TODO Нет. Это должен быть результат loginHelper.signInToUserController
 
-        messageListHelper.createNewMessage(adminMessage, messageList);
-
-
+        MessageListHelper.createNewMessage(adminMessage, messageList);
 
         ViewMessagePage viewMessagePage = messageList.openViewMessagePage(adminMessage);
 
@@ -37,11 +32,11 @@ public class Test7 extends AbstractTest {
 
         // Working as JDOE
 
-        messageListHelper.signInAnotherUser(User.USER_JDOE);
+        MessageListHelper.signInAnotherUser(User.USER_JDOE, messageList);
 
         Message jdoeMessage = Message.createRandom();
 
-        messageListHelper.createNewMessage(jdoeMessage, messageList);
+        MessageListHelper.createNewMessage(jdoeMessage, messageList);
 
         viewMessagePage = messageList.openViewMessagePage(jdoeMessage);
 
@@ -54,7 +49,7 @@ public class Test7 extends AbstractTest {
 
         // Working as ADMIN
 
-        messageListHelper.signInAnotherUser(User.USER_ADMIN);
+        MessageListHelper.signInAnotherUser(User.USER_ADMIN, messageList);
 
         messageList.selectAllUsersCheckBox();
 

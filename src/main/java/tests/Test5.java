@@ -13,20 +13,18 @@ public class Test5 extends AbstractTest {
     public void test() {
         LoginHelper loginHelper = new LoginHelper();
 
-        loginHelper.signInToUserController(User.USER_ADMIN);
-
         Message message = Message.createRandom();
 
-        MessageList messageListPage = new MessageList();
+        MessageList messageList = loginHelper.signInToUserController(User.USER_ADMIN);
 
-        messageListPage.assertPageOpened();
+        messageList.assertPageOpened();
 
-        MessagePage createMessagePage = messageListPage.clickNewMessageButton();
+        MessagePage createMessagePage = messageList.clickNewMessageButton();
 
         createMessagePage.fillFieldsWithValues(message);
 
-        messageListPage = createMessagePage.clickMessageList();
+        messageList = createMessagePage.clickMessageList();
 
-        messageListPage.assertMessageIsNotInList(message);
+        messageList.assertMessageIsNotInList(message);
     }
 }

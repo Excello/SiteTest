@@ -4,6 +4,7 @@ import component.AbstractComponent;
 import data.User;
 import pages.LoginPage;
 import pages.MainPage;
+import pages.MessageList;
 
 public class LoginHelper extends AbstractComponent {
 
@@ -19,9 +20,9 @@ public class LoginHelper extends AbstractComponent {
         return mainPage.openUserControllerPage();
     }
 
-    public void signInToUserController(User user) {
+    public MessageList signInToUserController(User user) {
         LoginPage loginPage = openUserControllerPage();
-        loginPage.signIn(user);
+        return loginPage.signIn(user);
     }
 
     private LoginPage openMessageControllerPage() {
@@ -29,8 +30,8 @@ public class LoginHelper extends AbstractComponent {
         return mainPage.openMessageControllerPage();
     }
 
-    public void signInToMessageController(User user) {
+    public MessageList signInToMessageController(User user) {
         LoginPage loginPage = openMessageControllerPage();
-        loginPage.signIn(user);
+        return loginPage.signIn(user);
     }
 }

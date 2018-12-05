@@ -10,15 +10,12 @@ import pages.MessageList;
 public class Test1 extends AbstractTest{
     @Test(description = "Case 1. Create Message")
     public void test(){
-        MessageListHelper messageListHelper = new MessageListHelper();
         LoginHelper loginHelper = new LoginHelper();
-
-        loginHelper.signInToUserController(User.USER_ADMIN);
 
         Message message = Message.createRandom();
 
-        MessageList messageList = new MessageList(); //TODO Нет. Это должен быть результат loginHelper.signInToUserController
+        MessageList messageList = loginHelper.signInToUserController(User.USER_ADMIN); //TODO Нет. Это должен быть результат loginHelper.signInToUserController
 
-        messageListHelper.createNewMessage(message, messageList);
+        MessageListHelper.createNewMessage(message, messageList);
     }
 }

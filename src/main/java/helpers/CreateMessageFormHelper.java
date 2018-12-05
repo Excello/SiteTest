@@ -9,7 +9,7 @@ import pages.ViewMessagePage;
 
 public class CreateMessageFormHelper extends AbstractComponent {
 
-    public MessageList createNewMessage(Message message, MessageList messageList) {
+    public static MessageList createNewMessage(Message message, MessageList messageList) {
 
         //Tap 'New Message' button
         CreateMessagePage pageCreateMessagePage = messageList.clickNewMessageButton();
@@ -26,7 +26,7 @@ public class CreateMessageFormHelper extends AbstractComponent {
         return messageList;
     }
 
-    public MessageList editMessage(Message message, Message newMessage, MessageList messageList) {
+    public static MessageList editMessage(Message message, Message newMessage, MessageList messageList) {
 
         EditMessagePage pageEditMessagePage = messageList.openEditMessagePage(message);
 

@@ -8,27 +8,21 @@ import pages.LoginPage;
 import pages.MessageList;
 
 public class MessageListHelper extends AbstractComponent {
-    private MessageList messageList;//TODO Этой переменной быть не должно, всем методы сделать static
-    private CreateMessageFormHelper createMessageFormHelper;
+   //TODO Этой переменной быть не должно, всем методы сделать static
 
-    public MessageListHelper() {
-        messageList = new MessageList();
-        createMessageFormHelper = new CreateMessageFormHelper();
-    }
-
-    public void createNewMessage(Message message, MessageList messageList){
+    public static void createNewMessage(Message message, MessageList messageList){
 
         //Message List is displayed
         messageList.assertPageOpened();
 
         //Create Message
-        messageList = createMessageFormHelper.createNewMessage(message, messageList);
+        messageList = CreateMessageFormHelper.createNewMessage(message, messageList);
 
         //Check that Message is existed
         messageList.assertMessageIsInList(message);
     }
 
-    public void deleteMessage(Message message) {
+    public static void deleteMessage(Message message, MessageList messageList) {
         TestLogger.logMessage("Deleting from the list the message: " + message.getHeadline() + ", text: " + message.getText());
 
         //Message List is displayed
@@ -41,7 +35,7 @@ public class MessageListHelper extends AbstractComponent {
         messageList.assertMessageIsNotInList(message);
     }
 
-    public void signInAnotherUser(User user) {
+    public static void signInAnotherUser(User user, MessageList messageList) {
         TestLogger.logMessage("Tap 'Logout' button");
 
         //Perform logout
