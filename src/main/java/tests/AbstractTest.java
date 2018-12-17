@@ -3,7 +3,6 @@ package tests;
 
 import core.WebDriverFactory;
 import logging.TestLogger;
-import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
@@ -14,8 +13,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import utils.Environment;
 
-import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;
 
@@ -42,7 +39,7 @@ public abstract class AbstractTest {
         driverManager.quitDriver();
     }*/
 
-    protected WebDriver driver; //TODO Не статик
+    protected WebDriver driver;
 
     @BeforeSuite
     public void beforeSuite(ITestContext context) {
@@ -71,5 +68,5 @@ public abstract class AbstractTest {
             Reporter.log("Test ended with errors.");
         }
     }
-    //TODO А что это делает и зачем?
+
 }

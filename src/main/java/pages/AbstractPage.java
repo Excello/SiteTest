@@ -7,7 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
-//TODO Страница не может наследоваться от компонента
 public class AbstractPage {
     private final By identifyElementLocator;
     private final String formName;

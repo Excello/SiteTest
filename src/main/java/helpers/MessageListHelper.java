@@ -8,7 +8,6 @@ import pages.LoginPage;
 import pages.MessageList;
 
 public class MessageListHelper extends AbstractComponent {
-   //TODO Этой переменной быть не должно, всем методы сделать static
 
     public static void createNewMessage(Message message, MessageList messageList){
 

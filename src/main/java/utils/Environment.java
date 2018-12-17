@@ -29,10 +29,6 @@ public class Environment {
         return url;
     }
 
-    //TODO Убрать. Не использвать implicitlyWait
-
-    //TODO Должно задаваться только один раз при инициализации драйвера
-
     public static String generateUniqueString() {
         return new Date().getTime() + "_" + System.getenv("COMPUTERNAME");
     }
